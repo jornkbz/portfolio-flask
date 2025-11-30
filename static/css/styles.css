@@ -1,9 +1,397 @@
-.social-icon{
+/* --- Ajuste para que el HOME ocupe toda la pantalla inicial --- */
+#home {
+    min-height: 100vh;      /* Altura mínima del 100% de la ventana */
+    display: flex;          /* Usamos Flexbox para alinear */
+    align-items: center;    /* Centra el contenido verticalmente (arriba/abajo) */
+    padding-top: 80px;      /* IMPORTANTE: Espacio superior para que el Navbar no tape tu foto */
+    padding-bottom: 50px;   /* Un poco de aire abajo */
+}
+/* --- Variables Globales --- */
+:root {
+    --matrix-black: #000000;
+    --matrix-dark-green: #003300;
+    --matrix-green: #00FF41;
+    --matrix-bright-green: #4DFF88;
+    --terminal-font: 'Share Tech Mono', monospace;
+}
+
+/* --- Configuración Base --- */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* Fondo negro de seguridad, pero deja ver el canvas */
+    background-color: var(--matrix-black); 
+    color: var(--matrix-green);
+    font-family: var(--terminal-font);
+    overflow-x: hidden;
+}
+
+/* --- Lluvia Matrix (Canvas) --- */
+#matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* <--- CAMBIO: De -1 a 0 para que no se esconda tras el body */
+    pointer-events: none;
+}
+
+/* --- Efecto Scanline (Monitor antiguo) --- */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 10; /* Por encima de todo */
+}
+
+/* --- Tipografía --- */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--matrix-green);
+    margin-bottom: 1.5rem;
+    color: var(--matrix-bright-green);
+}
+
+p, li, span, label {
+    font-size: 1.1rem;
+    text-shadow: 0 0 2px var(--matrix-dark-green);
+    line-height: 1.6;
+    color: var(--matrix-green);
+}
+
+/* --- Enlaces y Botones --- */
+a {
+    color: var(--matrix-bright-green);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--matrix-green);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    background-color: var(--matrix-green);
+    color: var(--matrix-black);
+    box-shadow: 0 0 10px var(--matrix-green);
+}
+
+.social-icon {
     color: #cccccc;
     margin: 0 5px;
     font-size: 30px;
+    border-bottom: none; /* Quitamos el borde de los iconos */
+}
+.social-icon:hover {
+    color: #ffffff;
+    background: transparent; /* Evitamos fondo verde en iconos */
+    text-shadow: 0 0 10px #ffffff;
 }
 
-.social-icon:hover{
-    color: #ffffff;
+/* --- CLASE NUEVA: El Contenedor Oscuro (Vital para leer) --- */
+.matrix-container {
+    background-color: rgba(0, 10, 0, 0.85); /* 85% opaco para tapar la lluvia */
+    border: 1px solid var(--matrix-green);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(2px); /* Difumina un poco las letras de fondo */
+}
+
+/* --- Forzar estilos Matrix en componentes de Bootstrap --- */
+
+/* Tarjetas */
+.card {
+    background-color: rgba(0, 10, 0, 0.95) !important; /* Más opaco */
+    border: 1px solid #00FF41 !important;
+    color: #00FF41 !important;
+    position: relative; /* Necesario para z-index */
+    z-index: 2;         /* Para que flote por encima de la lluvia */
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+}
+
+/* Inputs del formulario (Nombre, Email, Mensaje) */
+.form-control, .form-select {
+    background-color: rgba(0, 20, 0, 0.6) !important;
+    border: 1px solid var(--matrix-green) !important;
+    color: #ffffff !important; /* Texto blanco al escribir */
+}
+
+.form-control:focus {
+    background-color: black !important;
+    box-shadow: 0 0 10px var(--matrix-green) !important;
+    border-color: var(--matrix-bright-green) !important;
+}
+
+/* Botones Primarios */
+.btn-primary {
+    background-color: black !important;
+    border: 1px solid var(--matrix-green) !important;
+    color: var(--matrix-green) !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.btn-primary:hover {
+    background-color: var(--matrix-green) !important;
+    color: black !important;
+    box-shadow: 0 0 20px var(--matrix-green);
+}
+
+/* --- Estilos Perfil Matrix --- */
+
+/* Foto de perfil con borde brillante */
+.profile-pic {
+    border: 3px solid #00FF41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+    filter: grayscale(80%) contrast(120%); /* Efecto retro */
+    transition: filter 0.3s;
+}
+.profile-pic:hover {
+    filter: grayscale(0%) contrast(100%);
+}
+
+/* Rol/Título debajo del nombre */
+.matrix-role {
+    color: #4DFF88;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    background-color: rgba(0, 50, 0, 0.5);
+    padding: 5px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Líneas divisorias verdes */
+.matrix-divider, .border-bottom-matrix {
+    border-bottom: 1px dashed #00FF41;
+    opacity: 0.5;
+}
+
+/* Badges para Soft Skills */
+.matrix-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 3px;
+    border: 1px solid #003300;
+    background-color: rgba(0, 255, 65, 0.1);
+    color: #00FF41;
+    font-size: 0.9rem;
+    border-radius: 4px;
+}
+
+/* ICONOS DE TECNOLOGÍA */
+.tech-icon {
+    font-size: 3rem; /* Tamaño grande */
+    color: #003300;  /* Oscuro por defecto */
+    text-shadow: 0 0 2px #00FF41; /* Borde brillante */
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+/* Efecto al pasar el ratón sobre un icono */
+.tech-icon:hover {
+    color: #00FF41; /* Se enciende en verde */
+    text-shadow: 0 0 20px #00FF41;
+    transform: scale(1.2);
+}
+
+/* Tarjetas de lista de proyectos */
+.project-list-card {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-left: 3px solid #00FF41;
+    padding: 15px;
+    height: 100%;
+}
+
+.project-list-card ul li {
+    margin-bottom: 8px;
+    list-style-type: square; /* Viñeta cuadrada estilo retro */
+    margin-left: 20px;
+    color: #cccccc;
+}
+
+.project-list-card a {
+    text-decoration: none;
+    border-bottom: none;
+    color: #4DFF88;
+}
+.project-list-card a:hover {
+    color: white;
+    text-decoration: underline;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Ajuste para pantallas grandes: línea vertical separadora */
+@media (min-width: 992px) {
+    .border-end-matrix {
+        border-right: 1px dashed rgba(0, 255, 65, 0.3);
+    }
+}
+
+/* --- Estilos para las Tarjetas Matrix --- */
+
+.matrix-card {
+    background-color: rgba(0, 5, 0, 0.9) !important;
+    border: 1px solid #003300 !important;
+    border-top: 3px solid #00FF41 !important; /* Línea superior más gruesa */
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.matrix-card:hover {
+    transform: translateY(-5px); /* Se levanta un poco */
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    border-color: #00FF41 !important;
+}
+
+/* Imagen con filtro */
+.matrix-img {
+    filter: grayscale(100%) contrast(1.2) brightness(0.8);
+    transition: all 0.5s ease;
+    border-bottom: 1px solid #00FF41;
+}
+
+.matrix-card:hover .matrix-img {
+    filter: grayscale(0%) contrast(1) brightness(1); /* Vuelve al color original */
+}
+
+/* Efecto Overlay (Texto "Access Granted" al pasar el ratón) */
+.img-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 65, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.matrix-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-text {
+    color: #fff;
+    background: #000;
+    padding: 5px 10px;
+    border: 1px solid #00FF41;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 2px;
+}
+
+/* Títulos y Textos */
+.matrix-title {
+    color: #4DFF88;
+    font-family: 'VT323', monospace;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+}
+
+.card-text {
+    color: #00CC33;
+    font-size: 0.95rem;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Botón Personalizado para la tarjeta */
+.btn-matrix {
+    border: 1px solid #00FF41;
+    color: #00FF41;
+    background: transparent;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-matrix:hover {
+    background: #00FF41;
+    color: #000;
+    box-shadow: 0 0 15px #00FF41;
+    font-weight: bold;
+}
+
+/* --- Estilos Footer Matrix Integrado --- */
+
+footer {
+    /* Fondo negro profundo pero con un toque de transparencia para ver la lluvia muy sutilmente al final */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,10,0,1));
+}
+
+.social-icon-large {
+    font-size: 3.5rem; /* Icono grande */
+    color: #003300;    /* Oscuro por defecto */
+    text-shadow: 0 0 2px #00FF41; /* Borde brillante */
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.social-icon-large:hover {
+    color: #00FF41; /* Se enciende */
+    text-shadow: 0 0 25px #00FF41, 0 0 50px #00FF41; /* Mucho brillo */
+    transform: scale(1.1) rotate(5deg); /* Pequeño movimiento */
+    cursor: pointer;
+}
+
+/* Ajuste para móviles: centrar todo si la pantalla es pequeña */
+@media (max-width: 768px) {
+    footer .text-md-end {
+        text-align: center !important;
+    }
+    footer .col-md-6 {
+        text-align: center;
+    }
+}
+
+/* Línea conectora entre secciones */
+.container {
+    position: relative; /* Para poder posicionar la línea */
+}
+
+/* Esto dibuja una línea verde vertical tenue en el centro de la página */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #003300, #00FF41, #003300, transparent);
+    z-index: -1; /* Detrás de las cajas matrix-container */
+    transform: translateX(-50%);
+    opacity: 0.5;
+}
+
+/* Asegura que las cajas tapen la línea al pasar por encima */
+.matrix-container {
+    position: relative;
+    z-index: 2;
+    /* ... resto de tus estilos ... */
 }
