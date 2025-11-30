@@ -1,4 +1,4 @@
-name: CI/CD Docker Flask
+name: CI/CD Portfolio Flask
 
 on:
   push:
@@ -6,62 +6,69 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  # Asegura que esto esté en minúsculas (usuario/repo)
+  IMAGE_NAME: jornkbz/portfolio-flask
 
 jobs:
-  # TRABAJO 1: CONSTRUIR Y PUBLICAR IMAGEN (CI)
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
+      # 1. Bajar código
       - name: Checkout repository
-        uses: actions/checkout@v4  # Versión estable v4
+        uses: actions/checkout@v4
 
+      # 2. Login en GitHub Registry
       - name: Log in to the Container registry
-        uses: docker/login-action@v3 # Versión estable v3
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # 3. Metadatos Docker
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5 # Versión estable v5
+        uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: type=raw,value=latest
 
+      # 4. Construir y Subir imagen (Sin build-args, usamos .env en servidor)
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5 # Versión estable v5
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # TRABAJO 2: DESPLEGAR EN IONOS (CD)
-
-  deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-
-    steps:
+      # 5. Desplegar en IONOS
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          # AQUI ES DONDE CAMBIAMOS LOS NOMBRES:
-          host: ${{ secrets.IONOS_HOST }}         # Antes era HOST
-          username: ${{ secrets.IONOS_USERNAME }} # Antes era USERNAME
-          key: ${{ secrets.IONOS_SSH_KEY }}       # Antes era SSH_KEY
-          port: ${{ secrets.IONOS_SSH_PORT }}     # ¡Añadimos el puerto también!
+          host: ${{ secrets.IONOS_HOST }}
+          username: ${{ secrets.IONOS_USERNAME }}
+          key: ${{ secrets.IONOS_SSH_KEY }}
+          port: ${{ secrets.IONOS_SSH_PORT }}
           
-          # script de despliegue ...
           script: |
-            cd /srv/docker/portfolio-flask/
+            # Ir a la carpeta del portafolio (independiente de Django)
+            cd /srv/docker/portfolio-flask
+            
+            # Login para poder bajar la imagen privada
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker-compose pull
-            docker-compose up -d
+            
+            # Descargar la nueva imagen
+            docker compose pull
+            
+            # Reiniciar SOLO el portafolio
+            # Como ya configuramos la red 'neura_django' en el docker-compose.yml,
+            # se conectará automáticamente al Nginx que ya está corriendo.
+            docker compose up -d
+            
+            # Limpieza
             docker image prune -f

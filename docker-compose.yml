@@ -2,14 +2,16 @@ version: '3.8'
 
 services:
   portfolio:
-    # CAMBIO: Ya no usamos build, sino image
-    # image: ghcr.io/usuario/nombre-repo:latest
-    # ¡IMPORTANTE!: Todo en minúsculas
-    image: ghcr.io/josecabezas/portfolio-flask:latest
-    
+    image: ghcr.io/jornkbz/portfolio-flask:latest
     container_name: mi_portfolio_container
     restart: always
     ports:
       - "5000:5000"
     env_file:
       - .env
+    networks:          # <--- Al mismo nivel que ports o image
+      - neura_django   # <--- 2 espacios dentro
+
+networks:
+  neura_django:
+    external: true

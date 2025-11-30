@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  portfolio:
+    # Construye la imagen usando el Dockerfile de la carpeta actual
+    build: .
+
+    # Nombre del contenedor para identificarlo fácil
+    container_name: mi_portfolio_container
+
+    # Mapeo de puertos: "PuertoPC : PuertoContenedor"
+    ports:
+      - "5000:5000"
+
+    # ¡Aquí está la magia! Lee tus variables del archivo .env automáticamente
+    env_file:
+      - .env
+
+    # Si el contenedor falla o reinicias el PC, la web arranca sola
+    restart: always
