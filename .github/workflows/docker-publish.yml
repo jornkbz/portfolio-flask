@@ -43,31 +43,25 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   # TRABAJO 2: DESPLEGAR EN IONOS (CD)
+
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy to VPS using SSH
-        uses: appleboy/ssh-action@v1.0.3 # Versión estable
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          # password: ${{ secrets.PASSWORD }} # Descomenta si usas contraseña
+          # AQUI ES DONDE CAMBIAMOS LOS NOMBRES:
+          host: ${{ secrets.IONOS_HOST }}         # Antes era HOST
+          username: ${{ secrets.IONOS_USERNAME }} # Antes era USERNAME
+          key: ${{ secrets.IONOS_SSH_KEY }}       # Antes era SSH_KEY
+          port: ${{ secrets.IONOS_SSH_PORT }}     # ¡Añadimos el puerto también!
           
+          # script de despliegue ...
           script: |
-            # 1. Ir a la carpeta del proyecto
             cd /srv/portfolio-flask/
-            
-            # 2. Loguearse en GitHub Container Registry
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            
-            # 3. Descargar la nueva imagen
             docker-compose pull
-            
-            # 4. Reiniciar el contenedor
             docker-compose up -d
-            
-            # 5. Limpiar basura
             docker image prune -f
