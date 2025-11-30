@@ -60,7 +60,7 @@ jobs:
           
           # script de despliegue ...
           script: |
-            cd /srv/portfolio-flask/
+            cd /srv/docker/portfolio-flask/
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             docker-compose pull
             docker-compose up -d
