@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Versión estable v4
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3 # Versión estable v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -29,13 +29,13 @@ jobs:
 
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf
+        uses: docker/metadata-action@v5 # Versión estable v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: type=raw,value=latest
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@f2a915bc1f2c0
+        uses: docker/build-push-action@v5 # Versión estable v5
         with:
           context: .
           push: true
@@ -44,32 +44,30 @@ jobs:
 
   # TRABAJO 2: DESPLEGAR EN IONOS (CD)
   deploy:
-    needs: build-and-push  # Espera a que termine el anterior
+    needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
       - name: Deploy to VPS using SSH
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.0.3 # Versión estable
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          # Si usas contraseña en vez de llave, descomenta la siguiente línea:
-          # password: ${{ secrets.PASSWORD }} 
+          # password: ${{ secrets.PASSWORD }} # Descomenta si usas contraseña
           
-          # ESTE ES EL GUIÓN QUE SE EJECUTARÁ EN TU SERVIDOR:
           script: |
             # 1. Ir a la carpeta del proyecto
             cd /srv/portfolio-flask/
             
-            # 2. Loguearse en GitHub Container Registry (para poder descargar la imagen)
+            # 2. Loguearse en GitHub Container Registry
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # 3. Descargar la última versión de la imagen
+            # 3. Descargar la nueva imagen
             docker-compose pull
             
-            # 4. Reiniciar el contenedor con la nueva imagen
+            # 4. Reiniciar el contenedor
             docker-compose up -d
             
-            # 5. Limpiar imágenes viejas para no llenar el disco
+            # 5. Limpiar basura
             docker image prune -f
