@@ -22,63 +22,69 @@
 
   <script rel="stylesheet" href="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"> </script>
   
-  <script>
+ <script>
     const canvas = document.getElementById('matrix-rain');
-    // ... (el resto de tu script está perfecto) ...
     const ctx = canvas.getContext('2d');
 
-    // Ajustar el canvas al tamaño de la ventana
+    // Definir tamaño inicial
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Caracteres a usar (Katana + números + letras)
     const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const nums = '0123456789';
     const alphabet = katakana + latin + nums;
 
     const fontSize = 16;
-    const columns = canvas.width / fontSize; // Cantidad de columnas para la lluvia
+    let columns = Math.floor(canvas.width / fontSize); // Usamos let para poder actualizarlo luego
 
     const rainDrops = [];
 
-    // Inicializar las gotas en la posición y=0 (parte superior)
+    // Inicializar las gotas
     for( let x = 0; x < columns; x++ ) {
         rainDrops[x] = 1;
     }
 
     const draw = () => {
-        // Pintar el fondo negro con un poco de transparencia en cada frame
-        // Esto crea el efecto de desvanecimiento de la estela de las letras
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#0F0'; // Color verde puro para el texto
+        ctx.fillStyle = '#0F0';
         ctx.font = fontSize + 'px monospace';
 
         for(let i = 0; i < rainDrops.length; i++) {
-            // Seleccionar un carácter aleatorio
             const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-            
-            // Dibujar el carácter en la posición x, y
             ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
-            // Enviar la gota de vuelta arriba aleatoriamente después de que cruce la pantalla
             if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
                 rainDrops[i] = 0;
             }
-            // Incrementar la coordenada Y para que baje
             rainDrops[i]++;
         }
     };
 
-    // Redibujar cada 30 milisegundos
     setInterval(draw, 30);
 
-    // Ajustar si se redimensiona la ventana
+    // --- PARTE CORREGIDA: Ajustar al redimensionar ---
     window.addEventListener('resize', () => {
+        // 1. Actualizar tamaño del lienzo
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
+        
+        // 2. Calcular cuántas columnas caben AHORA
+        const newColumns = Math.floor(canvas.width / fontSize);
+        
+        // 3. Si la pantalla es más ancha, rellenar el array rainDrops con nuevas gotas
+        if (newColumns > columns) {
+            for (let x = columns; x < newColumns; x++) {
+                // Inician arriba del todo (1) o aleatorio (Math.random() * canvas.height/fontSize)
+                // Usamos 1 para que caigan desde el cielo
+                rainDrops[x] = 1;
+            }
+        }
+        
+        // 4. Actualizar el número total de columnas
+        columns = newColumns;
     });
 </script>
 </body>
