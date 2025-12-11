@@ -87,5 +87,37 @@
         columns = newColumns;
     });
 </script>
+
+<script>
+    function initiateContactProtocol() {
+        // 1. Ocultar el botón inicial
+        document.getElementById('contact-trigger').classList.add('d-none');
+        
+        // 2. Mostrar la consola de carga
+        const loader = document.getElementById('terminal-loader');
+        loader.classList.remove('d-none');
+
+        // 3. Secuencia de mensajes tipo Hacker
+        const lines = [
+            { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
+            { id: 'log-line-2', text: '> Handshaking with SSL certificate...', delay: 1500 },
+            { id: 'log-line-3', text: '> Encrypting transmission channel [2048-bit]...', delay: 2500 },
+            { id: 'log-line-4', text: '> ACCESS GRANTED. LOAD FORM.', delay: 3500 }
+        ];
+
+        // Función para escribir texto letra a letra (opcional) o mostrar línea completa
+        lines.forEach(line => {
+            setTimeout(() => {
+                document.getElementById(line.id).innerText = line.text;
+            }, line.delay);
+        });
+
+        // 4. Mostrar el formulario final después de que acaben los mensajes
+        setTimeout(() => {
+            loader.classList.add('d-none'); // Ocultar carga
+            document.getElementById('contact-form-wrapper').classList.remove('d-none'); // Mostrar form
+        }, 4500);
+    }
+</script>
 </body>
 </html>
