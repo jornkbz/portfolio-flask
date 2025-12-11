@@ -454,3 +454,8 @@ footer {
     list-style-type: "> "; /* Viñeta estilo consola */
     padding-left: 5px;
 }
+.border-top-matrix {
+    border-top: 1px dashed rgba(0, 255, 65, 0.4);
+    margin-top: 2rem;
+    padding-top: 2rem;
+}
