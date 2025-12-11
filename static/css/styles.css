@@ -459,3 +459,29 @@ footer {
     margin-top: 2rem;
     padding-top: 2rem;
 }
+
+/* Animación de parpadeo del cursor */
+.blink-cursor::after {
+    content: '_';
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Animación de aparición suave para el formulario */
+.fade-in-matrix {
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Efecto hover para el disparador */
+#contact-trigger:hover h2 {
+    text-shadow: 0 0 20px #00FF41, 0 0 40px #00FF41;
+}
