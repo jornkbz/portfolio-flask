@@ -395,3 +395,62 @@ footer {
     z-index: 2;
     /* ... resto de tus estilos ... */
 }
+
+/* --- LÍNEA DE TIEMPO (EXPERIENCIA) --- */
+.matrix-timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid rgba(0, 255, 65, 0.3); /* Línea vertical tenue */
+    margin-left: 10px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* El punto brillante en la línea */
+.timeline-dot {
+    position: absolute;
+    left: -36px; /* Ajuste para centrar el punto sobre la línea */
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    background-color: #000;
+    border: 2px solid #00FF41;
+    box-shadow: 0 0 10px #00FF41;
+    border-radius: 50%; /* Redondo */
+}
+
+/* Fecha estilo timestamp */
+.timeline-date {
+    color: #4DFF88;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: inline-block;
+    background: rgba(0, 50, 0, 0.6);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.timeline-role {
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.timeline-company {
+    color: #00FF41;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.timeline-desc li {
+    color: #cccccc;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    list-style-type: "> "; /* Viñeta estilo consola */
+    padding-left: 5px;
+}
