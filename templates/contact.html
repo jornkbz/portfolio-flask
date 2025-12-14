@@ -56,3 +56,29 @@
         </div> 
     </div>
 </section>
+<script>
+    // 2. PROTOCOLO DE CONTACTO
+    function initiateContactProtocol() {
+        document.getElementById('contact-trigger').classList.add('d-none');
+        const loader = document.getElementById('terminal-loader');
+        loader.classList.remove('d-none');
+
+        const lines = [
+            { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
+            { id: 'log-line-2', text: '> Handshaking with SSL certificate...', delay: 1500 },
+            { id: 'log-line-3', text: '> Encrypting transmission channel [2048-bit]...', delay: 2500 },
+            { id: 'log-line-4', text: '> ACCESS GRANTED. LOAD FORM.', delay: 3500 }
+        ];
+
+        lines.forEach(line => {
+            setTimeout(() => {
+                document.getElementById(line.id).innerText = line.text;
+            }, line.delay);
+        });
+
+        setTimeout(() => {
+            loader.classList.add('d-none');
+            document.getElementById('contact-form-wrapper').classList.remove('d-none');
+        }, 4500);
+    }
+</script>
