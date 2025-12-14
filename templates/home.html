@@ -47,22 +47,42 @@
                         <p>Actualmente, superviso la infraestructura tecnológica y seguridad de redes, asegurando protección y rendimiento.</p>
                     </div>
 
-                    <h4 class="mt-5 mb-4 border-bottom-matrix">Stack Tecnológico</h4>
-                    
-                    <div class="row text-center g-4 row-cols-3 row-cols-md-5 justify-content-center">
-                        <div class="col"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
-                        <div class="col"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
-                        <div class="col"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
-                        <div class="col"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
-                        <div class="col"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
-                        <div class="col"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
-                        <div class="col"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
-                        <div class="col"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
-                        <div class="col"><i class="fas fa-shield-halved tech-icon"></i><br><small>Security</small></div>
-                        <div class="col"><i class="fas fa-database tech-icon"></i><br><small>Big Data</small></div>
-                    </div>
-                </div> 
-            </div> 
+    <div class="mt-5 text-center">
+            <h4 class="mb-4 border-bottom-matrix d-inline-block px-3">Choose your reality</h4>
+            
+            <div class="d-flex justify-content-center gap-5 my-4 perspective-container">
+                <div class="pill-wrapper" onclick="filterStack('blue')">
+                    <div class="pill blue-pill"></div>
+                    <div class="pill-shadow"></div>
+                    <span class="pill-label text-primary mt-2 d-block">DevOps & Dev</span>
+                </div>
+
+                <div class="pill-wrapper" onclick="filterStack('red')">
+                    <div class="pill red-pill"></div>
+                    <div class="pill-shadow"></div>
+                    <span class="pill-label text-danger mt-2 d-block">Sistemas & Sec</span>
+                </div>
+            </div>
+
+            <p id="stack-status" class="small text-muted mb-4">> Waiting for input...</p>
+        </div>
+        
+        <div class="row text-center g-4 row-cols-3 row-cols-md-5 justify-content-center" id="tech-grid">
+            
+            <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
+            <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
+            <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Security</small></div>
+            <div class="col tech-item" data-cat="red"><i class="fas fa-database tech-icon"></i><br><small>Big Data</small></div>
+
+            <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
+            <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
+            <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
+            <div class="col tech-item" data-cat="blue"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
+            <div class="col tech-item" data-cat="blue"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
+            <div class="col tech-item" data-cat="blue"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
+            
+        </div>
+    </div>
 
             <hr class="matrix-divider my-5">
 
@@ -110,7 +130,7 @@
                                 <span class="timeline-date">[ 2015-03 - 2015-06 ]</span>
                                 <h4 class="timeline-role mt-1 mb-0">Técnico de Sistemas</h4>
                                 <div class="timeline-company mb-2 small text-muted">
-                                    <i class="fas fa-building me-1"></i> VALMOPSUR SL
+                                    <i class="fas fa-building me-1"></i> PRODE
                                 </div>
                                 <ul class="list-unstyled timeline-desc mt-2 small">
                                     <li>> Mantenimiento y supervisión de equipos informáticos.</li>
@@ -322,4 +342,36 @@
         </div> </div>
 </section>
 
+<script>
+    function filterStack(color) {
+        const items = document.querySelectorAll('.tech-item');
+        const statusText = document.getElementById('stack-status');
+        
+        // Efecto de reinicio rápido (parpadeo)
+        document.getElementById('tech-grid').style.opacity = '0';
+        
+        setTimeout(() => {
+            items.forEach(item => {
+                // Si es el color elegido, lo mostramos. Si no, ocultamos (display none para reordenar)
+                if (item.getAttribute('data-cat') === color) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Mensajes temáticos
+            if (color === 'blue') {
+                statusText.innerHTML = '> Reality accepted. Loading Development Environment...';
+                statusText.style.color = '#00BFFF';
+            } else {
+                statusText.innerHTML = '> Breaking the simulation. Accessing Root Infrastructure...';
+                statusText.style.color = '#FF4500';
+            }
+
+            // Volver a mostrar con fade in
+            document.getElementById('tech-grid').style.opacity = '1';
+        }, 200);
+    }
+</script>
 {% endblock %}
