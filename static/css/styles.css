@@ -594,27 +594,40 @@ footer {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* --- Botón de Copiar Estilo Matrix --- */
-.matrix-copy-btn {
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid transparent; /* Invisible por defecto para ser sutil */
-    color: #005511; /* Verde oscuro apagado */
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* --- Estilo para el Correo Electrónico Matrix (CORREGIDO) --- */
+.matrix-email-link {
+    color: #cccccc;
+    font-family: 'Share Tech Mono', monospace;
     font-size: 1.1rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 5px 15px;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición más suave */
+    display: inline-flex; /* Alineación más estable */
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    
+    /* Trucos para evitar vibraciones en el renderizado */
+    backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
-.matrix-copy-btn:hover {
-    background-color: rgba(0, 255, 65, 0.1);
+.matrix-email-link:hover {
+    color: #00FF41;
     border-color: #00FF41;
-    color: #00FF41; /* Se enciende al pasar el ratón */
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    background-color: rgba(0, 20, 0, 0.8);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    
+    /* HEMOS QUITADO 'letter-spacing' QUE CAUSABA LA VIBRACIÓN */
+    
+    transform: translateY(-2px); /* En vez de crecer, que flote un poco hacia arriba */
 }
 
-.matrix-copy-btn:active {
-    background-color: #00FF41;
-    color: #000; /* Efecto flash al hacer clic */
+.matrix-email-link i {
+    transition: transform 0.3s ease;
+}
+
+.matrix-email-link:hover i {
+    transform: rotate(-15deg) scale(1.1); /* El icono sí puede moverse sin problemas */
 }
