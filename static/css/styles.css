@@ -612,12 +612,6 @@ footer {
     box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); /* Resplandor constante */
 }
 
-/* Feedback visual al pasar el ratón (Opcional: solo aumenta el brillo) */
-.matrix-email-link:hover {
-    background-color: rgba(0, 50, 0, 0.9); /* Un poco más claro */
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6); /* Mucho más brillo */
-    cursor: pointer;
-}
 
 /* El icono del sobre */
 .matrix-email-link i {
