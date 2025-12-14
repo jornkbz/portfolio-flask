@@ -593,3 +593,28 @@ footer {
 #tech-grid {
     transition: opacity 0.3s ease-in-out;
 }
+
+/* --- Botón de Copiar Estilo Matrix --- */
+.matrix-copy-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid transparent; /* Invisible por defecto para ser sutil */
+    color: #005511; /* Verde oscuro apagado */
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.matrix-copy-btn:hover {
+    background-color: rgba(0, 255, 65, 0.1);
+    border-color: #00FF41;
+    color: #00FF41; /* Se enciende al pasar el ratón */
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.matrix-copy-btn:active {
+    background-color: #00FF41;
+    color: #000; /* Efecto flash al hacer clic */
+}

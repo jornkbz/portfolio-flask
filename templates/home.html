@@ -17,7 +17,7 @@
                     <h1 class="display-4 fw-bold matrix-text-glow">José Cabezas Pulgarín</h1>
                     <p class="matrix-role fs-5">SysAdmin | DevOps | Python | IA | Cybersecurity</p>
                     
-                    <div class="mb-4">
+                    <div class="mb-4 d-inline-flex align-items-center gap-2">
                         <a href="mailto:josecabezaspulgarin@gmail.com" class="matrix-email-link">
                             <span class="text-success me-1">></span> 
                             <i class="fas fa-envelope me-2"></i>josecabezaspulgarin@gmail.com
@@ -44,10 +44,10 @@
                 <div class="col-lg-8 ps-lg-5">
                     <h3 class="mb-4 text-uppercase"><i class="fas fa-terminal me-2"></i> > whoami_</h3>
                     
-                    <div class="lead" style="font-size: 1.1rem;">
-                        <p>🔐 <strong>Administrador de Sistemas IT y Desarrollador Python</strong> con sólida experiencia en la gestión de servidores Linux, análisis de vulnerabilidades y ciberseguridad.</p> 
-                        <p>Tras varios años dedicados al soporte técnico, he avanzado hacia roles especializados en la administración de infraestructuras críticas. He complementado mi experiencia práctica con formación en <strong>Machine Learning</strong> y <strong>Big Data</strong>.</p>
-                        <p>Actualmente, superviso la infraestructura tecnológica y seguridad de redes, asegurando protección y rendimiento.</p>
+                   <div class="lead" style="font-size: 1.1rem;">
+                        <p>🔐  Administrador de Sistemas IT y Desarrollador Python con sólida experiencia en la gestión de servidores Linux, análisis de vulnerabilidades, logs y gestión de VPNs. Tras varios años dedicados al soporte técnico, helpdesk y mantenimiento de equipos, he avanzado hacia roles más especializados en la administración de infraestructuras y ciberseguridad. </p> 
+                        <p>He complementado mi experiencia práctica con formación especializada en Ciberseguridad y Desarrollo de software con Python orientado a Machine Learning y Big Data.</p>
+                        <p>Actualmente, superviso y administro la infraestructura tecnológica y la seguridad de redes en entornos empresariales críticos, asegurando la protección, el rendimiento y la eficiencia de los sistemas, siempre en busca de optimizar procesos y mejorar la seguridad.</p>
                     </div>
 
                     <div class="mt-5 text-center">
@@ -358,6 +358,31 @@
             
             grid.style.opacity = '1'; // Fade in
         }, 200);
+    }
+
+
+// 3. FUNCIÓN COPIAR EMAIL
+    function copyEmailToClipboard() {
+        const email = "josecabezaspulgarin@gmail.com";
+        const icon = document.getElementById('copy-icon');
+
+        // Copiar al portapapeles
+        navigator.clipboard.writeText(email).then(() => {
+            
+            // Efecto visual de éxito
+            // 1. Cambiamos el icono de 'copiar' a 'check'
+            icon.classList.remove('fa-copy');
+            icon.classList.add('fa-check');
+            
+            // 2. Volvemos al estado original después de 2 segundos
+            setTimeout(() => {
+                icon.classList.remove('fa-check');
+                icon.classList.add('fa-copy');
+            }, 2000);
+
+        }).catch(err => {
+            console.error('Error al copiar: ', err);
+        });
     }
 </script>
 
