@@ -594,40 +594,32 @@ footer {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* --- Estilo para el Correo Electrónico Matrix (CORREGIDO) --- */
+/* --- Correo Electrónico Matrix: SIEMPRE ENCENDIDO --- */
 .matrix-email-link {
-    color: #cccccc;
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.1rem;
     text-decoration: none;
-    border: 1px solid transparent;
-    padding: 5px 15px;
+    padding: 6px 15px;
     border-radius: 4px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transición más suave */
-    display: inline-flex; /* Alineación más estable */
+    display: inline-flex;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    
-    /* Trucos para evitar vibraciones en el renderizado */
-    backface-visibility: hidden;
-    transform: translateZ(0);
+    transition: all 0.3s ease;
+
+    /* ESTILOS PERMANENTES (Ya no dependen del ratón) */
+    color: #00FF41;                        /* Texto verde neón */
+    border: 1px solid #00FF41;             /* Borde verde siempre visible */
+    background-color: rgba(0, 20, 0, 0.8); /* Fondo oscuro estilo terminal */
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); /* Resplandor constante */
 }
 
+/* Feedback visual al pasar el ratón (Opcional: solo aumenta el brillo) */
 .matrix-email-link:hover {
-    color: #00FF41;
-    border-color: #00FF41;
-    background-color: rgba(0, 20, 0, 0.8);
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-    
-    /* HEMOS QUITADO 'letter-spacing' QUE CAUSABA LA VIBRACIÓN */
-    
-    transform: translateY(-2px); /* En vez de crecer, que flote un poco hacia arriba */
+    background-color: rgba(0, 50, 0, 0.9); /* Un poco más claro */
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6); /* Mucho más brillo */
+    cursor: pointer;
 }
 
+/* El icono del sobre */
 .matrix-email-link i {
-    transition: transform 0.3s ease;
-}
-
-.matrix-email-link:hover i {
-    transform: rotate(-15deg) scale(1.1); /* El icono sí puede moverse sin problemas */
+    margin-right: 8px;
 }
