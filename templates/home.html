@@ -14,17 +14,16 @@
                 
                 <div class="col-lg-4 text-center border-end-matrix mb-5 mb-lg-0">
                     <img src="{{ url_for('static', filename='img/perfil.jpg')}}" class="img-fluid rounded-circle mb-3 profile-pic" alt="Jose Cabezas" width="220" style="border: 4px solid #00FF41;">
-
                     <h1 class="display-4 fw-bold matrix-text-glow">José Cabezas Pulgarín</h1>
-
                     <p class="matrix-role fs-5">SysAdmin | DevOps | Python | IA | Cybersecurity</p>
-
+                    
                     <div class="mb-4">
                         <a href="mailto:josecabezaspulgarin@gmail.com" class="matrix-email-link">
                             <span class="text-success me-1">></span> 
                             <i class="fas fa-envelope me-2"></i>josecabezaspulgarin@gmail.com
                         </a>
                     </div>
+
                     <hr class="matrix-divider">
 
                     <div class="text-start mt-4 d-inline-block">
@@ -39,52 +38,55 @@
                 </div>
 
                 <div class="col-lg-8 ps-lg-5">
-                    <h3 class="mb-4 text-uppercase"><i class="fas fa-terminal me-2"></i> > whoami</h3>
+                    <h3 class="mb-4 text-uppercase"><i class="fas fa-terminal me-2"></i> > whoami_</h3>
                     
                     <div class="lead" style="font-size: 1.1rem;">
-                        <p>🔐 <strong>Administrador de Sistemas IT y Desarrollador Python</strong> con sólida experiencia en la gestión de servidores Linux, análisis de vulnerabilidades y ciberseguridad.</p> 
-                        <p>Tras varios años dedicados al soporte técnico, he avanzado hacia roles especializados en la administración de infraestructuras críticas. He complementado mi experiencia práctica con formación en <strong>Machine Learning</strong> y <strong>Big Data</strong>.</p>
-                        <p>Actualmente, superviso la infraestructura tecnológica y seguridad de redes, asegurando protección y rendimiento.</p>
+                        <p>
+                            Administrador de Sistemas evolucionado a <strong>DevOps</strong>. Combino años de experiencia 
+                            en soporte IT y administración Linux con formación avanzada en <strong>Ciberseguridad</strong> 
+                            y <strong>Python</strong>.
+                        </p> 
+                        <p>
+                            Mi enfoque es claro: diseñar infraestructuras seguras, escalables y automatizadas, 
+                            integrando lo mejor de las operaciones con la <strong>Inteligencia Artificial</strong>.
+                        </p>
                     </div>
 
-    <div class="mt-5 text-center">
-            <h4 class="mb-4 border-bottom-matrix d-inline-block px-3">Choose your reality</h4>
-            
-            <div class="d-flex justify-content-center gap-5 my-4 perspective-container">
-                <div class="pill-wrapper" onclick="filterStack('blue')">
-                    <div class="pill blue-pill"></div>
-                    <div class="pill-shadow"></div>
-                    <span class="pill-label text-primary mt-2 d-block">DevOps & Dev</span>
-                </div>
+                    <div class="mt-5 text-center">
+                        <h4 class="mb-4 border-bottom-matrix d-inline-block px-3">Choose your reality</h4>
+                        
+                        <div class="d-flex justify-content-center gap-5 my-4 perspective-container">
+                            <div class="pill-wrapper" onclick="filterStack('blue')">
+                                <div class="pill blue-pill"></div>
+                                <div class="pill-shadow"></div>
+                                <span class="pill-label text-primary mt-2 d-block">DevOps & Dev</span>
+                            </div>
 
-                <div class="pill-wrapper" onclick="filterStack('red')">
-                    <div class="pill red-pill"></div>
-                    <div class="pill-shadow"></div>
-                    <span class="pill-label text-danger mt-2 d-block">Sistemas & Sec</span>
-                </div>
-            </div>
+                            <div class="pill-wrapper" onclick="filterStack('red')">
+                                <div class="pill red-pill"></div>
+                                <div class="pill-shadow"></div>
+                                <span class="pill-label text-danger mt-2 d-block">Sistemas & Sec</span>
+                            </div>
+                        </div>
 
-            <p id="stack-status" class="small text-muted mb-4">> Waiting for input...</p>
-        </div>
-        
-        <div class="row text-center g-4 row-cols-3 row-cols-md-5 justify-content-center" id="tech-grid">
-            
-            <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
-            <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
-            <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Security</small></div>
-            <div class="col tech-item" data-cat="red"><i class="fas fa-database tech-icon"></i><br><small>Big Data</small></div>
+                        <p id="stack-status" class="small text-muted mb-4">> Waiting for input...</p>
+                    </div>
+                    
+                    <div class="row text-center g-4 row-cols-3 row-cols-md-5 justify-content-center" id="tech-grid">
+                        <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Security</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="fas fa-database tech-icon"></i><br><small>Big Data</small></div>
 
-            <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
-            <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
-            <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
-            <div class="col tech-item" data-cat="blue"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
-            <div class="col tech-item" data-cat="blue"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
-            <div class="col tech-item" data-cat="blue"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
-            
-        </div>
-    </div>
-
-            <hr class="matrix-divider my-5">
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
+                    </div>
+                </div> 
+            </div> <hr class="matrix-divider my-5">
 
             <div class="row g-4"> 
                 
@@ -95,7 +97,6 @@
                         </h3>
 
                         <div class="matrix-timeline ms-2">
-                            
                             <div class="timeline-item">
                                 <div class="timeline-dot"></div>
                                 <span class="timeline-date text-success fw-bold">[ 2023-07 - ACTUALIDAD ]</span>
@@ -109,7 +110,6 @@
                                     <li>> Soporte técnico avanzado (Help Desk N2).</li>
                                 </ul>
                             </div>
-
                             <div class="timeline-item">
                                 <div class="timeline-dot" style="background-color: #003300; border-color: #00AA22;"></div>
                                 <span class="timeline-date">[ 2017-05 - 2022-07 ]</span>
@@ -118,29 +118,19 @@
                                     <i class="fas fa-building me-1"></i> VALMOPSUR SL
                                 </div>
                                 <ul class="list-unstyled timeline-desc mt-2 small">
-                                    <li>> Help Desk N2</li>
-                                    <li>> Mantenimiento de equipos informáticos.</li>
-                                    <li>> Resolución de incidencias logísticas.</li>
                                     <li>> Coordinador de equipo técnico.</li>
+                                    <li>> Monitorización remota industrial.</li>
+                                    <li>> Resolución de incidencias logísticas.</li>
                                 </ul>
                             </div>
-
                             <div class="timeline-item">
                                 <div class="timeline-dot" style="background-color: #000; border-color: #006611;"></div>
                                 <span class="timeline-date">[ 2015-03 - 2015-06 ]</span>
                                 <h4 class="timeline-role mt-1 mb-0">Técnico de Sistemas</h4>
-                                <div class="timeline-company mb-2 small text-muted">
-                                    <i class="fas fa-building me-1"></i> PRODE
+                                <div class="timeline-company small text-muted">
+                                    <i class="fas fa-building me-1"></i> Fundación Prode
                                 </div>
-                                <ul class="list-unstyled timeline-desc mt-2 small">
-                                    <li>> Mantenimiento y supervisión de equipos informáticos.</li>
-                                    <li>> Resolución de incidencias.</li>
-                                    <li>> Instalación y actualización de software.</li>
-                                    <li>> Tareas de administración y monitorización.</li>
-                                </ul>
                             </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -160,7 +150,6 @@
                                 </div>
                                 <small class="text-muted">Lemoncoders Bootcamp</small>
                             </div>
-
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white mb-0 fw-bold">Máster Ciberseguridad</h6>
@@ -168,7 +157,6 @@
                                 </div>
                                 <small class="text-muted">EIP International Business School</small>
                             </div>
-
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between">
                                     <h6 class="text-white mb-0 fw-bold">Máster Python & BigData</h6>
@@ -180,11 +168,11 @@
                             <div class="mt-3 pt-3 border-top-matrix">
                                 <div class="d-flex align-items-center mb-2">
                                     <i class="fas fa-certificate text-warning me-2"></i> 
-                                    <small class="text-white">Ethical Hacking Essentials (EHE)</small>
+                                    <small class="text-white ms-2">Ethical Hacking Essentials (EHE)</small>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-university text-info me-2"></i> 
-                                    <small class="text-white">G.S. Admin Sistemas (ASIR)</small>
+                                    <small class="text-white ms-2">G.S. Admin Sistemas (ASIR)</small>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +182,6 @@
                         <h3 class="mb-3 text-uppercase border-bottom-matrix pb-2">
                             <i class="fas fa-memory me-2"></i> cat capabilities.json
                         </h3>
-
                         <ul class="list-unstyled mb-0 small">
                             <li class="mb-2">
                                 <strong class="text-white">> Desarrollo:</strong> 
@@ -216,9 +203,7 @@
                     </div>
 
                 </div>
-            </div>
-
-            <hr class="matrix-divider my-5">
+            </div> <hr class="matrix-divider my-5">
 
             <div class="row">
                 <div class="col-12">
@@ -230,40 +215,27 @@
                 <div class="col-md-4 mb-4">
                     <div class="project-list-card h-100">
                         <h5 class="text-white border-bottom-matrix pb-2 mb-3" style="font-family: 'Share Tech Mono', monospace;">
-                            <i class="fas fa-folder-open text-warning me-2"></i> ~/src/python_proyects/
+                            <i class="fas fa-folder-open text-warning me-2"></i> ~/src/python_ai/
                         </h5>
-                        
                         <ul class="list-unstyled project-list mt-3">
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/TFM-EIP" target="_blank" class="d-flex align-items-center">
-                                    <i class="fab fa-github me-2 text-success"></i> 
-                                    <span>air_crash_calculator.git</span>
+                                    <i class="fab fa-github me-2 text-success"></i> <span>TFM-EIP-Aviation.git</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Predicción de accidentes (IA + BigData)</small>
-                            </li>
-
-                            <li class="mb-3">
-                                <a href="https://aircrashcal.jose-cabezas.com/" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-globe me-2 text-info"></i> 
-                                    <span>air-crash-calculator-web</span>
-                                </a>
-                                <small class="text-muted d-block ms-4">> Despliegue en producción (Live)</small>
+                                <small class="text-muted d-block ms-4">> Predicción de accidentes</small>
                             </li>
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/ecommerce-django" target="_blank" class="d-flex align-items-center">
-                                    <i class="fab fa-github me-2 text-success"></i> 
-                                    <span>django-ecommerce.git</span>
+                                    <i class="fab fa-github me-2 text-success"></i> <span>django-ecommerce.git</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Plataforma completa de ventas</small>
+                                <small class="text-muted d-block ms-4">> Plataforma de ventas</small>
                             </li>
                             <li class="mb-3">
                                 <a href="https://neuraprint3d.com/" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-globe me-2 text-info"></i> 
-                                    <span>neuraprint3d-web/</span>
+                                    <i class="fas fa-globe me-2 text-info"></i> <span>neuraprint3d-web/</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Despliegue en producción (Live)</small>
+                                <small class="text-muted d-block ms-4">> Despliegue Live</small>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -273,35 +245,24 @@
                         <h5 class="text-white border-bottom-matrix pb-2 mb-3" style="font-family: 'Share Tech Mono', monospace;">
                             <i class="fas fa-folder-open text-warning me-2"></i> ~/src/devops/
                         </h5>
-                        
                         <ul class="list-unstyled project-list mt-3">
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Linux" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-terminal me-2 text-success"></i> 
-                                    <span>linux-scripts.sh</span>
+                                    <i class="fas fa-terminal me-2 text-success"></i> <span>linux-scripts.sh</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Automatización con Bash</small>
+                                <small class="text-muted d-block ms-4">> Scripting Bash</small>
                             </li>
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/LemonCodeDevOps.git" target="_blank" class="d-flex align-items-center">
-                                    <i class="fab fa-docker me-2 text-success"></i> 
-                                    <span>docker-compose.yml</span>
+                                    <i class="fab fa-docker me-2 text-success"></i> <span>docker-compose.yml</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Contenedores y microservicios</small>
+                                <small class="text-muted d-block ms-4">> Contenedores</small>
                             </li>
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Kubernetes" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-dharmachakra me-2 text-success"></i> 
-                                    <span>k8s-manifests/</span>
+                                    <i class="fas fa-dharmachakra me-2 text-success"></i> <span>k8s-manifests/</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Orquestación Kubernetes</small>
-                            </li>
-                            <li class="mb-3">
-                                <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/CICD/exercises" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-sync-alt me-2 text-success"></i> 
-                                    <span>ci-cd-pipelines/</span>
-                                </a>
-                                <small class="text-muted d-block ms-4">> Jenkins & GitLab CI</small>
+                                <small class="text-muted d-block ms-4">> Kubernetes</small>
                             </li>
                         </ul>
                     </div>
@@ -312,58 +273,94 @@
                         <h5 class="text-white border-bottom-matrix pb-2 mb-3" style="font-family: 'Share Tech Mono', monospace;">
                             <i class="fas fa-folder-open text-warning me-2"></i> ~/src/security/
                         </h5>
-                        
                         <ul class="list-unstyled project-list mt-3">
                             <li class="mb-3">
                                 <a href="https://github.com/jornkbz/RFM-EIP-SGSI" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-file-contract me-2 text-success"></i> 
-                                    <span>ISO27001-SGSI/</span>
+                                    <i class="fas fa-file-contract me-2 text-success"></i> <span>ISO27001-SGSI/</span>
                                 </a>
-                                <small class="text-muted d-block ms-4">> Gestión de Seguridad (Compliance)</small>
+                                <small class="text-muted d-block ms-4">> Compliance & SGSI</small>
                             </li>
                             <li class="mb-3">
                                 <div class="d-flex align-items-center text-success" style="opacity: 0.8;">
-                                    <i class="fas fa-bug me-2"></i> 
-                                    <span>vuln-scan-reports/</span>
+                                    <i class="fas fa-bug me-2"></i> <span>vuln-scan-reports/</span>
                                 </div>
-                                <small class="text-muted d-block ms-4">> Análisis de Vulnerabilidades</small>
-                            </li>
-                            <li class="mb-3">
-                                <div class="d-flex align-items-center text-success" style="opacity: 0.8;">
-                                    <i class="fas fa-shield-alt me-2"></i> 
-                                    <span>hardening-logs/</span>
-                                </div>
-                                <small class="text-muted d-block ms-4">> Gestión de Logs & VPNs</small>
+                                <small class="text-muted d-block ms-4">> Análisis Vulnerabilidades</small>
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div> </div> </div>
+</section>
+
+<section id="contact" style="position: relative; z-index: 2; min-height: 50vh;">
+    <div class="container-fluid px-4 px-lg-5 pt-5 pb-5"> 
+        <div class="matrix-container text-center">
+            
+            <div id="contact-trigger" class="py-5" style="cursor: pointer;" onclick="initiateContactProtocol()">
+                <h2 class="display-5 fw-bold mb-3 matrix-text-glow">
+                    <i class="fas fa-network-wired me-3"></i>¿QUIERES UN PORTFOLIO COMO ESTE?
+                </h2>
+                <p class="fs-4 text-success mb-4">No seas un usuario más. Conecta con el administrador.</p>
+                <button class="btn btn-matrix btn-lg px-5 py-3">
+                    <i class="fas fa-terminal me-2"></i> > ./init_contact_protocol.sh
+                </button>
             </div>
-        </div> </div>
+
+            <div id="terminal-loader" class="text-start mx-auto p-4 d-none" style="max-width: 600px; font-family: 'Share Tech Mono', monospace;">
+                <p class="text-success mb-1" id="log-line-1"></p>
+                <p class="text-success mb-1" id="log-line-2"></p>
+                <p class="text-success mb-1" id="log-line-3"></p>
+                <p class="text-success mb-0 fw-bold blink-cursor" id="log-line-4"></p>
+            </div>
+
+            <div id="contact-form-wrapper" class="d-none fade-in-matrix">
+                <div class="row align-items-center g-lg-5 mt-3">
+                    <div class="col-lg-6 text-center text-lg-start">
+                        <h2 class="display-4 fw-bold lh-1 mb-3">CONEXIÓN ESTABLECIDA</h2>
+                        <p class="fs-4">El canal es seguro. Envíame tu propuesta.</p>
+                    </div> 
+                    <div class="col-md-10 mx-auto col-lg-6">
+                        <form class="p-4 border border-success" style="background: rgba(0,20,0,0.4);" method="post" action="{{url_for('send_mail')}}">
+                            <div class="mb-3 text-start">
+                                <label for="name" class="form-label">> Nombre_usuario:</label>
+                                <input type="text" class="form-control" id="name" name="name" required placeholder="_">
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="email" class="form-label">> Correo_destino:</label>
+                                <input type="email" class="form-control" id="email" name="email" required placeholder="@">
+                            </div>
+                            <div class="mb-3 text-start">
+                                <label for="message" class="form-label">> Cargar_mensaje:</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required placeholder="..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">ENVIAR DATOS ENCRIPTADOS</button>
+                        </form>  
+                    </div>              
+                </div>
+            </div>
+
+        </div> 
+    </div>
 </section>
 
 <script>
+    // 1. FILTRO DE PASTILLAS (Corregido para grid)
     function filterStack(color) {
         const items = document.querySelectorAll('.tech-item');
         const statusText = document.getElementById('stack-status');
         const grid = document.getElementById('tech-grid');
         
-        // 1. Ocultar visualmente para el efecto fade
-        grid.style.opacity = '0';
+        grid.style.opacity = '0'; // Fade out
         
         setTimeout(() => {
             items.forEach(item => {
-                // CORRECCIÓN AQUÍ:
-                // Si coincide el color, quitamos el display:none dejando comillas vacías ''.
-                // Esto permite que Bootstrap recupere su grid original.
                 if (item.getAttribute('data-cat') === color) {
-                    item.style.display = ''; // <--- ESTO ARREGLA LA VERTICALIDAD
+                    item.style.display = ''; // <--- IMPORTANTE: Comillas vacías recuperan el grid
                 } else {
                     item.style.display = 'none';
                 }
             });
 
-            // Mensajes temáticos
             if (color === 'blue') {
                 statusText.innerHTML = '> Reality accepted. Loading Development Environment...';
                 statusText.style.color = '#00BFFF';
@@ -371,10 +368,35 @@
                 statusText.innerHTML = '> Breaking the simulation. Accessing Root Infrastructure...';
                 statusText.style.color = '#FF4500';
             }
-
-            // 2. Volver a mostrar visualmente
-            grid.style.opacity = '1';
+            
+            grid.style.opacity = '1'; // Fade in
         }, 200);
     }
+
+    // 2. PROTOCOLO DE CONTACTO
+    function initiateContactProtocol() {
+        document.getElementById('contact-trigger').classList.add('d-none');
+        const loader = document.getElementById('terminal-loader');
+        loader.classList.remove('d-none');
+
+        const lines = [
+            { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
+            { id: 'log-line-2', text: '> Handshaking with SSL certificate...', delay: 1500 },
+            { id: 'log-line-3', text: '> Encrypting transmission channel [2048-bit]...', delay: 2500 },
+            { id: 'log-line-4', text: '> ACCESS GRANTED. LOAD FORM.', delay: 3500 }
+        ];
+
+        lines.forEach(line => {
+            setTimeout(() => {
+                document.getElementById(line.id).innerText = line.text;
+            }, line.delay);
+        });
+
+        setTimeout(() => {
+            loader.classList.add('d-none');
+            document.getElementById('contact-form-wrapper').classList.remove('d-none');
+        }, 4500);
+    }
 </script>
+
 {% endblock %}
