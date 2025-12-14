@@ -346,15 +346,18 @@
     function filterStack(color) {
         const items = document.querySelectorAll('.tech-item');
         const statusText = document.getElementById('stack-status');
+        const grid = document.getElementById('tech-grid');
         
-        // Efecto de reinicio rápido (parpadeo)
-        document.getElementById('tech-grid').style.opacity = '0';
+        // 1. Ocultar visualmente para el efecto fade
+        grid.style.opacity = '0';
         
         setTimeout(() => {
             items.forEach(item => {
-                // Si es el color elegido, lo mostramos. Si no, ocultamos (display none para reordenar)
+                // CORRECCIÓN AQUÍ:
+                // Si coincide el color, quitamos el display:none dejando comillas vacías ''.
+                // Esto permite que Bootstrap recupere su grid original.
                 if (item.getAttribute('data-cat') === color) {
-                    item.style.display = 'block';
+                    item.style.display = ''; // <--- ESTO ARREGLA LA VERTICALIDAD
                 } else {
                     item.style.display = 'none';
                 }
@@ -369,8 +372,8 @@
                 statusText.style.color = '#FF4500';
             }
 
-            // Volver a mostrar con fade in
-            document.getElementById('tech-grid').style.opacity = '1';
+            // 2. Volver a mostrar visualmente
+            grid.style.opacity = '1';
         }, 200);
     }
 </script>
