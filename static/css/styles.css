@@ -516,3 +516,80 @@ footer {
 .matrix-email-link:hover i {
     transform: rotate(-15deg); /* El sobre se inclina un poco */
 }
+
+/* --- EFECTO PASTILLAS MATRIX --- */
+
+.pill-wrapper {
+    cursor: pointer;
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.pill-wrapper:hover {
+    transform: scale(1.1); /* Se hace un poco más grande al pasar el ratón */
+}
+
+.pill {
+    width: 60px;
+    height: 24px;
+    border-radius: 12px; /* Forma de cápsula */
+    position: relative;
+    z-index: 2;
+    box-shadow: inset 0px 2px 5px rgba(255, 255, 255, 0.4), 
+                inset 0px -2px 5px rgba(0, 0, 0, 0.4); /* Relieve 3D */
+}
+
+/* Pastilla Azul: DevOps */
+.blue-pill {
+    background: linear-gradient(135deg, #00BFFF 0%, #00008B 100%);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+}
+
+/* Pastilla Roja: Sistemas */
+.red-pill {
+    background: linear-gradient(135deg, #FF4500 0%, #8B0000 100%);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+}
+
+/* El brillo blanco característico de las pastillas */
+.pill::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 20px;
+    height: 8px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+}
+
+/* Reflejo en el suelo */
+.pill-shadow {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    width: 80%;
+    height: 10px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    transition: opacity 0.3s;
+}
+
+/* Texto debajo de las pastillas */
+.pill-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.pill-wrapper:hover .pill-label {
+    opacity: 1;
+    text-shadow: 0 0 5px currentColor;
+}
+
+/* Transición suave del grid */
+#tech-grid {
+    transition: opacity 0.3s ease-in-out;
+}
