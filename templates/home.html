@@ -17,12 +17,16 @@
                     <h1 class="display-4 fw-bold matrix-text-glow">José Cabezas Pulgarín</h1>
                     <p class="matrix-role fs-5">SysAdmin | DevOps | Python | IA | Cybersecurity</p>
                     
-                    <div class="mb-4">
-                        <a href="mailto:josecabezaspulgarin@gmail.com" class="matrix-email-link">
-                            <span class="text-success me-1">></span> 
-                            <i class="fas fa-envelope me-2"></i>josecabezaspulgarin@gmail.com
-                        </a>
-                    </div>
+                <div class="mb-4 d-inline-flex align-items-center gap-2">
+                    <a href="mailto:josecabezaspulgarin@gmail.com" class="matrix-email-link">
+                        <span class="text-success me-1">></span> 
+                        <i class="fas fa-envelope me-2"></i>josecabezaspulgarin@gmail.com
+                    </a>
+
+                    <button class="matrix-copy-btn" onclick="copyEmailToClipboard()" title="Copiar al portapapeles">
+                        <i class="fas fa-copy" id="copy-icon"></i>
+                    </button>
+                </div>
 
                     <hr class="matrix-divider">
 
@@ -355,7 +359,7 @@
             grid.style.opacity = '1'; // Fade in
         }, 200);
     }
-
+</script>
 
 
 {% endblock %}
