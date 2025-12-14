@@ -594,7 +594,7 @@ footer {
     transition: opacity 0.3s ease-in-out;
 }
 
-/* --- Correo Electrónico Matrix: SIEMPRE ENCENDIDO --- */
+/* --- Correo Electrónico: ESTÁTICO (Sin movimiento) --- */
 .matrix-email-link {
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.1rem;
@@ -603,17 +603,32 @@ footer {
     border-radius: 4px;
     display: inline-flex;
     align-items: center;
-    transition: all 0.3s ease;
 
-    /* ESTILOS PERMANENTES (Ya no dependen del ratón) */
-    color: #00FF41;                        /* Texto verde neón */
-    border: 1px solid #00FF41;             /* Borde verde siempre visible */
-    background-color: rgba(0, 20, 0, 0.8); /* Fondo oscuro estilo terminal */
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2); /* Resplandor constante */
+    /* ESTILO FIJO PERMANENTE (Verde Matrix) */
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    background-color: rgba(0, 20, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    
+    /* ASEGURAR QUE NO SE MUEVA */
+    transform: none !important; 
+    margin: 0; 
+    
+    /* Solo animamos el color y el brillo (no la posición) */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
+/* AL PASAR EL RATÓN: SOLO BRILLA, NO SE DESPLAZA */
+.matrix-email-link:hover {
+    background-color: rgba(0, 50, 0, 0.9); /* Fondo un poco más claro */
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6); /* Más brillo */
+    cursor: pointer;
+    
+    /* FORZAMOS QUE NO HAYA NINGUNA TRANSFORMACIÓN */
+    transform: none !important;
+}
 
-/* El icono del sobre */
 .matrix-email-link i {
     margin-right: 8px;
+}
 }
