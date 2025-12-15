@@ -79,14 +79,20 @@
                         <p id="stack-status" class="small text-muted mb-4" style="font-family: 'Share Tech Mono', monospace;">> Waiting for input...</p>
                     </div>
                     
-                    <div class="row text-center g-4 row-cols-3 row-cols-md-4 row-cols-lg-5 justify-content-center" id="tech-grid">
+                <div class="row text-center g-4 row-cols-3 row-cols-md-4 row-cols-lg-5 justify-content-center" id="tech-grid">
+                        
                         <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-fastapi-plain tech-icon"></i><br><small>FastAPI</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-pandas-original tech-icon"></i><br><small>Pandas</small></div>
+                        
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-pandas-plain tech-icon"></i><br><small>Pandas</small></div>
+                        
                         <div class="col tech-item" data-cat="blue"><i class="devicon-scikitlearn-plain tech-icon"></i><br><small>Scikit-learn</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-postgresql-plain tech-icon"></i><br><small>PostgreSQL</small></div>
+                        
+                        <div class="col tech-item" data-cat="blue"><i class="fas fa-database tech-icon"></i><br><small>SQL</small></div>
+                        
                         <div class="col tech-item" data-cat="blue"><i class="fab fa-git-alt tech-icon"></i><br><small>Git</small></div>
 
                         <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
@@ -95,12 +101,16 @@
                         <div class="col tech-item" data-cat="red"><i class="devicon-kubernetes-plain tech-icon"></i><br><small>Kubernetes</small></div>
                         <div class="col tech-item" data-cat="red"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
                         <div class="col tech-item" data-cat="red"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab CI</small></div>
+                        
+                        <div class="col tech-item" data-cat="red"><i class="devicon-githubactions-plain tech-icon"></i><br><small>G. Actions</small></div>
+                        
                         <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
                         <div class="col tech-item" data-cat="red"><i class="devicon-azure-plain tech-icon"></i><br><small>Azure</small></div>
                         <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Ciberseguridad</small></div>
                         <div class="col tech-item" data-cat="red"><i class="fas fa-network-wired tech-icon"></i><br><small>Redes/VPN</small></div>
                         <div class="col tech-item" data-cat="red"><i class="devicon-prometheus-original tech-icon"></i><br><small>Prometheus</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-grafana-original tech-icon"></i><br><small>Grafana</small></div>
+                        
+                        <div class="col tech-item" data-cat="red"><i class="devicon-grafana-plain tech-icon"></i><br><small>Grafana</small></div>
                     </div>
                 </div>
             </div> 
@@ -391,30 +401,40 @@
 
 <script>
     // 1. FILTRO DE PASTILLAS
+// 1. FILTRO DE PASTILLAS (Actualizado para 'all')
     function filterStack(color) {
         const items = document.querySelectorAll('.tech-item');
         const statusText = document.getElementById('stack-status');
         const grid = document.getElementById('tech-grid');
         
+        // Efecto de desvanecimiento
         grid.style.opacity = '0'; 
         
         setTimeout(() => {
             items.forEach(item => {
-                if (item.getAttribute('data-cat') === color) {
-                    item.style.display = ''; 
+                const itemCat = item.getAttribute('data-cat');
+                // Si el color es 'all', mostramos TODO. Si no, solo los que coincidan.
+                if (color === 'all' || itemCat === color) {
+                    item.style.display = ''; // Mostrar
                 } else {
-                    item.style.display = 'none';
+                    item.style.display = 'none'; // Ocultar
                 }
             });
 
+            // Actualizar texto de estado según la elección
             if (color === 'blue') {
-                statusText.innerHTML = '> Reality accepted. Loading Development Environment...';
+                statusText.innerHTML = '> Reality accepted. Loading Development & Data Environment...';
                 statusText.style.color = '#00BFFF';
-            } else {
-                statusText.innerHTML = '> Breaking the simulation. Accessing Root Infrastructure...';
+            } else if (color === 'red') {
+                statusText.innerHTML = '> Breaking the simulation. Accessing SysAdmin & Security Infrastructure...';
                 statusText.style.color = '#FF4500';
+            } else {
+                // Caso 'all'
+                statusText.innerHTML = '> Merging realities. Full Stack capabilities loaded.';
+                statusText.style.color = '#DA70D6'; // Color púrpura
             }
             
+            // Efecto de reaparición
             grid.style.opacity = '1';
         }, 200);
     }
