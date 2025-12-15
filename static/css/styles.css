@@ -486,35 +486,51 @@ footer {
     text-shadow: 0 0 20px #00FF41, 0 0 40px #00FF41;
 }
 
-/* --- Estilo para el Correo Electrónico Matrix --- */
+/* --- Correo Electrónico: FIX CHROME JITTER --- */
 .matrix-email-link {
-    color: #cccccc; /* Gris claro por defecto */
     font-family: 'Share Tech Mono', monospace;
     font-size: 1.1rem;
     text-decoration: none;
-    border: 1px solid transparent; /* Reserva espacio para el borde */
-    padding: 5px 15px;
+    padding: 6px 15px !important; /* Forzamos el padding */
     border-radius: 4px;
-    transition: all 0.3s ease;
-    display: inline-block;
-    background-color: rgba(0, 0, 0, 0.3); /* Fondo muy sutil */
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle; /* Evita saltos de línea base */
+
+    /* ESTILO BASE */
+    color: #00FF41 !important;
+    border: 1px solid #00FF41 !important; /* Borde fijo */
+    background-color: rgba(0, 20, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    
+    /* TRUCOS PARA CHROME (Hardware Acceleration) */
+    transform: translateZ(0); 
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+    
+    /* Solo animamos lo visual, nunca la posición */
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    margin: 0 !important;
 }
 
 .matrix-email-link:hover {
-    color: #00FF41; /* Texto verde neón */
-    border-color: #00FF41; /* Aparece el borde */
-    background-color: rgba(0, 20, 0, 0.8); /* Fondo más oscuro */
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3); /* Resplandor */
-    letter-spacing: 1px; /* Efecto de expansión tipo 'hack' */
-    transform: scale(1.05); /* Ligeramente más grande */
+    background-color: rgba(0, 50, 0, 0.9);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+    cursor: pointer;
+    color: #00FF41 !important;
+    
+    /* REAFIRMAR POSICIÓN ESTÁTICA */
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    margin: 0 !important;
+    padding: 6px 15px !important; /* Asegura que el padding no cambie */
+    border: 1px solid #00FF41 !important; /* Asegura que el borde no engorde */
 }
 
 .matrix-email-link i {
-    transition: transform 0.3s;
-}
-
-.matrix-email-link:hover i {
-    transform: rotate(-15deg); /* El sobre se inclina un poco */
+    margin-right: 8px;
 }
 
 /* --- EFECTO PASTILLAS MATRIX --- */
