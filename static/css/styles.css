@@ -687,3 +687,81 @@ small {
     color: rgba(0, 255, 65, 0.5) !important;
     font-family: 'Share Tech Mono', monospace !important;
 }
+
+/* =========================================
+   ESTILOS TERMINAL INTERACTIVA
+   ========================================= */
+
+/* Botones de comando en el panel lateral */
+.btn-matrix-command {
+    color: #00FF41;
+    background: transparent;
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    font-family: 'Share Tech Mono', monospace;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-matrix-command:hover {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: #00FF41;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    color: #fff;
+}
+
+.btn-matrix-command:before {
+    content: '>';
+    position: absolute;
+    left: -20px;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.btn-matrix-command:hover:before {
+    left: 10px;
+    opacity: 1;
+}
+
+.btn-matrix-command:hover i {
+    opacity: 0; /* Ocultamos el icono original al hacer hover */
+}
+
+
+/* Cursor parpadeante en la terminal */
+.blinking-cursor {
+    font-weight: bold;
+    color: #00FF41;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Scrollbar personalizado para la terminal */
+.terminal-window::-webkit-scrollbar {
+    width: 8px;
+}
+.terminal-window::-webkit-scrollbar-track {
+    background: #000;
+}
+.terminal-window::-webkit-scrollbar-thumb {
+    background: #003300;
+    border: 1px solid #00FF41;
+}
+
+/* Animación de aparición línea por línea (Terminal Reveal) */
+.terminal-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: terminalFadeIn 0.5s forwards ease-out;
+}
+
+@keyframes terminalFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
