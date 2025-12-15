@@ -846,3 +846,50 @@ small {
     transform: translateY(-5px);
     cursor: pointer;
 }
+
+/* =========================================
+   AJUSTES MÓVILES (RESPONSIVE FIXES)
+   ========================================= */
+
+@media (max-width: 991px) {
+    
+    /* 1. ARREGLO DEL CORREO QUE SE SALE */
+    .matrix-email-link {
+        font-size: 0.85rem !important; /* Reducimos el tamaño de letra */
+        width: 100%;                   /* Que ocupe el ancho disponible */
+        justify-content: center;       /* Centrado */
+        padding: 8px 10px !important;  /* Menos relleno lateral */
+        white-space: nowrap;           /* Intentar mantener en una línea */
+        overflow: hidden;              /* Si sobra, que no rompa el sitio */
+        text-overflow: ellipsis;       /* Pone "..." si no cabe (opcional) */
+    }
+    
+    /* Si el correo es MUY largo, permitimos que baje de línea en pantallas muy pequeñas */
+    @media (max-width: 400px) {
+        .matrix-email-link {
+            font-size: 0.75rem !important; /* Aún más pequeño en móviles estrechos */
+            white-space: normal;           /* Permitir salto de línea si es vital */
+            word-break: break-all;         /* Romper la palabra si es necesario */
+            flex-direction: column;        /* Icono arriba, texto abajo */
+            gap: 5px;
+        }
+        .matrix-email-link span { display: none; } /* Ocultar el ">" decorativo en móvil */
+    }
+
+    /* 2. ARREGLO DEL MENÚ DESPLEGABLE */
+    .navbar-collapse {
+        background-color: rgba(0, 10, 0, 0.98); /* Fondo negro sólido para que se lea */
+        border: 1px solid #00FF41;              /* Borde verde alrededor del menú */
+        border-top: none;
+        padding: 15px;
+        border-radius: 0 0 10px 10px;
+        margin-top: 10px;
+        box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+    }
+
+    /* Ajuste del Logo en móvil para que quepa bien con el botón */
+    .navbar-brand {
+        font-size: 1.1rem !important; /* Logo un poco más pequeño */
+        max-width: 70%;               /* Para que no empuje al botón fuera */
+    }
+}
