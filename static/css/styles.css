@@ -819,3 +819,22 @@ small {
     transform: translateY(-5px); /* Salta un poco */
     cursor: pointer;
 }
+
+/* Añade esta animación al final de tu styles.css */
+@keyframes glitch-anim {
+  0% { transform: translate(0) }
+  20% { transform: translate(-2px, 2px) }
+  40% { transform: translate(-2px, -2px) }
+  60% { transform: translate(2px, 2px) }
+  80% { transform: translate(2px, -2px) }
+  100% { transform: translate(0) }
+}
+
+/* Actualiza el hover del botón */
+.btn-scroll-top:hover {
+    background: #00FF41;
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.8), -2px 0 #ff00c1, 2px 0 #00fff9; /* Sombras tipo aberración cromática */
+    animation: glitch-anim 0.3s infinite; /* Aquí está la magia */
+    cursor: pointer;
+}
