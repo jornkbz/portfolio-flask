@@ -786,10 +786,6 @@ small {
     transition: all 0.3s ease;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #00FF41 !important;
-    text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
-}
 
 /* --- BOTÓN VOLVER ARRIBA (GLITCH STYLE) --- */
 .btn-scroll-top {
