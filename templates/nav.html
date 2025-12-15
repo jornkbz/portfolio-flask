@@ -1,8 +1,7 @@
-<nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav id="mainNavbar" class="navbar navbar-expand-lg navbar-dark fixed-top" style="transition: all 0.4s ease;">
     
     <div class="container">
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border-color: #00FF41;">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -22,20 +21,27 @@
     </div>
 </nav>
 
-<script>
-    // SCRIPT NAV + BACK TO TOP
-    const navbar = document.getElementById('mainNavbar');
-    const backToTop = document.getElementById('backToTop');
+<a href="#home" id="backToTop" class="btn-scroll-top d-none">
+    <i class="fas fa-chevron-up"></i>
+</a>
 
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('matrix-navbar-scrolled');
-            // Mostrar botón volver arriba
-            backToTop.classList.remove('d-none');
-        } else {
-            navbar.classList.remove('matrix-navbar-scrolled');
-            // Ocultar botón volver arriba
-            backToTop.classList.add('d-none');
-        }
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const navbar = document.getElementById('mainNavbar');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                // Efecto HUD para el Navbar
+                navbar.classList.add('matrix-navbar-scrolled');
+                // Mostrar botón volver arriba
+                if(backToTop) backToTop.classList.remove('d-none');
+            } else {
+                // Quitar efecto HUD
+                navbar.classList.remove('matrix-navbar-scrolled');
+                // Ocultar botón volver arriba
+                if(backToTop) backToTop.classList.add('d-none');
+            }
+        });
     });
 </script>
