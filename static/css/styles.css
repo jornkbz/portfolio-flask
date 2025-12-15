@@ -893,3 +893,35 @@ small {
         max-width: 70%;               /* Para que no empuje al botón fuera */
     }
 }
+
+/* =========================================
+   FIX FINAL: BOTÓN DE CONTACTO Y TÍTULOS
+   ========================================= */
+
+@media (max-width: 576px) {
+    
+    /* 1. Arreglar el botón gigante de protocolo */
+    #contact .btn-lg, 
+    #contact a.btn {
+        font-size: 0.8rem !important;  /* Reducimos la letra drásticamente */
+        padding: 15px 10px !important; /* Menos relleno a los lados */
+        width: 100%;                   /* Que no sea más ancho que la pantalla */
+        white-space: normal;           /* Permitir que el texto baje de línea */
+        word-break: break-all;         /* ROMPER LA PALABRA si es necesario (Vital para textos largos sin espacios) */
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* 2. Reducir el tamaño de "¿PORTFOLIO COMO ESTE?" */
+    #contact h2, 
+    #contact .display-4 {
+        font-size: 1.8rem !important; /* Tamaño más razonable para móvil */
+        line-height: 1.2;
+    }
+
+    /* 3. Ajustar texto secundario "No seas un usuario más..." */
+    #contact p.lead {
+        font-size: 1rem !important;
+        padding: 0 10px; /* Un poco de margen para que no toque los bordes */
+    }
+}
