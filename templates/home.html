@@ -53,40 +53,56 @@
                         <p>Actualmente, superviso y administro la infraestructura tecnológica y la seguridad de redes en entornos empresariales críticos, asegurando la protección, el rendimiento y la eficiencia de los sistemas, siempre en busca de optimizar procesos y mejorar la seguridad.</p>
                     </div>
 
-                    <div class="mt-5 text-center">
+<div class="mt-5 text-center">
                         <h4 class="mb-4 border-bottom-matrix d-inline-block px-3">Choose your reality</h4>
                         
-                        <div class="d-flex justify-content-center gap-5 my-4 perspective-container">
-                            <div class="pill-wrapper" onclick="filterStack('blue')">
+                        <div class="d-flex justify-content-center gap-4 gap-md-5 my-4 perspective-container flex-wrap">
+                            <div class="pill-wrapper" onclick="filterStack('blue')" title="Mostrar Stack de Desarrollo y Datos">
                                 <div class="pill blue-pill"></div>
                                 <div class="pill-shadow"></div>
-                                <span class="pill-label text-primary mt-2 d-block">DevOps & Dev</span>
+                                <span class="pill-label text-primary mt-2 d-block">Dev & Data</span>
                             </div>
 
-                            <div class="pill-wrapper" onclick="filterStack('red')">
+                            <div class="pill-wrapper" onclick="filterStack('red')" title="Mostrar Stack de Sistemas y Seguridad">
                                 <div class="pill red-pill"></div>
                                 <div class="pill-shadow"></div>
-                                <span class="pill-label text-danger mt-2 d-block">Sistemas & Sec</span>
+                                <span class="pill-label text-danger mt-2 d-block">SysAdmin & Sec</span>
+                            </div>
+
+                            <div class="pill-wrapper" onclick="filterStack('all')" title="Mostrar Todas las Realidades">
+                                <div class="pill purple-pill" style="background: linear-gradient(135deg, #00BFFF, #FF4500); box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);"></div>
+                                <div class="pill-shadow"></div>
+                                <span class="pill-label mt-2 d-block" style="color: #DA70D6;">Ambas Realidades</span>
                             </div>
                         </div>
 
-                        <p id="stack-status" class="small text-muted mb-4">> Waiting for input...</p>
+                        <p id="stack-status" class="small text-muted mb-4" style="font-family: 'Share Tech Mono', monospace;">> Waiting for input...</p>
                     </div>
                     
-                    <div class="row text-center g-4 row-cols-3 row-cols-md-5 justify-content-center" id="tech-grid">
-                        <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Security</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="fas fa-database tech-icon"></i><br><small>Big Data</small></div>
-
+                    <div class="row text-center g-4 row-cols-3 row-cols-md-4 row-cols-lg-5 justify-content-center" id="tech-grid">
                         <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
                         <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-fastapi-plain tech-icon"></i><br><small>FastAPI</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-pandas-original tech-icon"></i><br><small>Pandas</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-scikitlearn-plain tech-icon"></i><br><small>Scikit-learn</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="devicon-postgresql-plain tech-icon"></i><br><small>PostgreSQL</small></div>
+                        <div class="col tech-item" data-cat="blue"><i class="fab fa-git-alt tech-icon"></i><br><small>Git</small></div>
+
+                        <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-bash-plain tech-icon"></i><br><small>Bash Script</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-kubernetes-plain tech-icon"></i><br><small>Kubernetes</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab CI</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-azure-plain tech-icon"></i><br><small>Azure</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Ciberseguridad</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="fas fa-network-wired tech-icon"></i><br><small>Redes/VPN</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-prometheus-original tech-icon"></i><br><small>Prometheus</small></div>
+                        <div class="col tech-item" data-cat="red"><i class="devicon-grafana-original tech-icon"></i><br><small>Grafana</small></div>
                     </div>
-                </div> 
+                </div>
             </div> 
             
             <hr class="matrix-divider my-5">
