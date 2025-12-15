@@ -788,14 +788,14 @@ small {
 }
 
 
-/* --- BOTÓN VOLVER ARRIBA (GLITCH AGRESIVO) --- */
+/* --- BOTÓN VOLVER ARRIBA: EFECTO SONAR (RADAR) --- */
 .btn-scroll-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 50px;
     height: 50px;
-    background: #000; /* Fondo negro siempre */
+    background: black;
     border: 2px solid #00FF41;
     color: #00FF41;
     border-radius: 50%;
@@ -805,32 +805,44 @@ small {
     font-size: 1.5rem;
     z-index: 1050;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    /* Importante para que las ondas salgan del botón */
+    position: fixed; 
 }
 
-/* --- BOTÓN VOLVER ARRIBA: GLITCH EXTREMO --- */
-
-/* Animación: Tiembla mucho más fuerte */
-@keyframes glitch-shake {
-  0% { transform: translate(0) }
-  20% { transform: translate(-5px, 5px) }  /* Movimiento más brusco */
-  40% { transform: translate(-5px, -5px) }
-  60% { transform: translate(5px, 5px) }
-  80% { transform: translate(5px, -5px) }
-  100% { transform: translate(0) }
+/* El círculo que se expande (Onda) */
+.btn-scroll-top::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px; /* Coincide con el borde */
+    border-radius: 50%;
+    border: 2px solid #00FF41;
+    opacity: 0;
+    z-index: -1; /* Detrás del botón */
 }
 
+/* Animación de la onda */
+@keyframes sonar-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(2); /* Crece al doble */
+        opacity: 0;          /* Desaparece */
+    }
+}
+
+/* Comportamiento NORMAL (Sin ratón): Emite pulsos suavemente para llamar la atención */
+.btn-scroll-top:not(:hover)::before {
+    animation: sonar-pulse 2s infinite;
+}
+
+/* Comportamiento HOVER (Con ratón): Se "carga" de energía */
 .btn-scroll-top:hover {
-    background: #000; 
-    color: #fff;
-    border-color: #fff;
-    
-    /* SOMBRAS DE COLORES MUY SEPARADAS */
-    box-shadow: 
-        -5px 0 0 rgba(0, 255, 255, 0.8),  /* Cian desplazado 5px a la izquierda */
-         5px 0 0 rgba(255, 0, 255, 0.8),  /* Magenta desplazado 5px a la derecha */
-         0 0 20px rgba(0, 255, 65, 1);    /* Resplandor verde fuerte */
-    
-    animation: glitch-shake 0.15s infinite; /* Velocidad frenética */
+    background: #00FF41;
+    color: black;
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.8); /* Resplandor intenso */
+    transform: translateY(-5px);
     cursor: pointer;
 }
