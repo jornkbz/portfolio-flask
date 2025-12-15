@@ -22,7 +22,7 @@
 
   <script rel="stylesheet" href="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"> </script>
   
- <script>
+ <script>{
     const canvas = document.getElementById('matrix-rain');
     const ctx = canvas.getContext('2d');
 
@@ -86,6 +86,7 @@
         // 4. Actualizar el número total de columnas
         columns = newColumns;
     });
+}
 </script>
 
 <script>
