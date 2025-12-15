@@ -84,7 +84,55 @@
                         <div class="col tech-item" data-cat="blue"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab</small></div>
                     </div>
                 </div> 
-            </div> <hr class="matrix-divider my-5">
+            </div> 
+            
+            <hr class="matrix-divider my-5">
+
+            <section id="terminal-section" class="py-4">
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-4">
+                        <div class="matrix-card p-3 h-100" style="border: 1px solid #00FF41; background: rgba(0, 20, 0, 0.8);">
+                            <h5 class="text-warning mb-3 typing-effect">> AVAILABLE_COMMANDS:</h5>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('education')">
+                                    <i class="fas fa-chevron-right me-2 small"></i>cat education.txt
+                                </button>
+                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('capabilities')">
+                                    <i class="fas fa-chevron-right me-2 small"></i>cat capabilities.json
+                                </button>
+                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('career')">
+                                    <i class="fas fa-chevron-right me-2 small"></i>tail -f career.log
+                                </button>
+                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('projects')">
+                                    <i class="fas fa-chevron-right me-2 small"></i>git remote show origin
+                                </button>
+                                <hr class="matrix-divider my-2">
+                                <button class="btn btn-matrix-command text-start text-danger" onclick="clearTerminal()">
+                                    <i class="fas fa-times me-2 small"></i>clear screen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9 col-md-8">
+                        <div class="terminal-window h-100" style="border: 1px solid #00FF41; background: #000; padding: 20px; font-family: 'Share Tech Mono', monospace; height: 600px; overflow-y: auto; box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.2);">
+                            <div id="terminal-output">
+                                <div class="terminal-line text-muted">Welcome to Jose Cabezas Portfolio Terminal v2.5.0</div>
+                                <div class="terminal-line text-muted">Type a command or select one from the left panel to begin session...</div>
+                                <div class="terminal-line mb-3">------------------------------------------------------------</div>
+                            </div>
+                            <div class="terminal-input-line d-flex">
+                                <span class="text-success me-2">user@jose-portfolio:~$</span>
+                                <span id="typed-command" class="text-white"></span>
+                                <span class="blinking-cursor">_</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </div> 
+    </div>
+</section>
 
 <template id="tpl-education">
     <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
@@ -210,7 +258,6 @@
     </div>
 </template>
 
-
 <template id="tpl-projects">
      <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
          <h3 class="mb-4 text-uppercase border-bottom-matrix pb-2">
@@ -296,56 +343,20 @@
         </div>
     </div>
 </template>
-                    <div class="project-list-card h-100">
-                        <h5 class="text-white border-bottom-matrix pb-2 mb-3" style="font-family: 'Share Tech Mono', monospace;">
-                            <i class="fas fa-folder-open text-warning me-2"></i> ~/src/security/
-                        </h5>
-                        
-                        <ul class="list-unstyled project-list mt-3">
-                            <li class="mb-3">
-                                <a href="https://github.com/jornkbz/RFM-EIP-SGSI" target="_blank" class="d-flex align-items-center">
-                                    <i class="fas fa-file-contract me-2 text-success"></i> 
-                                    <span>ISO27001-SGSI/</span>
-                                </a>
-                                <small class="text-muted d-block ms-4">> Gestión de Seguridad (Compliance)</small>
-                            </li>
-                            <li class="mb-3">
-                                <div class="d-flex align-items-center text-success" style="opacity: 0.8;">
-                                    <i class="fas fa-bug me-2"></i> 
-                                    <span>vuln-scan-reports/</span>
-                                </div>
-                                <small class="text-muted d-block ms-4">> Análisis de Vulnerabilidades</small>
-                            </li>
-                            <li class="mb-3">
-                                <div class="d-flex align-items-center text-success" style="opacity: 0.8;">
-                                    <i class="fas fa-shield-alt me-2"></i> 
-                                    <span>hardening-logs/</span>
-                                </div>
-                                <small class="text-muted d-block ms-4">> Gestión de Logs & VPNs</small>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-         </div> 
-    </div>
-</section>
-
-
 
 <script>
-    // 1. FILTRO DE PASTILLAS (Corregido para grid)
+    // 1. FILTRO DE PASTILLAS
     function filterStack(color) {
         const items = document.querySelectorAll('.tech-item');
         const statusText = document.getElementById('stack-status');
         const grid = document.getElementById('tech-grid');
         
-        grid.style.opacity = '0'; // Fade out
+        grid.style.opacity = '0'; 
         
         setTimeout(() => {
             items.forEach(item => {
                 if (item.getAttribute('data-cat') === color) {
-                    item.style.display = ''; // <--- IMPORTANTE: Comillas vacías recuperan el grid
+                    item.style.display = ''; 
                 } else {
                     item.style.display = 'none';
                 }
@@ -359,25 +370,20 @@
                 statusText.style.color = '#FF4500';
             }
             
-            grid.style.opacity = '1'; // Fade in
+            grid.style.opacity = '1';
         }, 200);
     }
 
 
-// 3. FUNCIÓN COPIAR EMAIL
+    // 2. FUNCIÓN COPIAR EMAIL
     function copyEmailToClipboard() {
         const email = "josecabezaspulgarin@gmail.com";
         const icon = document.getElementById('copy-icon');
 
-        // Copiar al portapapeles
         navigator.clipboard.writeText(email).then(() => {
-            
-            // Efecto visual de éxito
-            // 1. Cambiamos el icono de 'copiar' a 'check'
             icon.classList.remove('fa-copy');
             icon.classList.add('fa-check');
             
-            // 2. Volvemos al estado original después de 2 segundos
             setTimeout(() => {
                 icon.classList.remove('fa-check');
                 icon.classList.add('fa-copy');
@@ -387,15 +393,12 @@
             console.error('Error al copiar: ', err);
         });
     }
-</script>
 
-
-<script>
+    // 3. TERMINAL INTERACTIVA
     const terminalOutput = document.getElementById('terminal-output');
     const typedCommandSpan = document.getElementById('typed-command');
     const terminalWindow = document.querySelector('.terminal-window');
 
-    // Mapa de comandos y los IDs de sus plantillas
     const commandMap = {
         'education': { cmd: 'cat education.txt', tplId: 'tpl-education' },
         'capabilities': { cmd: 'cat capabilities.json', tplId: 'tpl-capabilities' },
@@ -406,14 +409,13 @@
     let isExecuting = false;
 
     function executeCommand(commandKey) {
-        if (isExecuting) return; // Evitar múltiples clics
+        if (isExecuting) return; 
         isExecuting = true;
 
         const commandData = commandMap[commandKey];
         const commandText = commandData.cmd;
         const templateId = commandData.tplId;
 
-        // 1. Simular escritura del comando
         let i = 0;
         typedCommandSpan.textContent = '';
         const typeInterval = setInterval(() => {
@@ -422,37 +424,31 @@
                 i++;
             } else {
                 clearInterval(typeInterval);
-                // Pausa dramática antes de mostrar el resultado
                 setTimeout(() => processCommandOutput(commandText, templateId), 500);
             }
-        }, 50); // Velocidad de escritura
+        }, 50); 
     }
 
     function processCommandOutput(commandText, templateId) {
-        // 2. Mover la línea de comando actual al historial
         const previousPrompt = document.createElement('div');
         previousPrompt.innerHTML = `<span class="text-success me-2">user@jose-portfolio:~$</span><span class="text-white">${commandText}</span>`;
         terminalOutput.appendChild(previousPrompt);
 
-        // 3. Limpiar la línea de input actual
         typedCommandSpan.textContent = '';
 
-        // 4. Obtener y clonar el contenido de la plantilla
         const template = document.getElementById(templateId);
-        const clone = template.content.cloneNode(true);
+        // Comprobación de seguridad por si el template no existe
+        if(template) {
+            const clone = template.content.cloneNode(true);
+            terminalOutput.appendChild(clone);
+        }
 
-        // 5. Añadir el contenido clonado a la salida
-        terminalOutput.appendChild(clone);
-
-        // 6. Scroll automático hacia abajo
         terminalWindow.scrollTop = terminalWindow.scrollHeight;
-
         isExecuting = false;
     }
 
     function clearTerminal() {
         terminalOutput.innerHTML = '';
-        // Mensaje de bienvenida opcional tras limpiar
         terminalOutput.innerHTML = '<div class="terminal-line text-muted">Terminal cleared. Session reset.</div><div class="terminal-line mb-3">------------------------------------------------------------</div>';
     }
 </script>
