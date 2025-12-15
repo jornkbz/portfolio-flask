@@ -766,33 +766,24 @@ small {
     }
 }
 
-/* =========================================
-   NAVBAR HUD STYLE (Efecto Matrix Sticky)
-   ========================================= */
-
-/* Esta clase se añadirá con JS al hacer scroll */
+/* --- NAVBAR HUD (EFECTO MATRIX AL BAJAR) --- */
 .matrix-navbar-scrolled {
-    background-color: rgba(0, 15, 0, 0.95) !important; /* Negro verdoso casi opaco */
-    backdrop-filter: blur(10px);          /* Efecto cristal borroso */
-    border-bottom: 1px solid #00FF41;     /* Línea neón abajo */
-    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.2); /* Resplandor verde hacia abajo */
-    padding-top: 10px !important;         /* Hacemos la barra un poco más compacta */
+    background-color: rgba(0, 15, 0, 0.95) !important; /* Fondo casi negro */
+    backdrop-filter: blur(10px);          /* Desenfoque tipo cristal */
+    border-bottom: 1px solid #00FF41;     /* Línea verde neón */
+    box-shadow: 0 4px 20px rgba(0, 255, 65, 0.2); /* Resplandor */
+    padding-top: 10px !important;
     padding-bottom: 10px !important;
-    transition: all 0.4s ease;            /* Animación suave */
 }
 
-/* Aseguramos que el navbar siempre esté encima de todo */
-.navbar {
-    transition: all 0.4s ease;
-    z-index: 1000;
-}
-
-/* Efecto para los enlaces del menú al pasar el ratón */
+/* Enlaces del menú */
 .navbar-nav .nav-link {
-    position: relative;
     color: #fff !important;
     font-family: 'Share Tech Mono', monospace;
-    transition: color 0.3s;
+    font-size: 1.1rem;
+    position: relative;
+    margin: 0 15px;
+    transition: all 0.3s ease;
 }
 
 .navbar-nav .nav-link:hover {
@@ -800,46 +791,31 @@ small {
     text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
 }
 
-/* Pequeño subrayado animado al hacer hover */
-.navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #00FF41;
-    transition: width 0.3s;
-    box-shadow: 0 0 5px #00FF41;
-}
-
-.navbar-nav .nav-link:hover::after {
-    width: 100%;
-}
-
+/* --- BOTÓN VOLVER ARRIBA (GLITCH STYLE) --- */
 .btn-scroll-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 50px;
     height: 50px;
-    background: black;
-    border: 2px solid #00FF41;
+    background: black; /* Fondo negro */
+    border: 2px solid #00FF41; /* Borde verde */
     color: #00FF41;
-    border-radius: 50%;
+    border-radius: 50%; /* Redondo */
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    z-index: 999;
+    z-index: 1050; /* Por encima de todo */
     box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
     transition: all 0.3s ease;
     text-decoration: none;
 }
 
 .btn-scroll-top:hover {
-    background: #00FF41;
-    color: black;
+    background: #00FF41; /* Se vuelve verde */
+    color: black; /* Icono negro */
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.8);
-    transform: translateY(-5px); /* Pequeño salto al pasar el mouse */
+    transform: translateY(-5px); /* Salta un poco */
+    cursor: pointer;
 }
