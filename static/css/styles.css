@@ -631,3 +631,43 @@ footer {
 .matrix-email-link i {
     margin-right: 8px;
 }
+
+/* ==========================================================================
+   GLOBAL OVERRIDE: ADIÓS AL GRIS, HOLA MATRIX
+   ========================================================================== */
+
+/* 1. Redefinir la clase .text-muted (lo que se ve gris) */
+.text-muted {
+    color: #00FF41 !important;           /* Verde Matrix Neón */
+    font-family: 'Share Tech Mono', monospace !important; /* Fuente Hacker */
+    text-shadow: 0 0 4px rgba(0, 255, 65, 0.4); /* Resplandor suave */
+    opacity: 0.9;                        /* Sutilmente menos intenso que los títulos */
+}
+
+/* 2. Forzar también las etiquetas <small> */
+small {
+    color: #00FF41 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 0.9rem; /* Tamaño legible */
+}
+
+/* 3. Corrección específica para listas dentro de tarjetas (Educación, Proyectos) */
+.list-unstyled li, 
+.matrix-education div,
+.timeline-desc li {
+    color: #00FF41 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+}
+
+/* 4. Labels de formularios (Nombre, Correo...) */
+.form-label {
+    color: #00FF41 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);
+}
+
+/* 5. Placeholders (el texto de ayuda dentro de los inputs) */
+::placeholder {
+    color: rgba(0, 255, 65, 0.5) !important;
+    font-family: 'Share Tech Mono', monospace !important;
+}
