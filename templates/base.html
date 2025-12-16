@@ -23,15 +23,18 @@
 
 <div id="oracle-widget-container">
     
-    <div id="oracle-window" class="terminal-window d-none">
-        <div class="d-flex justify-content-between align-items-center p-2" style="background: rgba(0, 40, 0, 0.9); border-bottom: 1px solid #00FF41;">
-            <span class="text-success small fw-bold"><i class="fas fa-robot me-1"></i> ORACLE_V2.0</span>
-            <button onclick="toggleOracle()" class="btn btn-sm text-success" style="background: none; border: none;">
-                <i class="fas fa-times"></i> [X]
+    <div id="oracle-window" class="terminal-window">
+        
+        <div class="d-flex justify-content-between align-items-center p-2" style="background: rgba(0, 40, 0, 0.95); border-bottom: 1px solid #00FF41;">
+            <span class="text-success small fw-bold" style="font-family: 'Share Tech Mono';">
+                <i class="fas fa-robot me-2"></i>ORACLE_V2.5
+            </span>
+            <button onclick="toggleOracle()" class="btn btn-sm text-success p-0" style="background: none; border: none; font-size: 1.2rem;">
+                <i class="fas fa-times"></i>
             </button>
         </div>
         
-        <div id="chat-box" class="p-3" style="height: 250px; overflow-y: auto; background: rgba(0, 0, 0, 0.95);">
+        <div id="chat-box" class="p-3" style="background: rgba(0, 0, 0, 0.95);">
             <div class="mb-2">
                 <span class="text-success fw-bold">[SYSTEM]:</span> 
                 <span class="text-white small">Enlace establecido. Pregúntame sobre José.</span>
@@ -48,9 +51,6 @@
     <button id="oracle-trigger" onclick="toggleOracle()" class="btn-glitch-active">
         <i class="fas fa-brain"></i>
         <span class="ms-2 d-none d-md-inline">AI_ASSISTANT</span>
-        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-            <span class="visually-hidden">New alerts</span>
-        </span>
     </button>
 
 </div>
