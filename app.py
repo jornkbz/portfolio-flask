@@ -25,14 +25,14 @@ mail = Mail(app)
 # Configura la API Key obtenida del .env
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 # --- DEBUG: VER QUÉ MODELOS TENGO DISPONIBLES ---
-print("--- MODELOS DISPONIBLES ---")
-for m in genai.list_models():
-    if 'generateContent' in m.supported_generation_methods:
-        print(m.name)
-print("---------------------------")
+#print("--- MODELOS DISPONIBLES ---")
+#for m in genai.list_models():
+#    if 'generateContent' in m.supported_generation_methods:
+#        print(m.name)
+#print("---------------------------")
 
 # Inicializamos el modelo (Flash es rápido y gratis)
-model = genai.GenerativeModel('models/gemini-1.5-flash')
+model = genai.GenerativeModel('models/gemini-2.0-flash')
 
 # Función auxiliar para leer tu "memoria" (CV)
 def get_context():
