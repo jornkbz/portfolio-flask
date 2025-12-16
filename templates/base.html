@@ -58,40 +58,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"></script>
   
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
+    {
+        // Usamos un bloque aislado '{ ... }' para que las variables no choquen nunca
         const aiWindow = document.getElementById('ai-window-v3');
         const aiInput = document.getElementById('ai-input-v3');
         const aiChatBox = document.getElementById('ai-chat-box-v3');
 
-        // Función para abrir/cerrar
-        function toggleWidgetV3() {
+        // Hacemos las funciones globales para que el HTML (onclick) pueda verlas
+        window.toggleWidgetV3 = function() {
             if (aiWindow.classList.contains('d-none')) {
                 aiWindow.classList.remove('d-none');
                 setTimeout(() => aiInput.focus(), 100);
             } else {
                 aiWindow.classList.add('d-none');
             }
-        }
+        };
 
-        // Permitir Enter para enviar
-        if(aiInput){
-            aiInput.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") sendAiMessageV3();
-            });
-        }
-
-        function sendAiMessageV3() {
+        window.sendAiMessageV3 = function() {
             const text = aiInput.value.trim();
-            if (!text) return; // Si está vacío, no hace nada
+            if (!text) return; 
 
-            // 1. Mostrar mensaje usuario
             appendAiMessage('VISITOR', text, 'text-warning');
             aiInput.value = '';
 
-            // 2. Loading
             const loadingId = appendAiMessage('SYSTEM', 'Procesando...', 'text-success blinking-cursor');
 
-            // 3. Petición al servidor
             fetch('/ask_oracle', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -108,6 +102,13 @@
                 const loadingMsg = document.getElementById(loadingId);
                 if(loadingMsg) loadingMsg.remove();
                 appendAiMessage('ERROR', 'Sin conexión.', 'text-danger');
+            });
+        };
+
+        // Evento Enter
+        if(aiInput){
+            aiInput.addEventListener("keypress", function(event) {
+                if (event.key === "Enter") window.sendAiMessageV3();
             });
         }
 
@@ -137,72 +138,76 @@
                 if (i >= text.length) clearInterval(interval);
             }, 10);
         }
+    }
     </script>
 
     <script>
+    {
         const canvas = document.getElementById('matrix-rain');
-        const ctx = canvas.getContext('2d');
+        
+        // Verificamos si el canvas existe para evitar errores si cambias de página
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
 
-        // Definir tamaño inicial
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const nums = '0123456789';
-        const alphabet = katakana + latin + nums;
-
-        const fontSize = 16;
-        let columns = Math.floor(canvas.width / fontSize); 
-
-        const rainDrops = [];
-
-        // Inicializar las gotas
-        for( let x = 0; x < columns; x++ ) {
-            rainDrops[x] = 1;
-        }
-
-        const draw = () => {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-
-            for(let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        };
-
-        setInterval(draw, 30);
-
-        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            
-            const newColumns = Math.floor(canvas.width / fontSize);
-            
-            if (newColumns > columns) {
-                for (let x = columns; x < newColumns; x++) {
+
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            const alphabet = katakana + latin + nums;
+
+            const fontSize = 16;
+            let columns = Math.floor(canvas.width / fontSize); 
+
+            const rainDrops = [];
+
+            for( let x = 0; x < columns; x++ ) {
+                rainDrops[x] = 1;
+            }
+
+            const draw = () => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+
+                for(let i = 0; i < rainDrops.length; i++) {
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                    if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            };
+
+            setInterval(draw, 30);
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.floor(canvas.width / fontSize);
+                // Reiniciar gotas al redimensionar para evitar huecos
+                for( let x = 0; x < columns; x++ ) {
                     rainDrops[x] = 1;
                 }
-            }
-            columns = newColumns;
-        });
+            });
+        }
+    }
     </script>
 
     <script>
-        function initiateContactProtocol() {
-            document.getElementById('contact-trigger').classList.add('d-none');
+    {
+        // Hacemos la función global
+        window.initiateContactProtocol = function() {
+            const trigger = document.getElementById('contact-trigger');
+            if(trigger) trigger.classList.add('d-none');
             
             const loader = document.getElementById('terminal-loader');
-            loader.classList.remove('d-none');
+            if(loader) loader.classList.remove('d-none');
 
             const lines = [
                 { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
@@ -213,15 +218,18 @@
 
             lines.forEach(line => {
                 setTimeout(() => {
-                    document.getElementById(line.id).innerText = line.text;
+                    const el = document.getElementById(line.id);
+                    if(el) el.innerText = line.text;
                 }, line.delay);
             });
 
             setTimeout(() => {
-                loader.classList.add('d-none'); 
-                document.getElementById('contact-form-wrapper').classList.remove('d-none'); 
+                if(loader) loader.classList.add('d-none'); 
+                const formWrapper = document.getElementById('contact-form-wrapper');
+                if(formWrapper) formWrapper.classList.remove('d-none'); 
             }, 4500);
-        }
+        };
+    }
     </script>
 </body>
 </html>
