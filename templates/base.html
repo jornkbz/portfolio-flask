@@ -21,215 +21,228 @@
     
     {% endblock %}
 
-    <div id="ai-widget-container-v3">
+<div id="oracle-widget-container">
+    
+    <div id="oracle-window" class="terminal-window">
         
-        <div id="ai-window-v3" class="terminal-window">
-            <div class="d-flex justify-content-between align-items-center p-2 header-bar" style="background: rgba(0, 40, 0, 0.9); border-bottom: 1px solid #00FF41;">
-                <span class="text-success small fw-bold" style="font-family: 'Share Tech Mono';">
-                    <i class="fas fa-robot me-2"></i>ORACLE_SYSTEM
-                </span>
-                <button onclick="toggleWidgetV3()" class="btn-close-custom" style="background:none; border:none; color:#00FF41;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div id="ai-chat-box-v3" class="p-3 chat-content" style="height: 350px; overflow-y: auto; background: rgba(0,0,0,0.95);">
-                <div class="mb-2">
-                    <span class="text-success fw-bold">[SYSTEM]:</span> 
-                    <span class="text-white small">Enlace establecido. Pregúntame sobre José.</span>
-                </div>
-            </div>
-
-            <div class="p-2 input-area d-flex align-items-center" style="background: rgba(0, 20, 0, 0.95); border-top: 1px solid #00FF41;">
-                <span class="text-success me-1">></span>
-                <input type="text" id="ai-input-v3" class="bg-transparent border-0 text-white w-100 small custom-input" style="outline:none; font-family:'Share Tech Mono';" placeholder="Escribe aquí..." autocomplete="off">
-                <button onclick="sendAiMessageV3()" class="btn-send-custom ms-2" style="background:none; border:none; color:#00FF41;">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+        <div class="d-flex justify-content-between align-items-center p-2" style="background: rgba(0, 40, 0, 0.95); border-bottom: 1px solid #00FF41;">
+            <span class="text-success small fw-bold" style="font-family: 'Share Tech Mono';">
+                <i class="fas fa-robot me-2"></i>ORACLE_V2.5
+            </span>
+            <button onclick="toggleOracle()" class="btn btn-sm text-success p-0" style="background: none; border: none; font-size: 1.2rem;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div id="chat-box" class="p-3" style="background: rgba(0, 0, 0, 0.95);">
+            <div class="mb-2">
+                <span class="text-success fw-bold">[SYSTEM]:</span> 
+                <span class="text-white small">Enlace establecido. Pregúntame sobre José.</span>
             </div>
         </div>
 
-        <button id="ai-trigger-v3" onclick="toggleWidgetV3()" class="btn-glitch-active">
-            <i class="fas fa-brain"></i>
-            <span class="ms-2 d-none d-md-inline">AI_ASSISTANT</span>
-        </button>
+        <div class="p-2 d-flex align-items-center" style="background: rgba(0, 20, 0, 0.95); border-top: 1px solid #00FF41;">
+            <span class="text-success me-1">></span>
+            <input type="text" id="user-input" class="bg-transparent border-0 text-white w-100 small" style="outline: none; font-family: 'Share Tech Mono';" placeholder="Escribe aquí..." autocomplete="off">
+            <button onclick="sendMessage()" class="btn btn-sm text-success p-0 ms-2"><i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
 
+    <button id="oracle-trigger" onclick="toggleOracle()" class="btn-glitch-active">
+        <i class="fas fa-brain"></i>
+        <span class="ms-2 d-none d-md-inline">AI_ASSISTANT</span>
+    </button>
+
+</div>
+
+
+
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"></script>
+  <script rel="stylesheet" href="{{ url_for('static', filename = 'js/bootstrap.bundle.min.js')}}"> </script>
   
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // --- VARIABLES GLOBALES ---
+    const chatWindow = document.getElementById('oracle-window');
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
 
-    <script>
-    {
-        // Usamos un bloque aislado '{ ... }' para que las variables no choquen nunca
-        const aiWindow = document.getElementById('ai-window-v3');
-        const aiInput = document.getElementById('ai-input-v3');
-        const aiChatBox = document.getElementById('ai-chat-box-v3');
-
-        // Hacemos las funciones globales para que el HTML (onclick) pueda verlas
-        window.toggleWidgetV3 = function() {
-            if (aiWindow.classList.contains('d-none')) {
-                aiWindow.classList.remove('d-none');
-                setTimeout(() => aiInput.focus(), 100);
-            } else {
-                aiWindow.classList.add('d-none');
-            }
-        };
-
-        window.sendAiMessageV3 = function() {
-            const text = aiInput.value.trim();
-            if (!text) return; 
-
-            appendAiMessage('VISITOR', text, 'text-warning');
-            aiInput.value = '';
-
-            const loadingId = appendAiMessage('SYSTEM', 'Procesando...', 'text-success blinking-cursor');
-
-            fetch('/ask_oracle', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: text })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const loadingMsg = document.getElementById(loadingId);
-                if(loadingMsg) loadingMsg.remove();
-                typeWriterAi(data.answer);
-            })
-            .catch(err => {
-                console.error(err);
-                const loadingMsg = document.getElementById(loadingId);
-                if(loadingMsg) loadingMsg.remove();
-                appendAiMessage('ERROR', 'Sin conexión.', 'text-danger');
-            });
-        };
-
-        // Evento Enter
-        if(aiInput){
-            aiInput.addEventListener("keypress", function(event) {
-                if (event.key === "Enter") window.sendAiMessageV3();
-            });
-        }
-
-        function appendAiMessage(sender, text, cssClass) {
-            const msgId = 'msg-' + Date.now();
-            const div = document.createElement('div');
-            div.className = 'mb-2 small';
-            div.id = msgId;
-            div.innerHTML = `<span class="${cssClass} fw-bold">[${sender}]:</span> <span class="text-white">${text}</span>`;
-            aiChatBox.appendChild(div);
-            aiChatBox.scrollTop = aiChatBox.scrollHeight;
-            return msgId;
-        }
-
-        function typeWriterAi(text) {
-            const div = document.createElement('div');
-            div.className = 'mb-2 small';
-            div.innerHTML = `<span class="text-info fw-bold">[ORACLE]:</span> <span class="text-white ai-response-text"></span>`;
-            aiChatBox.appendChild(div);
-            
-            const span = div.querySelector('.ai-response-text');
-            let i = 0;
-            const interval = setInterval(() => {
-                span.textContent += text.charAt(i);
-                aiChatBox.scrollTop = aiChatBox.scrollHeight;
-                i++;
-                if (i >= text.length) clearInterval(interval);
-            }, 10);
+    // --- FUNCIÓN PARA ABRIR/CERRAR EL CHAT ---
+    function toggleOracle() {
+        // Si tiene la clase d-none, se la quitamos (mostrar)
+        if (chatWindow.classList.contains('d-none')) {
+            chatWindow.classList.remove('d-none');
+            // Poner el foco en el input para escribir directo
+            setTimeout(() => userInput.focus(), 100); 
+        } else {
+            // Si está visible, lo ocultamos
+            chatWindow.classList.add('d-none');
         }
     }
-    </script>
 
-    <script>
-    {
-        const canvas = document.getElementById('matrix-rain');
+    // --- LÓGICA DE ENVÍO (IGUAL QUE ANTES) ---
+    userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") sendMessage();
+    });
+
+    function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text) return;
+
+        appendMessage('VISITOR', text, 'text-warning');
+        userInput.value = '';
+
+        const loadingId = appendMessage('SYSTEM', 'Procesando...', 'text-success blinking-cursor');
+
+        fetch('/ask_oracle', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: text })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const loadingMsg = document.getElementById(loadingId);
+            if(loadingMsg) loadingMsg.remove();
+            typeWriterEffect('ORACLE', data.answer);
+        })
+        .catch(err => {
+            console.error(err);
+            const loadingMsg = document.getElementById(loadingId);
+            if(loadingMsg) loadingMsg.remove();
+            appendMessage('ERROR', 'Sin conexión.', 'text-danger');
+        });
+    }
+
+    function appendMessage(sender, text, cssClass) {
+        const msgId = 'msg-' + Date.now();
+        const div = document.createElement('div');
+        div.className = 'mb-2 small'; // Texto pequeño para el widget
+        div.id = msgId;
+        div.innerHTML = `<span class="${cssClass} fw-bold">[${sender}]:</span> <span class="text-white">${text}</span>`;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return msgId;
+    }
+
+    function typeWriterEffect(sender, text) {
+        const div = document.createElement('div');
+        div.className = 'mb-2 small';
+        div.innerHTML = `<span class="text-info fw-bold">[${sender}]:</span> <span class="text-white response-text"></span>`;
+        chatBox.appendChild(div);
         
-        // Verificamos si el canvas existe para evitar errores si cambias de página
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
+        const span = div.querySelector('.response-text');
+        let i = 0;
+        const interval = setInterval(() => {
+            span.textContent += text.charAt(i);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            i++;
+            if (i > text.length - 1) clearInterval(interval);
+        }, 10); // Un poco más rápido para widget
+    }
+</script>
 
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
 
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
 
-            const fontSize = 16;
-            let columns = Math.floor(canvas.width / fontSize); 
+ <script>{
+    const canvas = document.getElementById('matrix-rain');
+    const ctx = canvas.getContext('2d');
 
-            const rainDrops = [];
+    // Definir tamaño inicial
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-            for( let x = 0; x < columns; x++ ) {
+    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const nums = '0123456789';
+    const alphabet = katakana + latin + nums;
+
+    const fontSize = 16;
+    let columns = Math.floor(canvas.width / fontSize); // Usamos let para poder actualizarlo luego
+
+    const rainDrops = [];
+
+    // Inicializar las gotas
+    for( let x = 0; x < columns; x++ ) {
+        rainDrops[x] = 1;
+    }
+
+    const draw = () => {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+
+        for(let i = 0; i < rainDrops.length; i++) {
+            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+            if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
+                rainDrops[i] = 0;
+            }
+            rainDrops[i]++;
+        }
+    };
+
+    setInterval(draw, 30);
+
+    // --- PARTE CORREGIDA: Ajustar al redimensionar ---
+    window.addEventListener('resize', () => {
+        // 1. Actualizar tamaño del lienzo
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        // 2. Calcular cuántas columnas caben AHORA
+        const newColumns = Math.floor(canvas.width / fontSize);
+        
+        // 3. Si la pantalla es más ancha, rellenar el array rainDrops con nuevas gotas
+        if (newColumns > columns) {
+            for (let x = columns; x < newColumns; x++) {
+                // Inician arriba del todo (1) o aleatorio (Math.random() * canvas.height/fontSize)
+                // Usamos 1 para que caigan desde el cielo
                 rainDrops[x] = 1;
             }
-
-            const draw = () => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#0F0';
-                ctx.font = fontSize + 'px monospace';
-
-                for(let i = 0; i < rainDrops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                    if(rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975){
-                        rainDrops[i] = 0;
-                    }
-                    rainDrops[i]++;
-                }
-            };
-
-            setInterval(draw, 30);
-
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                columns = Math.floor(canvas.width / fontSize);
-                // Reiniciar gotas al redimensionar para evitar huecos
-                for( let x = 0; x < columns; x++ ) {
-                    rainDrops[x] = 1;
-                }
-            });
         }
-    }
-    </script>
+        
+        // 4. Actualizar el número total de columnas
+        columns = newColumns;
+    });
+}
+</script>
 
-    <script>
-    {
-        // Hacemos la función global
-        window.initiateContactProtocol = function() {
-            const trigger = document.getElementById('contact-trigger');
-            if(trigger) trigger.classList.add('d-none');
-            
-            const loader = document.getElementById('terminal-loader');
-            if(loader) loader.classList.remove('d-none');
+<script>
+    function initiateContactProtocol() {
+        // 1. Ocultar el botón inicial
+        document.getElementById('contact-trigger').classList.add('d-none');
+        
+        // 2. Mostrar la consola de carga
+        const loader = document.getElementById('terminal-loader');
+        loader.classList.remove('d-none');
 
-            const lines = [
-                { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
-                { id: 'log-line-2', text: '> Handshaking with SSL certificate...', delay: 1500 },
-                { id: 'log-line-3', text: '> Encrypting transmission channel [2048-bit]...', delay: 2500 },
-                { id: 'log-line-4', text: '> ACCESS GRANTED. LOAD FORM.', delay: 3500 }
-            ];
+        // 3. Secuencia de mensajes tipo Hacker
+        const lines = [
+            { id: 'log-line-1', text: '> Resolving host: jose-cabezas.server...', delay: 500 },
+            { id: 'log-line-2', text: '> Handshaking with SSL certificate...', delay: 1500 },
+            { id: 'log-line-3', text: '> Encrypting transmission channel [2048-bit]...', delay: 2500 },
+            { id: 'log-line-4', text: '> ACCESS GRANTED. LOAD FORM.', delay: 3500 }
+        ];
 
-            lines.forEach(line => {
-                setTimeout(() => {
-                    const el = document.getElementById(line.id);
-                    if(el) el.innerText = line.text;
-                }, line.delay);
-            });
-
+        // Función para escribir texto letra a letra (opcional) o mostrar línea completa
+        lines.forEach(line => {
             setTimeout(() => {
-                if(loader) loader.classList.add('d-none'); 
-                const formWrapper = document.getElementById('contact-form-wrapper');
-                if(formWrapper) formWrapper.classList.remove('d-none'); 
-            }, 4500);
-        };
+                document.getElementById(line.id).innerText = line.text;
+            }, line.delay);
+        });
+
+        // 4. Mostrar el formulario final después de que acaben los mensajes
+        setTimeout(() => {
+            loader.classList.add('d-none'); // Ocultar carga
+            document.getElementById('contact-form-wrapper').classList.remove('d-none'); // Mostrar form
+        }, 4500);
     }
-    </script>
+</script>
 </body>
 </html>
