@@ -39,7 +39,7 @@ mail = Mail(app)
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Usamos el modelo que te funcionó (2.0 Flash)
-model = genai.GenerativeModel('models/gemini-2.0-flash')
+model = genai.GenerativeModel('models/gemini-2.5-flash-lite')
 
 # Configuración de seguridad: PERMITIR TODO (Para que no se asuste con el rol de hacker)
 safety_settings = {
