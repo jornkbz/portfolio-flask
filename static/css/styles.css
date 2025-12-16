@@ -1070,3 +1070,54 @@ small {
         bottom: 15px;
     }
 }
+
+
+/* --- WIDGET V3 FINAL --- */
+#ai-widget-container-v3 {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+#ai-window-v3 {
+    width: 380px;
+    background: rgba(0, 10, 0, 0.95);
+    border: 1px solid #00FF41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    animation: slideUp 0.3s ease-out;
+}
+
+/* IMPORTANTE: Si quieres que nazca oculto, añade .d-none en el HTML o descomenta esto */
+/* #ai-window-v3.d-none { display: none; } */
+
+#ai-trigger-v3 {
+    background: black;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    transition: all 0.3s;
+}
+
+#ai-trigger-v3:hover {
+    background: #00FF41;
+    color: black;
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.8);
+}
+
+@media (max-width: 500px) {
+    #ai-window-v3 { width: 90vw; }
+}
