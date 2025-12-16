@@ -1,3 +1,37 @@
+<section id="oracle-ai" class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h3 class="mb-4 text-center text-uppercase matrix-text-glow">
+                <i class="fas fa-brain me-2"></i> JCP_ORACLE_AI v1.0
+            </h3>
+            
+            <div class="terminal-window" style="border: 1px solid #00FF41; background: #000; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); border-radius: 5px; overflow: hidden;">
+                <div class="d-flex justify-content-between p-2" style="background: rgba(0, 50, 0, 0.5); border-bottom: 1px solid #00FF41;">
+                    <span class="text-success small" style="font-family: 'Share Tech Mono';">> ./INIT_ORACLE_PROTOCOL</span>
+                    <span class="text-success small"><i class="fas fa-circle text-danger blink-led me-1"></i> ONLINE</span>
+                </div>
+                
+                <div id="chat-box" class="p-3" style="height: 300px; overflow-y: auto; font-family: 'Share Tech Mono', monospace; font-size: 0.95rem;">
+                    <div class="mb-2">
+                        <span class="text-success fw-bold">[SYSTEM]:</span> 
+                        <span class="text-white">Conexión neuronal establecida. Soy la IA de este portafolio. Pregúntame sobre la experiencia o habilidades de José.</span>
+                    </div>
+                </div>
+
+                <div class="p-3 border-top-matrix d-flex align-items-center" style="background: rgba(0, 20, 0, 0.8);">
+                    <span class="text-success me-2 fw-bold">></span>
+                    <input type="text" id="user-input" class="bg-transparent border-0 text-white w-100" style="outline: none; font-family: 'Share Tech Mono';" placeholder="Ej: ¿Tiene experiencia en Docker?..." autocomplete="off">
+                    <button onclick="sendMessage()" class="btn btn-sm btn-outline-success ms-2" style="font-family: 'Share Tech Mono';">ENVIAR</button>
+                </div>
+            </div>
+            
+            <p class="text-center mt-2 small text-muted" style="font-family: 'Share Tech Mono';">
+                * Powered by Google Gemini. La IA puede cometer errores.
+            </p>
+        </div>
+    </div>
+</section>
+
 <footer style="position: relative; z-index: 10; margin-top: 3rem;">
     <div style="height: 2px; background: #00FF41; box-shadow: 0 0 10px #00FF41; margin-bottom: 0;"></div>
     
@@ -33,3 +67,89 @@
         </div>
     </div>
 </footer>
+
+
+
+
+<script>
+    /* =========================================
+       SCRIPT ORACLE AI (CONEXIÓN CON GEMINI)
+       ========================================= */
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+
+    // Permitir enviar pulsando la tecla Enter
+    userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text) return; // Si está vacío no hace nada
+
+        // 1. Mostrar lo que ha escrito el usuario en pantalla
+        appendMessage('VISITOR', text, 'text-warning');
+        userInput.value = ''; // Limpiar input
+
+        // 2. Mostrar mensaje de "Pensando..." temporal
+        const loadingId = appendMessage('SYSTEM', 'Accediendo a la base de datos...', 'text-success blinking-cursor');
+
+        // 3. Enviar la pregunta a tu servidor Python (/ask_oracle)
+        fetch('/ask_oracle', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: text })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Borrar el mensaje de "Pensando..."
+            const loadingMsg = document.getElementById(loadingId);
+            if(loadingMsg) loadingMsg.remove();
+            
+            // 4. Mostrar la respuesta de Gemini con efecto máquina de escribir
+            typeWriterEffect('ORACLE', data.answer);
+        })
+        .catch(err => {
+            console.error(err);
+            const loadingMsg = document.getElementById(loadingId);
+            if(loadingMsg) loadingMsg.remove();
+            appendMessage('ERROR', 'Fallo de conexión con el servidor.', 'text-danger');
+        });
+    }
+
+    // Función para añadir mensajes simples al chat
+    function appendMessage(sender, text, cssClass) {
+        const msgId = 'msg-' + Date.now();
+        const div = document.createElement('div');
+        div.className = 'mb-3 animate__animated animate__fadeIn'; // Animación suave
+        div.id = msgId;
+        div.innerHTML = `<span class="${cssClass} fw-bold">[${sender}]:</span> <span class="text-white">${text}</span>`;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight; // Bajar scroll automáticamente
+        return msgId;
+    }
+
+    // Función para el efecto visual de escritura letra por letra
+    function typeWriterEffect(sender, text) {
+        const div = document.createElement('div');
+        div.className = 'mb-3';
+        // Estructura del mensaje vacío
+        div.innerHTML = `<span class="text-info fw-bold">[${sender}]:</span> <span class="text-white response-text"></span>`;
+        chatBox.appendChild(div);
+        
+        const span = div.querySelector('.response-text');
+        let i = 0;
+        
+        // Escribir cada letra cada 15ms
+        const interval = setInterval(() => {
+            span.textContent += text.charAt(i);
+            chatBox.scrollTop = chatBox.scrollHeight; // Mantener scroll abajo
+            i++;
+            if (i > text.length - 1) {
+                clearInterval(interval);
+            }
+        }, 15); 
+    }
+</script>
