@@ -925,3 +925,77 @@ small {
         padding: 0 10px; /* Un poco de margen para que no toque los bordes */
     }
 }
+
+/* --- WIDGET FLOTANTE AI --- */
+#oracle-widget-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;     /* A LA IZQUIERDA */
+    z-index: 9999;  /* Siempre encima de todo */
+    font-family: 'Share Tech Mono', monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear ventana a la izquierda */
+}
+
+/* La Ventana del Chat */
+#oracle-window {
+    width: 320px;           /* Ancho fijo cómodo */
+    border: 1px solid #00FF41;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+    border-radius: 5px;
+    margin-bottom: 15px;    /* Separación del botón */
+    overflow: hidden;
+    /* Animación de entrada */
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* El Botón Flotante */
+#oracle-trigger {
+    background: black;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+    padding: 10px 20px;
+    border-radius: 30px; /* Redondeado tipo píldora */
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#oracle-trigger:hover {
+    background: #00FF41;
+    color: black;
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.8);
+    transform: scale(1.05);
+}
+
+/* Animación de "Respiración" para que no pase desapercibido */
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(0, 255, 65, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+}
+
+.btn-glitch-active {
+    animation: pulse-green 2s infinite;
+}
+
+/* AJUSTE PARA MÓVIL */
+@media (max-width: 576px) {
+    #oracle-window {
+        width: 280px; /* Un poco más estrecho en móviles */
+    }
+    #oracle-widget-container {
+        bottom: 15px;
+        left: 15px;
+    }
+}
