@@ -50,14 +50,25 @@ safety_settings = {
 }
 
 
-# Función auxiliar para leer tu "memoria" (CV)
+import logging
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# ... (existing code) ...
+
+# Cargar contexto en memoria al inicio
+try:
+    with open('linkedin_data.txt', 'r', encoding='utf-8') as f:
+        CONTEXT_DATA = f.read()
+    logging.info("Contexto cargado correctamente desde linkedin_data.txt")
+except FileNotFoundError:
+    CONTEXT_DATA = "Error: No se encontró el archivo de datos (linkedin_data.txt)."
+    logging.error("No se encontró linkedin_data.txt")
+
+# Función auxiliar para obtener el contexto (ahora desde memoria)
 def get_context():
-    try:
-        # Intenta leer el archivo linkedin_data.txt
-        with open('linkedin_data.txt', 'r', encoding='utf-8') as f:
-            return f.read()
-    except FileNotFoundError:
-        return "Error: No se encontró el archivo de datos (linkedin_data.txt)."
+    return CONTEXT_DATA
 
 # --- RUTAS ---
 

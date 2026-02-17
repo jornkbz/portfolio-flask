@@ -1,31 +1,33 @@
-
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
 
-<section id="home" class="d-block" style="position: relative; z-index: 2; padding-top: 120px !important; padding-bottom: 50px; min-height: auto !important;">
-    
-    <div class="container-fluid px-3 px-lg-5"> 
-        
+<section id="home" class="d-block"
+    style="position: relative; z-index: 2; padding-top: 120px !important; padding-bottom: 50px; min-height: auto !important;">
+
+    <div class="container-fluid px-3 px-lg-5">
+
         <div class="matrix-container w-100 matrix-hero-box">
 
             <div class="row align-items-center">
-                
+
                 <div class="col-lg-4 text-center border-end-matrix mb-5 mb-lg-0">
-                    
-                    <img src="{{ url_for('static', filename='img/perfil.jpg')}}" class="img-fluid rounded-circle mb-3 profile-pic" alt="Jose Cabezas" width="220" style="border: 4px solid #00FF41;">
-                    
+
+                    <img src="{{ url_for('static', filename='img/perfil.jpg')}}"
+                        class="img-fluid rounded-circle mb-3 profile-pic" alt="Jose Cabezas" width="220"
+                        style="border: 4px solid #00FF41;">
+
                     <h1 class="display-4 fw-bold matrix-text-glow mb-2">José Cabezas Pulgarín</h1>
-                    
+
                     <p class="matrix-role fs-5 mb-3">SysAdmin | DevOps | Python | IA | Cybersecurity</p>
-                    
+
                     <div class="mb-4 d-flex justify-content-center align-items-center gap-2">
                         <a href="mailto:josecabezaspulgarin@gmail.com" class="matrix-email-link text-decoration-none">
-                            <span class="text-success me-1">></span> 
+                            <span class="text-success me-1">></span>
                             <i class="fas fa-envelope me-2"></i>josecabezaspulgarin@gmail.com
                         </a>
-                    
-                        <button class="matrix-copy-btn" onclick="copyEmailToClipboard()" title="Copiar al portapapeles">
+
+                        <button class="matrix-copy-btn" id="copy-email-btn" title="Copiar al portapapeles">
                             <i class="fas fa-copy" id="copy-icon"></i>
                         </button>
                     </div>
@@ -33,8 +35,10 @@
                     <hr class="matrix-divider">
 
                     <div class="text-start mt-4 d-inline-block">
-                        <h5 class="text-uppercase mb-3 text-center text-lg-start" style="color: #00FF41; font-family: 'Share Tech Mono', monospace;">Soft Skills:</h5>
-                        <div class="text-center text-lg-start d-flex flex-wrap justify-content-center justify-content-lg-start gap-2">
+                        <h5 class="text-uppercase mb-3 text-center text-lg-start"
+                            style="color: #00FF41; font-family: 'Share Tech Mono', monospace;">Soft Skills:</h5>
+                        <div
+                            class="text-center text-lg-start d-flex flex-wrap justify-content-center justify-content-lg-start gap-2">
                             <span class="matrix-badge">🚀 Flexibilidad</span>
                             <span class="matrix-badge">⚡ Proactividad</span>
                             <span class="matrix-badge">🎯 Resolución</span>
@@ -45,97 +49,131 @@
 
                 <div class="col-lg-8 ps-lg-5">
                     <h3 class="mb-4 text-uppercase"><i class="fas fa-terminal me-2"></i> > whoami_</h3>
-                    
-                   <div class="lead" style="font-size: 1.1rem;">
-                        <p>🔐  Administrador de Sistemas IT y Desarrollador Python con sólida experiencia en la gestión de servidores Linux, análisis de vulnerabilidades, logs y gestión de VPNs. Tras varios años dedicados al soporte técnico, helpdesk y mantenimiento de equipos, he avanzado hacia roles más especializados en la administración de infraestructuras y ciberseguridad. </p> 
-                        <p>He complementado mi experiencia práctica con formación especializada en Ciberseguridad y Desarrollo de software con Python orientado a Machine Learning y Big Data.</p>
-                        <p>Actualmente, superviso y administro la infraestructura tecnológica y la seguridad de redes en entornos empresariales críticos, asegurando la protección, el rendimiento y la eficiencia de los sistemas, siempre en busca de optimizar procesos y mejorar la seguridad.</p>
+
+                    <div class="lead" style="font-size: 1.1rem;">
+                        <p>🔐 Administrador de Sistemas IT y Desarrollador Python con sólida experiencia en la gestión
+                            de servidores Linux, análisis de vulnerabilidades, logs y gestión de VPNs. Tras varios años
+                            dedicados al soporte técnico, helpdesk y mantenimiento de equipos, he avanzado hacia roles
+                            más especializados en la administración de infraestructuras y ciberseguridad. </p>
+                        <p>He complementado mi experiencia práctica con formación especializada en Ciberseguridad y
+                            Desarrollo de software con Python orientado a Machine Learning y Big Data.</p>
+                        <p>Actualmente, superviso y administro la infraestructura tecnológica y la seguridad de redes en
+                            entornos empresariales críticos, asegurando la protección, el rendimiento y la eficiencia de
+                            los sistemas, siempre en busca de optimizar procesos y mejorar la seguridad.</p>
                     </div>
 
-<div class="mt-5 text-center">
+                    <div class="mt-5 text-center">
                         <h4 class="mb-4 border-bottom-matrix d-inline-block px-3">Choose your reality</h4>
-                        
+
                         <div class="d-flex justify-content-center gap-4 gap-md-5 my-4 perspective-container flex-wrap">
-                            <div class="pill-wrapper" onclick="filterStack('blue')" title="Mostrar Stack de Desarrollo y Datos">
+                            <div class="pill-wrapper" data-color="blue" title="Mostrar Stack de Desarrollo y Datos">
                                 <div class="pill blue-pill"></div>
                                 <div class="pill-shadow"></div>
                                 <span class="pill-label text-primary mt-2 d-block">Dev & Data</span>
                             </div>
 
-                            <div class="pill-wrapper" onclick="filterStack('red')" title="Mostrar Stack de Sistemas y Seguridad">
+                            <div class="pill-wrapper" data-color="red" title="Mostrar Stack de Desarrollo y Seguridad">
                                 <div class="pill red-pill"></div>
                                 <div class="pill-shadow"></div>
                                 <span class="pill-label text-danger mt-2 d-block">SysAdmin & Sec</span>
                             </div>
 
-                            <div class="pill-wrapper" onclick="filterStack('all')" title="Mostrar Todas las Realidades">
-                                <div class="pill purple-pill" style="background: linear-gradient(135deg, #00BFFF, #FF4500); box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);"></div>
+                            <div class="pill-wrapper" data-color="all" title="Mostrar Todas las Realidades">
+                                <div class="pill purple-pill"
+                                    style="background: linear-gradient(135deg, #00BFFF, #FF4500); box-shadow: 0 0 20px rgba(128, 0, 128, 0.5);">
+                                </div>
                                 <div class="pill-shadow"></div>
                                 <span class="pill-label mt-2 d-block" style="color: #DA70D6;">Merge Realities</span>
                             </div>
                         </div>
 
-                        <p id="stack-status" class="small text-muted mb-4" style="font-family: 'Share Tech Mono', monospace;">> Waiting for input...</p>
+                        <p id="stack-status" class="small text-muted mb-4"
+                            style="font-family: 'Share Tech Mono', monospace;">> Waiting for input...</p>
                     </div>
-                    
-                <div class="row text-center g-4 row-cols-3 row-cols-md-4 row-cols-lg-5 justify-content-center" id="tech-grid">
-                        
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-fastapi-plain tech-icon"></i><br><small>FastAPI</small></div>
-                        
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-pandas-plain tech-icon"></i><br><small>Pandas</small></div>
-                        
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-scikitlearn-plain tech-icon"></i><br><small>Scikit-learn</small></div>
-                        <div class="col tech-item" data-cat="blue"><i class="devicon-postgresql-plain tech-icon"></i><br><small>PostgreSQL</small></div>
-                        
-                        <div class="col tech-item" data-cat="blue"><i class="fas fa-database tech-icon"></i><br><small>SQL</small></div>
-                        
-                        <div class="col tech-item" data-cat="blue"><i class="fab fa-git-alt tech-icon"></i><br><small>Git</small></div>
 
-                        <div class="col tech-item" data-cat="red"><i class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-bash-plain tech-icon"></i><br><small>Bash Script</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-kubernetes-plain tech-icon"></i><br><small>Kubernetes</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab CI</small></div>
-                        
-                        <div class="col tech-item" data-cat="red"><i class="devicon-githubactions-plain tech-icon"></i><br><small>G. Actions</small></div>
-                        
-                        <div class="col tech-item" data-cat="red"><i class="devicon-amazonwebservices-plain-wordmark tech-icon" style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-azure-plain tech-icon"></i><br><small>Azure</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="fas fa-shield-halved tech-icon"></i><br><small>Ciberseguridad</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="fas fa-network-wired tech-icon"></i><br><small>Redes/VPN</small></div>
-                        <div class="col tech-item" data-cat="red"><i class="devicon-prometheus-original tech-icon"></i><br><small>Prometheus</small></div>
-                        
-                        <div class="col tech-item" data-cat="red"><i class="devicon-grafana-plain tech-icon"></i><br><small>Grafana</small></div>
+                    <div class="row text-center g-4 row-cols-3 row-cols-md-4 row-cols-lg-5 justify-content-center"
+                        id="tech-grid">
+
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-python-plain tech-icon"></i><br><small>Python</small></div>
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-django-plain tech-icon"></i><br><small>Django</small></div>
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-flask-original tech-icon"></i><br><small>Flask</small></div>
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-fastapi-plain tech-icon"></i><br><small>FastAPI</small></div>
+
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-pandas-plain tech-icon"></i><br><small>Pandas</small></div>
+
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-scikitlearn-plain tech-icon"></i><br><small>Scikit-learn</small></div>
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="devicon-postgresql-plain tech-icon"></i><br><small>PostgreSQL</small></div>
+
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="fas fa-database tech-icon"></i><br><small>SQL</small></div>
+
+                        <div class="col tech-item" data-cat="blue"><i
+                                class="fab fa-git-alt tech-icon"></i><br><small>Git</small></div>
+
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-linux-plain tech-icon"></i><br><small>Linux</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-bash-plain tech-icon"></i><br><small>Bash Script</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-docker-plain tech-icon"></i><br><small>Docker</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-kubernetes-plain tech-icon"></i><br><small>Kubernetes</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-jenkins-line tech-icon"></i><br><small>Jenkins</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-gitlab-plain tech-icon"></i><br><small>GitLab CI</small></div>
+
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-githubactions-plain tech-icon"></i><br><small>G. Actions</small></div>
+
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-amazonwebservices-plain-wordmark tech-icon"
+                                style="font-size: 2.5rem;"></i><br><small>AWS</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-azure-plain tech-icon"></i><br><small>Azure</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="fas fa-shield-halved tech-icon"></i><br><small>Ciberseguridad</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="fas fa-network-wired tech-icon"></i><br><small>Redes/VPN</small></div>
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-prometheus-original tech-icon"></i><br><small>Prometheus</small></div>
+
+                        <div class="col tech-item" data-cat="red"><i
+                                class="devicon-grafana-plain tech-icon"></i><br><small>Grafana</small></div>
                     </div>
                 </div>
-            </div> 
-            
+            </div>
+
             <hr class="matrix-divider my-5">
 
             <section id="terminal-section" class="py-4">
                 <div class="row g-4">
                     <div class="col-lg-3 col-md-4">
-                        <div class="matrix-card p-3 h-100" style="border: 1px solid #00FF41; background: rgba(0, 20, 0, 0.8);">
+                        <div class="matrix-card p-3 h-100"
+                            style="border: 1px solid #00FF41; background: rgba(0, 20, 0, 0.8);">
                             <h5 class="text-warning mb-3 typing-effect">> AVAILABLE_COMMANDS:</h5>
                             <div class="d-grid gap-2">
-                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('education')">
+                                <button class="btn btn-matrix-command text-start" data-cmd="education">
                                     <i class="fas fa-chevron-right me-2 small"></i>cat education.txt
                                 </button>
-                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('capabilities')">
+                                <button class="btn btn-matrix-command text-start" data-cmd="capabilities">
                                     <i class="fas fa-chevron-right me-2 small"></i>cat capabilities.json
                                 </button>
-                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('career')">
+                                <button class="btn btn-matrix-command text-start" data-cmd="career">
                                     <i class="fas fa-chevron-right me-2 small"></i>tail -f career.log
                                 </button>
-                                <button class="btn btn-matrix-command text-start" onclick="executeCommand('projects')">
+                                <button class="btn btn-matrix-command text-start" data-cmd="projects">
                                     <i class="fas fa-chevron-right me-2 small"></i>git remote show origin
                                 </button>
                                 <hr class="matrix-divider my-2">
-                                <button class="btn btn-matrix-command text-start text-danger" onclick="clearTerminal()">
+                                <button class="btn btn-matrix-command text-start text-danger" id="terminal-clear-btn">
                                     <i class="fas fa-times me-2 small"></i>clear screen
                                 </button>
                             </div>
@@ -143,11 +181,15 @@
                     </div>
 
                     <div class="col-lg-9 col-md-8">
-                        <div class="terminal-window h-100" style="border: 1px solid #00FF41; background: #000; padding: 20px; font-family: 'Share Tech Mono', monospace; height: 600px; overflow-y: auto; box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.2);">
+                        <div id="main-terminal-window" class="terminal-window h-100"
+                            style="border: 1px solid #00FF41; background: #000; padding: 20px; font-family: 'Share Tech Mono', monospace; height: 600px; overflow-y: auto; box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.2);">
                             <div id="terminal-output">
-                                <div class="terminal-line text-muted">Welcome to Jose Cabezas Portfolio Terminal v2.5.0</div>
-                                <div class="terminal-line text-muted">Type a command or select one from the left panel to begin session...</div>
-                                <div class="terminal-line mb-3">------------------------------------------------------------</div>
+                                <div class="terminal-line text-muted">Welcome to Jose Cabezas Portfolio Terminal v2.5.0
+                                </div>
+                                <div class="terminal-line text-muted">Type a command or select one from the left panel
+                                    to begin session...</div>
+                                <div class="terminal-line mb-3">
+                                    ------------------------------------------------------------</div>
                             </div>
                             <div class="terminal-input-line d-flex">
                                 <span class="text-success me-2">user@jose-portfolio:~$</span>
@@ -158,7 +200,7 @@
                     </div>
                 </div>
             </section>
-            </div> 
+        </div>
     </div>
 </section>
 
@@ -173,7 +215,8 @@
                     <h6 class="text-white mb-0 fw-bold">DevOps & Software Dev</h6>
                     <span class="badge border border-success text-success bg-transparent">2025</span>
                 </div>
-                <small style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
+                <small
+                    style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
                     > Lemoncoders Bootcamp
                 </small>
             </div>
@@ -182,7 +225,8 @@
                     <h6 class="text-white mb-0 fw-bold">Máster Ciberseguridad</h6>
                     <span class="badge border border-success text-success bg-transparent">2023</span>
                 </div>
-                <small style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
+                <small
+                    style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
                     > EIP International Business School
                 </small>
             </div>
@@ -191,17 +235,18 @@
                     <h6 class="text-white mb-0 fw-bold">Máster Python & BigData</h6>
                     <span class="badge border border-success text-success bg-transparent">2022</span>
                 </div>
-                <small style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
+                <small
+                    style="color: #00FF41; font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 5px rgba(0, 255, 65, 0.5);">
                     > EIP International Business School
                 </small>
             </div>
             <div class="mt-3 pt-3 border-top-matrix terminal-reveal" style="animation-delay: 0.6s;">
                 <div class="d-flex align-items-center mb-2">
-                    <i class="fas fa-certificate text-warning me-2"></i> 
+                    <i class="fas fa-certificate text-warning me-2"></i>
                     <small class="text-white ms-2">Ethical Hacking Essentials (EHE)</small>
                 </div>
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-university text-info me-2"></i> 
+                    <i class="fas fa-university text-info me-2"></i>
                     <small class="text-white ms-2">G.S. Admin Sistemas (ASIR)</small>
                 </div>
             </div>
@@ -210,41 +255,48 @@
 </template>
 
 <template id="tpl-capabilities">
-     <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
+    <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
         <h3 class="mb-4 text-uppercase border-bottom-matrix pb-2">
             <i class="fas fa-microchip me-2"></i> cat capabilities.json
         </h3>
         <ul class="list-unstyled matrix-skills">
             <li class="mb-3 terminal-reveal">
-                <strong class="text-white">> Desarrollo:</strong> 
-                <span class="skill-tag">Python</span> <span class="skill-tag">Django</span> <span class="skill-tag">FastAPI</span> <span class="skill-tag">Pandas</span> <span class="skill-tag">Scikit-learn</span>
+                <strong class="text-white">> Desarrollo:</strong>
+                <span class="skill-tag">Python</span> <span class="skill-tag">Django</span> <span
+                    class="skill-tag">FastAPI</span> <span class="skill-tag">Pandas</span> <span
+                    class="skill-tag">Scikit-learn</span>
             </li>
             <li class="mb-3 terminal-reveal" style="animation-delay: 0.2s;">
-                <strong class="text-white">> DevOps:</strong> 
-                <span class="skill-tag">Docker</span> <span class="skill-tag">K8s</span> <span class="skill-tag">Jenkins</span> <span class="skill-tag">GitLab CI</span> <span class="skill-tag">AWS</span> <span class="skill-tag">Azure</span>
+                <strong class="text-white">> DevOps:</strong>
+                <span class="skill-tag">Docker</span> <span class="skill-tag">K8s</span> <span
+                    class="skill-tag">Jenkins</span> <span class="skill-tag">GitLab CI</span> <span
+                    class="skill-tag">AWS</span> <span class="skill-tag">Azure</span>
             </li>
             <li class="mb-3 terminal-reveal" style="animation-delay: 0.4s;">
-                <strong class="text-white">> Ciberseguridad:</strong> 
-                <span class="skill-tag">ISO 27001</span> <span class="skill-tag">Pentesting</span> <span class="skill-tag">Hardening</span> <span class="skill-tag">VPNs</span>
+                <strong class="text-white">> Ciberseguridad:</strong>
+                <span class="skill-tag">ISO 27001</span> <span class="skill-tag">Pentesting</span> <span
+                    class="skill-tag">Hardening</span> <span class="skill-tag">VPNs</span>
             </li>
             <li class="mb-3 terminal-reveal" style="animation-delay: 0.6s;">
-                <strong class="text-white">> Monitoring:</strong> 
-                <span class="skill-tag">Prometheus</span> <span class="skill-tag">Grafana</span> <span class="skill-tag">Loki</span> <span class="skill-tag">Jaeger</span>
+                <strong class="text-white">> Monitoring:</strong>
+                <span class="skill-tag">Prometheus</span> <span class="skill-tag">Grafana</span> <span
+                    class="skill-tag">Loki</span> <span class="skill-tag">Jaeger</span>
             </li>
         </ul>
     </div>
 </template>
 
 <template id="tpl-career">
-     <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
+    <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
         <h3 class="mb-4 text-uppercase border-bottom-matrix pb-2">
             <i class="fas fa-history me-2"></i> tail -f career.log
         </h3>
         <div class="matrix-timeline">
-             <div class="timeline-item mb-4 terminal-reveal">
+            <div class="timeline-item mb-4 terminal-reveal">
                 <div class="timeline-marker bg-success"></div>
                 <div class="timeline-content ps-4">
-                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2023-07 - ACTUALIDAD ]</span>
+                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2023-07 - ACTUALIDAD
+                        ]</span>
                     <h5 class="text-white fw-bold mb-1">ADMINISTRADOR DE SISTEMAS</h5>
                     <small class="text-muted d-block mb-2">> NIMIO CREACIÓN DIGITAL S.L.</small>
                     <ul class="list-unstyled timeline-desc ps-3" style="border-left: 1px dashed #00FF41;">
@@ -254,10 +306,11 @@
                     </ul>
                 </div>
             </div>
-             <div class="timeline-item mb-4 terminal-reveal" style="animation-delay: 0.3s;">
+            <div class="timeline-item mb-4 terminal-reveal" style="animation-delay: 0.3s;">
                 <div class="timeline-marker bg-success"></div>
                 <div class="timeline-content ps-4">
-                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2017-05 - 2023-07 ]</span>
+                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2017-05 - 2023-07
+                        ]</span>
                     <h5 class="text-white fw-bold mb-1">MANTENIMIENTO IT</h5>
                     <small class="text-muted d-block mb-2">> VALMOPSUR S.L</small>
                     <ul class="list-unstyled timeline-desc ps-3" style="border-left: 1px dashed #00FF41;">
@@ -268,10 +321,11 @@
                     </ul>
                 </div>
             </div>
-             <div class="timeline-item terminal-reveal" style="animation-delay: 0.6s;">
+            <div class="timeline-item terminal-reveal" style="animation-delay: 0.6s;">
                 <div class="timeline-marker bg-success"></div>
                 <div class="timeline-content ps-4">
-                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2015-03 - 2015-06 ]</span>
+                    <span class="badge border border-success text-success bg-transparent mb-2">[ 2015-03 - 2015-06
+                        ]</span>
                     <h5 class="text-white fw-bold mb-1">TÉCNICO DE SISTEMAS</h5>
                     <small class="text-muted d-block mb-2">> Fundación PRODE</small>
                     <ul class="list-unstyled timeline-desc ps-3" style="border-left: 1px dashed #00FF41;">
@@ -287,13 +341,13 @@
 </template>
 
 <template id="tpl-projects">
-     <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
-         <h3 class="mb-4 text-uppercase border-bottom-matrix pb-2">
+    <div class="terminal-block p-3 mb-3 mt-2" style="border-left: 3px solid #00FF41; background: rgba(0, 50, 0, 0.3);">
+        <h3 class="mb-4 text-uppercase border-bottom-matrix pb-2">
             <i class="fas fa-code-branch me-2"></i> git remote show origin
         </h3>
-        
+
         <div class="row g-4">
-            
+
             <div class="col-md-6 terminal-reveal">
                 <div class="p-3 h-100" style="border: 1px solid #00FF41; background: rgba(0,0,0,0.5);">
                     <h6 class="text-white mb-3" style="font-family: 'Share Tech Mono', monospace;">
@@ -301,13 +355,15 @@
                     </h6>
                     <ul class="list-unstyled ps-2 mb-0" style="font-size: 0.9rem;">
                         <li class="mb-3">
-                            <a href="https://github.com/jose-cabezas/air_crash_calculator" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jose-cabezas/air_crash_calculator" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fab fa-git-alt me-2"></i> air_crash_calculator.git
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Predicción accidentes (IA)</small>
                         </li>
-                         <li class="mb-3">
-                            <a href="https://aircrashcal.jose-cabezas.com/" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                        <li class="mb-3">
+                            <a href="https://aircrashcal.jose-cabezas.com/" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fas fa-globe me-2"></i> air_crash_calculator-web
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Despliegue Live</small>
@@ -317,19 +373,21 @@
             </div>
 
             <div class="col-md-6 terminal-reveal" style="animation-delay: 0.2s;">
-                 <div class="p-3 h-100" style="border: 1px solid #00FF41; background: rgba(0,0,0,0.5);">
+                <div class="p-3 h-100" style="border: 1px solid #00FF41; background: rgba(0,0,0,0.5);">
                     <h6 class="text-white mb-3" style="font-family: 'Share Tech Mono', monospace;">
                         <i class="fas fa-folder-open me-2 text-warning"></i> ~/src/django/
                     </h6>
                     <ul class="list-unstyled ps-2 mb-0" style="font-size: 0.9rem;">
                         <li class="mb-3">
-                            <a href="https://github.com/jose-cabezas/django-ecommerce" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jose-cabezas/django-ecommerce" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fab fa-git-alt me-2"></i> django-ecommerce.git
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Plataforma de ventas</small>
                         </li>
-                         <li class="mb-3">
-                            <a href="https://neuraprint3d.com/" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                        <li class="mb-3">
+                            <a href="https://neuraprint3d.com/" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fas fa-globe me-2"></i> neuraprint3d-web
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Despliegue Live</small>
@@ -345,19 +403,22 @@
                     </h6>
                     <ul class="list-unstyled ps-2 mb-0" style="font-size: 0.9rem;">
                         <li class="mb-3">
-                            <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Linux" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Linux" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fas fa-terminal me-2"></i> linux-scripts.sh
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Automatización Bash</small>
                         </li>
                         <li class="mb-3">
-                             <a href="https://github.com/jornkbz/LemonCodeDevOps.git" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jornkbz/LemonCodeDevOps.git" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fab fa-docker me-2"></i> docker-compose.yml
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Contenedores</small>
                         </li>
                         <li class="mb-3">
-                             <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Kubernetes" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jornkbz/LemonCodeDevOps/tree/main/Kubernetes" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fas fa-dharmachakra me-2"></i> k8s-manifests/
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Orquestación K8s</small>
@@ -371,21 +432,22 @@
                     <h6 class="text-white mb-3" style="font-family: 'Share Tech Mono', monospace;">
                         <i class="fas fa-folder-open me-2 text-warning"></i> ~/src/security/
                     </h6>
-                     <ul class="list-unstyled ps-2 mb-0" style="font-size: 0.9rem;">
+                    <ul class="list-unstyled ps-2 mb-0" style="font-size: 0.9rem;">
                         <li class="mb-3">
-                            <a href="https://github.com/jornkbz/RFM-EIP-SGSI" target="_blank" class="text-decoration-none text-success hover-link fw-bold">
+                            <a href="https://github.com/jornkbz/RFM-EIP-SGSI" target="_blank"
+                                class="text-decoration-none text-success hover-link fw-bold">
                                 <i class="fas fa-file-contract me-2"></i> iso27001-sgsi/
                             </a>
                             <small class="d-block text-muted ps-4 mt-1">> Compliance & SGSI</small>
                         </li>
                         <li class="mb-3">
-                             <div class="text-success fw-bold" style="opacity:0.8; cursor: default;">
+                            <div class="text-success fw-bold" style="opacity:0.8; cursor: default;">
                                 <i class="fas fa-bug me-2"></i> vuln-scan-reports/
                             </div>
                             <small class="d-block text-muted ps-4 mt-1">> Análisis Vulnerabilidades</small>
                         </li>
                         <li class="mb-3">
-                             <div class="text-success fw-bold" style="opacity:0.8; cursor: default;">
+                            <div class="text-success fw-bold" style="opacity:0.8; cursor: default;">
                                 <i class="fas fa-shield-alt me-2"></i> hardening-logs/
                             </div>
                             <small class="d-block text-muted ps-4 mt-1">> Logs & Hardening</small>
@@ -397,124 +459,5 @@
         </div>
     </div>
 </template>
-
-<script>
-    // 1. FILTRO DE PASTILLAS
-// 1. FILTRO DE PASTILLAS (Actualizado para 'all')
-    function filterStack(color) {
-        const items = document.querySelectorAll('.tech-item');
-        const statusText = document.getElementById('stack-status');
-        const grid = document.getElementById('tech-grid');
-        
-        // Efecto de desvanecimiento
-        grid.style.opacity = '0'; 
-        
-        setTimeout(() => {
-            items.forEach(item => {
-                const itemCat = item.getAttribute('data-cat');
-                // Si el color es 'all', mostramos TODO. Si no, solo los que coincidan.
-                if (color === 'all' || itemCat === color) {
-                    item.style.display = ''; // Mostrar
-                } else {
-                    item.style.display = 'none'; // Ocultar
-                }
-            });
-
-            // Actualizar texto de estado según la elección
-            if (color === 'blue') {
-                statusText.innerHTML = '> Reality accepted. Loading Development & Data Environment...';
-                statusText.style.color = '#00BFFF';
-            } else if (color === 'red') {
-                statusText.innerHTML = '> Breaking the simulation. Accessing SysAdmin & Security Infrastructure...';
-                statusText.style.color = '#FF4500';
-            } else {
-                // Caso 'all'
-                statusText.innerHTML = '> Merging realities. Full Stack capabilities loaded.';
-                statusText.style.color = '#DA70D6'; // Color púrpura
-            }
-            
-            // Efecto de reaparición
-            grid.style.opacity = '1';
-        }, 200);
-    }
-
-
-    // 2. FUNCIÓN COPIAR EMAIL
-    function copyEmailToClipboard() {
-        const email = "josecabezaspulgarin@gmail.com";
-        const icon = document.getElementById('copy-icon');
-
-        navigator.clipboard.writeText(email).then(() => {
-            icon.classList.remove('fa-copy');
-            icon.classList.add('fa-check');
-            
-            setTimeout(() => {
-                icon.classList.remove('fa-check');
-                icon.classList.add('fa-copy');
-            }, 2000);
-
-        }).catch(err => {
-            console.error('Error al copiar: ', err);
-        });
-    }
-
-    // 3. TERMINAL INTERACTIVA
-    const terminalOutput = document.getElementById('terminal-output');
-    const typedCommandSpan = document.getElementById('typed-command');
-    const terminalWindow = document.querySelector('.terminal-window');
-
-    const commandMap = {
-        'education': { cmd: 'cat education.txt', tplId: 'tpl-education' },
-        'capabilities': { cmd: 'cat capabilities.json', tplId: 'tpl-capabilities' },
-        'career': { cmd: 'tail -f career.log', tplId: 'tpl-career' },
-        'projects': { cmd: 'git remote show origin', tplId: 'tpl-projects' }
-    };
-
-    let isExecuting = false;
-
-    function executeCommand(commandKey) {
-        if (isExecuting) return; 
-        isExecuting = true;
-
-        const commandData = commandMap[commandKey];
-        const commandText = commandData.cmd;
-        const templateId = commandData.tplId;
-
-        let i = 0;
-        typedCommandSpan.textContent = '';
-        const typeInterval = setInterval(() => {
-            if (i < commandText.length) {
-                typedCommandSpan.textContent += commandText.charAt(i);
-                i++;
-            } else {
-                clearInterval(typeInterval);
-                setTimeout(() => processCommandOutput(commandText, templateId), 500);
-            }
-        }, 50); 
-    }
-
-    function processCommandOutput(commandText, templateId) {
-        const previousPrompt = document.createElement('div');
-        previousPrompt.innerHTML = `<span class="text-success me-2">user@jose-portfolio:~$</span><span class="text-white">${commandText}</span>`;
-        terminalOutput.appendChild(previousPrompt);
-
-        typedCommandSpan.textContent = '';
-
-        const template = document.getElementById(templateId);
-        // Comprobación de seguridad por si el template no existe
-        if(template) {
-            const clone = template.content.cloneNode(true);
-            terminalOutput.appendChild(clone);
-        }
-
-        terminalWindow.scrollTop = terminalWindow.scrollHeight;
-        isExecuting = false;
-    }
-
-    function clearTerminal() {
-        terminalOutput.innerHTML = '';
-        terminalOutput.innerHTML = '<div class="terminal-line text-muted">Terminal cleared. Session reset.</div><div class="terminal-line mb-3">------------------------------------------------------------</div>';
-    }
-</script>
 
 {% endblock %}
