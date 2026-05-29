@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Consola de Administración - JCP_SYSTEM{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="position: relative; z-index: 5; font-family: 'Share Tech Mono', monospace;">
+    
+    <!-- HEADER -->
+    <div class="matrix-container mb-4 text-start">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+            <div>
+                <h1 class="display-6 text-success mb-1" style="text-shadow: 0 0 10px var(--matrix-green); font-family: 'Share Tech Mono', monospace;">
+                    <i class="fas fa-terminal me-3"></i>JCP_CORE_CONTROL_PANEL_
+                </h1>
+                <p class="text-muted mb-0 small">> NIVEL DE ACCESO: ADMINISTRADOR ROOT (CONEXIÓN SEGURA)</p>
+            </div>
+            <div class="mt-3 mt-md-0 d-flex gap-2">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-success btn-sm" style="border-radius: 0; border: 1px solid #00FF41 !important; background: transparent; color: #00FF41;">
+                    <i class="fas fa-eye me-2"></i>VER_SITIO_WEB
+                </a>
+                <a href="{{ admin_path }}/logout" class="btn btn-outline-danger btn-sm" style="border-radius: 0; border: 1px solid #ff4d4d !important; background: transparent; color: #ff4d4d; transition: all 0.3s;">
+                    <i class="fas fa-power-off me-2"></i>LOGOUT
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-dark {% if category == 'success' %}text-success border-success{% else %}text-danger border-danger{% endif %} mb-4" style="background: rgba(0, 15, 0, 0.9); border-radius: 0; font-family: 'Share Tech Mono', monospace;" role="alert">
+                <i class="fas {% if category == 'success' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %} me-2"></i> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- HUD STATS -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card matrix-card p-3 h-100 text-start" style="background-color: rgba(0, 10, 0, 0.9) !important; border: 1px solid #00FF41 !important;">
+                <div class="text-muted small" style="font-size: 0.9rem;">> REGISTROS_TOTALES_</div>
+                <div class="display-6 text-success fw-bold mt-1" style="font-family: 'Share Tech Mono';">{{ projects|length }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card matrix-card p-3 h-100 text-start" style="background-color: rgba(0, 10, 0, 0.9) !important; border: 1px solid #00FF41 !important;">
+                <div class="text-muted small" style="font-size: 0.9rem;">> SISTEMAS_ACTIVOS_ (ACTIVE)</div>
+                <div class="display-6 text-success fw-bold mt-1" style="font-family: 'Share Tech Mono';">
+                    {{ projects | selectattr('status', 'equalto', 'ACTIVE') | list | length }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card matrix-card p-3 h-100 text-start" style="background-color: rgba(0, 10, 0, 0.9) !important; border: 1px solid #ffc107 !important;">
+                <div class="text-muted small" style="font-size: 0.9rem;">> EN_COMPILACION_ (WIP)</div>
+                <div class="display-6 text-warning fw-bold mt-1" style="font-family: 'Share Tech Mono';">
+                    {{ projects | selectattr('status', 'equalto', 'WIP') | list | length }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTROL TABLE -->
+    <div class="matrix-container text-start" style="background-color: rgba(0, 10, 0, 0.95); border: 1px solid var(--matrix-green);">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="text-success mb-0" style="font-family: 'Share Tech Mono', monospace;">> BASE_DATOS_PROYECTOS_</h4>
+            <a href="{{ admin_path }}/add" class="btn btn-primary btn-sm" style="background-color: transparent !important; border: 1px solid var(--matrix-green) !important; color: var(--matrix-green) !important; border-radius: 0; font-family: 'Share Tech Mono', monospace; text-transform: uppercase;">
+                <i class="fas fa-plus me-2"></i>AÑADIR_PROYECTO
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle border-success" style="background-color: rgba(0,5,0,0.85); --bs-table-bg: transparent; color: var(--matrix-green); font-family: 'Share Tech Mono', monospace;">
+                <thead>
+                    <tr class="border-success text-success" style="border-bottom: 2px solid var(--matrix-green);">
+                        <th scope="col" style="width: 5%;">ID</th>
+                        <th scope="col" style="width: 10%;">IMAGEN</th>
+                        <th scope="col" style="width: 25%;">TÍTULO</th>
+                        <th scope="col" style="width: 15%;">ESTADO</th>
+                        <th scope="col" style="width: 20%;">ETIQUETAS</th>
+                        <th scope="col" style="width: 10%;">ORDEN</th>
+                        <th scope="col" style="width: 15%;" class="text-end">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if projects %}
+                        {% for project in projects %}
+                        <tr class="border-bottom border-success" style="border-color: rgba(0, 255, 65, 0.2) !important;">
+                            <td class="text-muted">{{ project.id }}</td>
+                            <td>
+                                <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="img-thumbnail bg-transparent border-success p-0" style="max-height: 40px; max-width: 70px; border-radius: 0;">
+                            </td>
+                            <td>
+                                <strong class="text-white">{{ project.title }}</strong>
+                            </td>
+                            <td>
+                                {% if project.status == 'ACTIVE' %}
+                                <span class="badge bg-transparent border border-success text-success small">ACTIVE</span>
+                                {% else %}
+                                <span class="badge bg-transparent border border-warning text-warning small">WIP</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span style="font-size: 0.85rem;">{{ project.tags }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-transparent border border-info text-info" style="font-size: 0.9rem;">{{ project.order_num }}</span>
+                            </td>
+                            <td class="text-end">
+                                <div class="d-flex justify-content-end gap-2">
+                                    <a href="{{ admin_path }}/edit/{{ project.id }}" class="btn btn-outline-success btn-sm" style="border-radius: 0; background: transparent; border-color: #00ff41;" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ admin_path }}/delete/{{ project.id }}" method="POST" onsubmit="return confirm('⚠️ ALERTA: ¿Estás completamente seguro de eliminar el registro de este proyecto?');" style="display: inline;">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" style="border-radius: 0; background: transparent; border-color: #ff4d4d;" title="Eliminar">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted">
+                                LA BASE DE DATOS ESTÁ VACÍA. REGISTRE UN NUEVO PROYECTO PARA INICIAR EL LISTADO.
+                            </td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

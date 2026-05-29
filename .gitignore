@@ -212,3 +212,7 @@ env-blog/
 __pycache__/
 .git/
 .vscode/
+
+# SQLite local database
+database.db
+*.db

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Acceso de Seguridad{% endblock %}
+
+{% block content %}
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh; position: relative; z-index: 5;">
+    <div class="matrix-container text-start" style="width: 100%; max-width: 500px; border-radius: 4px; border: 1px solid var(--matrix-green); background-color: rgba(0, 10, 0, 0.95); padding: 30px; box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);">
+        
+        <div class="terminal-header mb-4 text-center">
+            <h4 class="text-success fw-bold" style="font-family: 'Share Tech Mono', monospace; text-shadow: 0 0 8px var(--matrix-green);">
+                <i class="fas fa-shield-alt me-2"></i>JCP_SECURITY_GATEWAY
+            </h4>
+            <div class="small text-muted" style="font-family: 'Share Tech Mono', monospace;">[ESTADO: CONTROL DE ACCESO ACTIVADO]</div>
+            <hr style="border-color: var(--matrix-green); opacity: 0.5; margin-top: 1rem;">
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-dark text-danger border-danger small mb-4" style="background: rgba(30, 0, 0, 0.85); font-family: 'Share Tech Mono', monospace;" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ admin_path }}/login" style="font-family: 'Share Tech Mono', monospace;">
+            <div class="mb-3">
+                <label for="username" class="form-label text-success">> USUARIO_</label>
+                <input type="text" class="form-control form-control-sm text-white" id="username" name="username" required autocomplete="off" placeholder="admin" style="border-radius: 0; background-color: rgba(0, 20, 0, 0.6) !important; border: 1px solid var(--matrix-green);">
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label text-success">> CONTRASEÑA_</label>
+                <input type="password" class="form-control form-control-sm text-white" id="password" name="password" required autocomplete="off" placeholder="••••••••" style="border-radius: 0; background-color: rgba(0, 20, 0, 0.6) !important; border: 1px solid var(--matrix-green);">
+            </div>
+            
+            <div class="mb-4">
+                <label for="mfa_token" class="form-label text-success">> CÓDIGO_MFA_ (TOTP 6-DÍGITOS)</label>
+                <input type="text" class="form-control form-control-sm text-white text-center" id="mfa_token" name="mfa_token" pattern="[0-9]{6}" required autocomplete="off" placeholder="000000" style="border-radius: 0; font-size: 1.3rem; letter-spacing: 6px; background-color: rgba(0, 20, 0, 0.6) !important; border: 1px solid var(--matrix-green);">
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100 py-2" style="border-radius: 0; border: 1px solid var(--matrix-green) !important; background: black !important; color: var(--matrix-green) !important; text-transform: uppercase; letter-spacing: 2px;">
+                <i class="fas fa-key me-2"></i>INICIAR_AUTENTICACION
+            </button>
+        </form>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="small text-muted" style="border-bottom: 1px dashed rgba(0, 255, 65, 0.3); text-decoration: none; color: #888888;"><i class="fas fa-undo me-1"></i> ABORTAR Y VOLVER</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
