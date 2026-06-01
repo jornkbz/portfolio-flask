@@ -84,6 +84,16 @@ def init_db():
                     'EN CONSTRUCCIÓN',
                     'WIP',
                     3
+                ),
+                (
+                    'MatchMVP - Gamer Duo & Coaching Platform',
+                    '<strong>Plataforma competitiva para jugadores de eSports</strong>. Diseñada para encontrar compañeros de equipo (Duo Q) ideales y potenciar tu rendimiento. <br><br> <i class="fas fa-users text-success me-1"></i> <strong>Comunidad & Reputación:</strong> Sistema avanzado de emparejamiento y valoración por Karma para asegurar un ambiente libre de toxicidad. <br> <i class="fas fa-brain text-success me-1"></i> <strong>Coaching con IA:</strong> Consejos y análisis dinámico en tiempo real basado en tu desempeño histórico. <br> <i class="fas fa-network-wired text-success me-1"></i> <strong>Arquitectura:</strong> Backend asíncrono con FastAPI, base de datos PostgreSQL y despliegue multi-contenedor optimizado.',
+                    'img/web.jpg',
+                    'FastAPI, React, PostgreSQL, Docker',
+                    'https://matchmvp.win/',
+                    'BUSCAR COMPAÑERO',
+                    'ACTIVE',
+                    4
                 )
             ])
             conn.commit()
