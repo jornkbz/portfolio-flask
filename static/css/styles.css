@@ -1132,9 +1132,37 @@ small {
     font-family: 'Share Tech Mono', monospace;
 }
 
-/* Paneles del HUD */
+/* Paneles del HUD con altura fija y diseño flexible */
 .terminal-panel {
+    height: 385px; /* Altura fija para evitar que se vea alargado y queden simétricos */
+    border: 1px solid var(--matrix-green) !important;
+    background-color: rgba(0, 10, 0, 0.95) !important;
+    border-radius: 4px;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
     transition: all 0.3s ease;
+}
+
+/* Lista de proyectos scrollable con estilo hacker */
+.hud-project-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.hud-project-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.hud-project-list::-webkit-scrollbar-thumb {
+    background: var(--matrix-green);
+    border-radius: 2px;
+}
+
+.hud-project-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
 }
 
 /* Item de la lista de proyectos en el HUD */
@@ -1162,10 +1190,56 @@ small {
     letter-spacing: 1px;
 }
 
-/* Overlay de glitch / desencriptado */
+/* Contenedor de la Imagen */
+.hud-img-wrapper {
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    background: black;
+    overflow: hidden;
+    height: 155px;
+    position: relative;
+    width: 100%;
+}
+
+/* Scrollbar en la descripción del monitor */
+#monitor-desc {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#monitor-desc::-webkit-scrollbar {
+    width: 4px;
+}
+
+#monitor-desc::-webkit-scrollbar-thumb {
+    background: var(--matrix-green);
+    border-radius: 2px;
+}
+
+#monitor-desc::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay de glitch / desencriptado absoluto y centrado */
 .hud-monitor-glitch-overlay {
-    backdrop-filter: blur(4px);
-    transition: opacity 0.2s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 10, 0, 0.97);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    backdrop-filter: blur(3px);
+}
+
+.hud-monitor-glitch-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Efecto de parpadeo de texto */
@@ -1190,6 +1264,13 @@ small {
 
 /* Ajustes responsivos para pantallas pequeñas */
 @media (max-width: 767.98px) {
+    .terminal-panel {
+        height: auto;
+        min-height: 385px;
+    }
+    .hud-project-list {
+        max-height: 250px;
+    }
     .terminal-hud-layout > div {
         margin-bottom: 1.5rem;
     }
