@@ -9,55 +9,230 @@
                 <hr class="matrix-divider">
             </div>
             
-            <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
-                
-                 {% for project in projects %}
-                 <div class="col">
-                    <div class="card matrix-card h-100" {% if project.status == 'WIP' %}style="border-color: #ffc107 !important;"{% endif %}>
-                        <div class="img-wrapper">
-                            <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="card-img-top matrix-img">
-                            <div class="overlay" {% if project.status == 'WIP' %}style="background: rgba(40, 40, 0, 0.7);"{% endif %}>
-                                {% if project.status == 'WIP' %}
-                                <span class="overlay-text text-warning" style="animation: blink 1.5s infinite;">
-                                    ⚠ SYSTEM COMPILING...
-                                </span>
-                                {% else %}
-                                <span class="overlay-text">ACCESS GRANTED</span>
-                                {% endif %}
-                            </div>
+            <div class="row g-4 terminal-hud-layout">
+                <!-- PANEL IZQUIERDO: DIRECTORIO / PUERTOS (ls -la) -->
+                <div class="col-lg-4 col-md-5">
+                    <div class="terminal-panel p-3 h-100" style="border: 1px solid var(--matrix-green); background-color: rgba(0, 10, 0, 0.95); border-radius: 4px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);">
+                        <div class="panel-header mb-3 border-bottom border-success pb-2 d-flex justify-content-between align-items-center">
+                            <span class="text-success small fw-bold"><i class="fas fa-folder-open me-2"></i>SYS_DIRECTORY_</span>
+                            <span class="text-muted small" style="font-size: 0.8rem;">v1.0.9</span>
                         </div>
                         
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title matrix-title {% if project.status == 'WIP' %}text-warning{% endif %}">> {{ project.title }}_</h5>
-                            <p class="card-text flex-grow-1" style="font-size: 0.9rem;">
-                                {{ project.description | safe }}
-                            </p>
-                            
-                            <div class="mt-3">
-                                {% for tag in project.tags.split(',') %}
-                                    {% if tag.strip() %}
-                                    <span class="badge bg-transparent border {% if project.status == 'WIP' %}border-warning text-warning{% else %}border-success text-success{% endif %} me-1">{{ tag.strip() }}</span>
-                                    {% endif %}
-                                {% endfor %}
+                        <div class="text-success small mb-3" style="opacity: 0.8; font-family: 'Share Tech Mono', monospace;">
+                            root@jcp_system:~$ ls -la --projects
+                        </div>
+                        
+                        <div class="list-group list-group-flush hud-project-list" style="background: transparent;">
+                            {% for project in projects %}
+                            <button class="list-group-item list-group-item-action hud-project-item bg-transparent text-success border-0 px-2 py-3 {% if loop.first %}active{% endif %}"
+                                    style="font-family: 'Share Tech Mono', monospace; transition: all 0.3s; border-radius: 0;"
+                                    data-id="{{ project.id }}"
+                                    data-title="{{ project.title }}"
+                                    data-desc="{{ project.description }}"
+                                    data-image="{{ url_for('static', filename=project.image_url) }}"
+                                    data-tags="{{ project.tags }}"
+                                    data-link-url="{{ project.link_url if project.link_url else '' }}"
+                                    data-link-text="{{ project.link_text if project.link_text else 'INICIAR SISTEMA' }}"
+                                    data-status="{{ project.status }}">
+                                <span class="indicator text-success me-2">{% if loop.first %}>{% else %} {% endif %}</span>
+                                <span class="port-num text-muted me-2">[PORT_0{{ loop.index }}]</span>
+                                <span class="proj-title-txt text-uppercase">{{ project.title.split(' - ')[0] | truncate(20) }}</span>
+                                {% if project.status == 'WIP' %}
+                                <span class="float-end text-warning small ms-1" style="font-size: 0.7rem;">[WIP]</span>
+                                {% else %}
+                                <span class="float-end text-success small ms-1" style="font-size: 0.7rem;">[OK]</span>
+                                {% endif %}
+                            </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL DERECHO: PANTALLA MONITOR DETALLADA -->
+                <div class="col-lg-8 col-md-7">
+                    <div id="hud-display-monitor" class="terminal-panel p-4 h-100 d-flex flex-column" style="border: 1px solid var(--matrix-green); background-color: rgba(0, 10, 0, 0.95); border-radius: 4px; box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); min-height: 400px; position: relative; overflow: hidden;">
+                        
+                        <!-- Overlay del Monitor HUD (Efecto Scanline / Glitch) -->
+                        <div class="hud-monitor-glitch-overlay d-none d-flex align-items-center justify-content-center" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0, 10, 0, 0.96); z-index: 20; font-family: 'Share Tech Mono', monospace;">
+                            <div class="text-success text-center">
+                                <h3 class="glitch-text text-success mb-2" style="animation: blink 0.6s infinite; text-shadow: 0 0 8px #00FF41;"><i class="fas fa-sync-alt fa-spin me-3"></i>DECRYPTING_DATA...</h3>
+                                <p class="text-muted small mb-0">> SYNCING NEURAL CORES & SEEDS...</p>
+                            </div>
+                        </div>
+
+                        <!-- Header de estado en la pantalla -->
+                        <div class="panel-header mb-3 border-bottom border-success pb-2 d-flex justify-content-between align-items-center">
+                            <span class="text-success small fw-bold" style="font-family: 'Share Tech Mono';"><i class="fas fa-desktop me-2"></i>MONITOR_DISPLAY_</span>
+                            <span class="text-success small" id="monitor-conn-status" style="font-family: 'Share Tech Mono';">CONN: SECURE_LINK</span>
+                        </div>
+
+                        <div class="row g-3 flex-grow-1">
+                            <!-- Captura de pantalla del Proyecto -->
+                            <div class="col-md-5">
+                                <div class="hud-img-wrapper" style="border: 1px solid rgba(0, 255, 65, 0.3); background: black; overflow: hidden; height: 170px; position: relative;">
+                                    <img id="monitor-image" src="" alt="Project Preview" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2) brightness(0.75);">
+                                    <div class="hud-scanline" style="position: absolute; top: 0; left:0; width:100%; height:100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none;"></div>
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <span class="badge bg-transparent border border-success text-success" id="monitor-status-badge" style="font-family: 'Share Tech Mono';">ACTIVE</span>
+                                </div>
                             </div>
 
-                            {% if project.link_url %}
-                                {% if project.status == 'WIP' %}
-                                <a href="{{ project.link_url }}" class="btn mt-3 w-100" style="border: 1px dashed #ffc107; color: #ffc107; background: transparent; cursor: help;">
-                                    <i class="fas fa-hard-hat me-2"></i> {{ project.link_text or 'EN CONSTRUCCIÓN' }}
-                                </a>
-                                {% else %}
-                                <a href="{{ project.link_url }}" target="_blank" class="btn btn-matrix mt-3 w-100">
-                                    <i class="fas {% if 'model' in (project.link_text or '').lower() or 'ia' in (project.link_text or '').lower() or 'predic' in (project.link_text or '').lower() %}fa-brain{% else %}fa-external-link-alt{% endif %} me-2"></i> {{ project.link_text or 'INICIAR SISTEMA' }}
-                                </a>
-                                {% endif %}
-                            {% endif %}
-                        </div>            
-                    </div>       
-                </div>
-                {% endfor %}
+                            <!-- Detalles y Descripción -->
+                            <div class="col-md-7 d-flex flex-column">
+                                <h4 class="text-success mb-2 text-uppercase" id="monitor-title" style="font-family: 'Share Tech Mono';">> CARGANDO...</h4>
+                                <div class="flex-grow-1 text-success small overflow-auto pe-1" id="monitor-desc" style="max-height: 180px; font-family: 'Share Tech Mono', monospace; line-height: 1.5; font-size: 0.9rem;">
+                                    Cargando descripción del sistema...
+                                </div>
+                            </div>
+                        </div>
 
-            </div> 
+                        <!-- Footer con tags y botón de inicio -->
+                        <div class="border-top border-success pt-3 mt-3 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+                            <div id="monitor-tags" class="d-flex flex-wrap gap-1">
+                                <!-- Tags dinámicos -->
+                            </div>
+                            
+                            <div style="min-width: 220px;">
+                                <a id="monitor-link" href="#" target="_blank" class="btn btn-matrix w-100 py-2" style="font-size: 0.85rem; font-family: 'Share Tech Mono';">
+                                    <i class="fas fa-external-link-alt me-2"></i>INICIAR SISTEMA
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- JS Logic for JCP_TERMINAL_HUD -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const projectItems = document.querySelectorAll(".hud-project-item");
+                    const monitor = document.getElementById("hud-display-monitor");
+                    const glitchOverlay = monitor.querySelector(".hud-monitor-glitch-overlay");
+                    
+                    const mTitle = document.getElementById("monitor-title");
+                    const mDesc = document.getElementById("monitor-desc");
+                    const mImage = document.getElementById("monitor-image");
+                    const mStatusBadge = document.getElementById("monitor-status-badge");
+                    const mTags = document.getElementById("monitor-tags");
+                    const mLink = document.getElementById("monitor-link");
+                    const mConnStatus = document.getElementById("monitor-conn-status");
+
+                    function updateMonitor(element) {
+                        // Activar efecto de glitch/decodificación
+                        glitchOverlay.classList.remove("d-none");
+                        mConnStatus.innerHTML = '<i class="fas fa-sync fa-spin me-1"></i> DECRYPTING...';
+                        mConnStatus.className = "text-warning small";
+
+                        // Obtener datos del botón
+                        const title = element.getAttribute("data-title");
+                        const desc = element.getAttribute("data-desc");
+                        const image = element.getAttribute("data-image");
+                        const tags = element.getAttribute("data-tags");
+                        const linkUrl = element.getAttribute("data-link-url");
+                        const linkText = element.getAttribute("data-link-text");
+                        const status = element.getAttribute("data-status");
+
+                        setTimeout(() => {
+                            // Actualizar contenidos en el monitor
+                            mTitle.textContent = `> ${title}_`;
+                            mDesc.innerHTML = desc;
+                            mImage.src = image;
+                            mImage.alt = title;
+
+                            // Actualizar Badge de Estado
+                            mStatusBadge.className = "badge bg-transparent border text-uppercase";
+                            if (status === 'WIP') {
+                                mStatusBadge.classList.add("border-warning", "text-warning");
+                                mStatusBadge.textContent = "WIP / COMPILING";
+                            } else {
+                                mStatusBadge.classList.add("border-success", "text-success");
+                                mStatusBadge.textContent = "ACTIVE";
+                            }
+
+                            // Actualizar Tags/Etiquetas
+                            mTags.innerHTML = "";
+                            if (tags) {
+                                tags.split(',').forEach(tag => {
+                                    if (tag.trim()) {
+                                        const badge = document.createElement("span");
+                                        badge.className = `badge bg-transparent border me-1 small ${status === 'WIP' ? 'border-warning text-warning' : 'border-success text-success'}`;
+                                        badge.style.fontSize = "0.75rem";
+                                        badge.style.borderRadius = "0";
+                                        badge.textContent = tag.trim();
+                                        mTags.appendChild(badge);
+                                    }
+                                });
+                            }
+
+                            // Actualizar Botón de Enlace
+                            if (linkUrl) {
+                                mLink.style.display = "block";
+                                mLink.href = linkUrl;
+                                mLink.innerHTML = `<i class="fas ${linkText.toLowerCase().includes('model') || linkText.toLowerCase().includes('ia') || linkText.toLowerCase().includes('predic') ? 'fa-brain' : 'fa-external-link-alt'} me-2"></i> ${linkText}`;
+                                if (status === 'WIP') {
+                                    mLink.className = "btn w-100 py-2";
+                                    mLink.style.border = "1px dashed #ffc107";
+                                    mLink.style.color = "#ffc107";
+                                    mLink.style.background = "transparent";
+                                    mLink.style.cursor = "help";
+                                    mLink.style.fontFamily = "'Share Tech Mono'";
+                                    mLink.style.borderRadius = "0";
+                                } else {
+                                    mLink.className = "btn btn-matrix w-100 py-2";
+                                    mLink.removeAttribute("style");
+                                    mLink.style.fontFamily = "'Share Tech Mono'";
+                                    mLink.style.borderRadius = "0";
+                                }
+                            } else {
+                                mLink.style.display = "none";
+                            }
+
+                            // Quitar efecto de glitch y reestablecer conexión
+                            glitchOverlay.classList.add("d-none");
+                            mConnStatus.textContent = "CONN: SECURE_LINK";
+                            mConnStatus.className = "text-success small";
+                        }, 250); // Glitch dura 250ms
+                    }
+
+                    // Evento hover y clic en los proyectos de la lista
+                    projectItems.forEach(item => {
+                        // Cambiar al hacer click
+                        item.addEventListener("click", function(e) {
+                            e.preventDefault();
+                            if (!this.classList.contains("active")) {
+                                projectItems.forEach(p => {
+                                    p.classList.remove("active");
+                                    p.querySelector(".indicator").textContent = " ";
+                                });
+                                this.classList.add("active");
+                                this.querySelector(".indicator").textContent = ">";
+                                updateMonitor(this);
+                            }
+                        });
+
+                        // Cambiar al pasar el ratón (hover)
+                        item.addEventListener("mouseenter", function() {
+                            if (!this.classList.contains("active")) {
+                                projectItems.forEach(p => {
+                                    p.classList.remove("active");
+                                    p.querySelector(".indicator").textContent = " ";
+                                });
+                                this.classList.add("active");
+                                this.querySelector(".indicator").textContent = ">";
+                                updateMonitor(this);
+                            }
+                        });
+                    });
+
+                    // Inicializar con el primer elemento activo si existe
+                    const activeItem = document.querySelector(".hud-project-item.active");
+                    if (activeItem) {
+                        updateMonitor(activeItem);
+                    }
+                });
+            </script> 
         </div> 
     </div>
 </section>

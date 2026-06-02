@@ -1125,3 +1125,72 @@ small {
 @media (max-width: 500px) {
     #ai-window-v3 { width: 90vw; }
 }
+
+/* --- INTERFAZ JCP_TERMINAL_HUD (MATRIX CONSOLE) --- */
+
+.terminal-hud-layout {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Paneles del HUD */
+.terminal-panel {
+    transition: all 0.3s ease;
+}
+
+/* Item de la lista de proyectos en el HUD */
+.hud-project-item {
+    color: rgba(0, 255, 65, 0.6) !important;
+    border-left: 2px solid transparent !important;
+    cursor: pointer;
+}
+
+.hud-project-item:hover {
+    color: #4DFF88 !important;
+    background-color: rgba(0, 255, 65, 0.05) !important;
+    border-left: 2px solid rgba(0, 255, 65, 0.4) !important;
+}
+
+.hud-project-item.active {
+    color: #4DFF88 !important;
+    background-color: rgba(0, 255, 65, 0.1) !important;
+    border-left: 2px solid #00FF41 !important;
+    text-shadow: 0 0 5px #00FF41;
+}
+
+.hud-project-item .proj-title-txt {
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+/* Overlay de glitch / desencriptado */
+.hud-monitor-glitch-overlay {
+    backdrop-filter: blur(4px);
+    transition: opacity 0.2s ease;
+}
+
+/* Efecto de parpadeo de texto */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Efecto Scanline animado para la captura de pantalla */
+.hud-scanline::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.3) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 767.98px) {
+    .terminal-hud-layout > div {
+        margin-bottom: 1.5rem;
+    }
+}
