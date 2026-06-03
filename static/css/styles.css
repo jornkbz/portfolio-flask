@@ -1139,7 +1139,7 @@ small {
 }
 
 .accordion-card {
-    flex: 1;
+    flex: 1.8; /* A bit more room for horizontal text in reposo */
     background-color: rgba(0, 5, 0, 0.95);
     border: 1px solid rgba(0, 255, 65, 0.4);
     overflow: hidden;
@@ -1157,46 +1157,36 @@ small {
 }
 
 .accordion-card.active {
-    flex: 6; /* Much wider when active to fit the details nicely */
+    flex: 6.5; /* Much wider when active to fit the details nicely */
     border-color: var(--matrix-green) !important;
     box-shadow: 0 0 25px rgba(0, 255, 65, 0.35);
     background-color: rgba(0, 10, 0, 0.98);
 }
 
-/* Lomo / Título Vertical (En reposo) */
-.card-vertical-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    white-space: nowrap;
-    color: var(--matrix-green);
-    font-family: var(--terminal-font);
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
+/* --- VISTAS COMPACTAS (EN REPOSO) --- */
+.card-compact-desktop,
+.card-compact-mobile {
     opacity: 1;
-    z-index: 10;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
 }
 
-.card-vertical-title .port-num {
-    color: var(--matrix-bright-green);
-    margin-right: 5px;
-    font-weight: bold;
-}
-
-.accordion-card.active .card-vertical-title {
+.accordion-card.active .card-compact-desktop,
+.accordion-card.active .card-compact-mobile {
     opacity: 0;
-    transform: translate(-50%, -50%) rotate(-90deg) scale(0.8);
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    padding: 0 !important;
+    transform: scale(0.95);
 }
 
 /* Contenido Detallado (Expandido) */
 .card-expanded-content {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease 0.1s, visibility 0.4s ease 0.1s, transform 0.4s ease 0.1s; /* Slight delay to let accordion expand first */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -1209,6 +1199,7 @@ small {
 .accordion-card.active .card-expanded-content {
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
 }
 
 /* Subcomponentes del contenido expandido */
@@ -1300,25 +1291,13 @@ small {
         height: 520px; /* Más alto en móvil para que quepa todo el contenido vertical */
     }
 
-    /* El título en móvil no se rota */
-    .card-vertical-title {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        transform: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        white-space: nowrap;
-        font-size: 0.95rem;
-        letter-spacing: 1px;
-    }
-
-    .accordion-card.active .card-vertical-title {
+    .accordion-card.active .card-compact-mobile {
         opacity: 0;
-        transform: translateY(-20px);
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+        padding: 0 !important;
+        transform: translateY(-10px);
     }
 
     .card-expanded-content {

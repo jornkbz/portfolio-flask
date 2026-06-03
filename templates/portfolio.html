@@ -13,9 +13,47 @@
                 {% for project in projects %}
                 <div class="accordion-card {% if loop.first %}active{% endif %}" {% if project.status == 'WIP' %}style="border-color: #ffc107 !important;"{% endif %}>
                     
-                    <!-- Lomo / Título Vertical (En reposo) -->
-                    <div class="card-vertical-title {% if project.status == 'WIP' %}text-warning{% endif %}">
-                        <span class="port-num">[PORT_0{{ loop.index }}]</span> {{ project.title.split(' - ')[0] | truncate(25) }}
+                    <!-- Contenido Compacto (Visible en reposo) -->
+                    <!-- Vista Escritorio -->
+                    <div class="card-compact-desktop d-none d-md-flex flex-column justify-content-between h-100 p-3">
+                        <div class="compact-header d-flex justify-content-between align-items-center pb-2 mb-2" style="border-bottom: 1px solid {% if project.status == 'WIP' %}rgba(255, 193, 7, 0.25){% else %}rgba(0, 255, 65, 0.25){% endif %};">
+                            <span class="port-num {% if project.status == 'WIP' %}text-warning{% else %}text-success{% endif %} fw-bold small">[PORT_0{{ loop.index }}]</span>
+                            {% if project.status == 'WIP' %}
+                            <span class="text-warning small" style="font-size: 0.75rem;"><i class="fas fa-circle-notch fa-spin me-1"></i>WIP</span>
+                            {% else %}
+                            <span class="text-success small" style="font-size: 0.75rem;"><i class="fas fa-circle me-1" style="font-size: 0.5rem; vertical-align: middle;"></i>ONLINE</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="compact-title-area my-auto text-start">
+                            <h5 class="compact-title m-0 {% if project.status == 'WIP' %}text-warning{% else %}text-success{% endif %}" style="font-family: 'Share Tech Mono'; font-size: 0.95rem; line-height: 1.4; word-break: break-word;">
+                                > {{ project.title.split(' - ')[0] }}
+                            </h5>
+                        </div>
+
+                        <div class="compact-footer pt-2 mt-2" style="border-top: 1px solid {% if project.status == 'WIP' %}rgba(255, 193, 7, 0.25){% else %}rgba(0, 255, 65, 0.25){% endif %};">
+                            <div class="d-flex flex-column gap-1 text-start">
+                                <span class="text-muted small" style="font-size: 0.7rem; text-transform: uppercase; opacity: 0.6;">SYS_TECHS:</span>
+                                <div class="d-flex flex-wrap gap-1">
+                                    {% for tag in project.tags.split(',')[:2] %}
+                                        <span class="badge bg-transparent border {% if project.status == 'WIP' %}border-warning text-warning{% else %}border-success text-success{% endif %}" style="font-size: 0.65rem; border-radius: 0; padding: 2px 4px;">{{ tag.strip() }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vista Móvil -->
+                    <div class="card-compact-mobile d-flex d-md-none align-items-center justify-content-between w-100 h-100 px-3">
+                        <span class="port-num {% if project.status == 'WIP' %}text-warning{% else %}text-success{% endif %} fw-bold small me-2">[PORT_0{{ loop.index }}]</span>
+                        <span class="compact-title m-0 {% if project.status == 'WIP' %}text-warning{% else %}text-success{% endif %} text-truncate flex-grow-1 text-start" style="font-family: 'Share Tech Mono'; font-size: 0.9rem;">
+                            > {{ project.title.split(' - ')[0] }}
+                        </span>
+                        {% if project.status == 'WIP' %}
+                        <span class="badge bg-transparent border border-warning text-warning small ms-2" style="font-size: 0.65rem; border-radius: 0;">WIP</span>
+                        {% else %}
+                        <span class="badge bg-transparent border border-success text-success small ms-2" style="font-size: 0.65rem; border-radius: 0;">ONLINE</span>
+                        {% endif %}
                     </div>
 
                     <!-- Contenido Detallado (Expandido) -->
