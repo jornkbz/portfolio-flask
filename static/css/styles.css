@@ -1126,152 +1126,219 @@ small {
     #ai-window-v3 { width: 90vw; }
 }
 
-/* --- INTERFAZ JCP_TERMINAL_HUD (MATRIX CONSOLE) --- */
+/* --- INTERFAZ JCP_CARD_DECK (MATRIX PROJECTS ACCORDION) --- */
 
-.terminal-hud-layout {
-    font-family: 'Share Tech Mono', monospace;
+.accordion-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 480px; /* A bit more space for projects */
+    gap: 15px;
+    align-items: stretch;
+    margin-top: 20px;
 }
 
-/* Paneles del HUD con altura fija y diseño flexible */
-.terminal-panel {
-    height: 385px; /* Altura fija para evitar que se vea alargado y queden simétricos */
-    border: 1px solid var(--matrix-green) !important;
-    background-color: rgba(0, 10, 0, 0.95) !important;
+.accordion-card {
+    flex: 1;
+    background-color: rgba(0, 5, 0, 0.95);
+    border: 1px solid rgba(0, 255, 65, 0.4);
+    overflow: hidden;
+    position: relative;
+    transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     border-radius: 4px;
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
     display: flex;
     flex-direction: column;
-    position: relative;
+}
+
+.accordion-card:hover {
+    border-color: rgba(0, 255, 65, 0.7);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+
+.accordion-card.active {
+    flex: 6; /* Much wider when active to fit the details nicely */
+    border-color: var(--matrix-green) !important;
+    box-shadow: 0 0 25px rgba(0, 255, 65, 0.35);
+    background-color: rgba(0, 10, 0, 0.98);
+}
+
+/* Lomo / Título Vertical (En reposo) */
+.card-vertical-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    white-space: nowrap;
+    color: var(--matrix-green);
+    font-family: var(--terminal-font);
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 10;
+}
+
+.card-vertical-title .port-num {
+    color: var(--matrix-bright-green);
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.accordion-card.active .card-vertical-title {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg) scale(0.8);
+}
+
+/* Contenido Detallado (Expandido) */
+.card-expanded-content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
     overflow: hidden;
-    transition: all 0.3s ease;
 }
 
-/* Lista de proyectos scrollable con estilo hacker */
-.hud-project-list {
-    flex-grow: 1;
-    overflow-y: auto;
+.accordion-card.active .card-expanded-content {
+    opacity: 1;
+    visibility: visible;
 }
 
-.hud-project-list::-webkit-scrollbar {
-    width: 4px;
+/* Subcomponentes del contenido expandido */
+.expanded-body {
+    flex: 1;
+    min-height: 0; /* Permite scroll correcto en flexbox */
 }
 
-.hud-project-list::-webkit-scrollbar-thumb {
-    background: var(--matrix-green);
-    border-radius: 2px;
-}
-
-.hud-project-list::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-/* Item de la lista de proyectos en el HUD */
-.hud-project-item {
-    color: rgba(0, 255, 65, 0.6) !important;
-    border-left: 2px solid transparent !important;
-    cursor: pointer;
-}
-
-.hud-project-item:hover {
-    color: #4DFF88 !important;
-    background-color: rgba(0, 255, 65, 0.05) !important;
-    border-left: 2px solid rgba(0, 255, 65, 0.4) !important;
-}
-
-.hud-project-item.active {
-    color: #4DFF88 !important;
-    background-color: rgba(0, 255, 65, 0.1) !important;
-    border-left: 2px solid #00FF41 !important;
-    text-shadow: 0 0 5px #00FF41;
-}
-
-.hud-project-item .proj-title-txt {
-    font-weight: normal;
-    letter-spacing: 1px;
-}
-
-/* Contenedor de la Imagen */
+/* Imagen del HUD en la carta */
 .hud-img-wrapper {
     border: 1px solid rgba(0, 255, 65, 0.3);
     background: black;
     overflow: hidden;
-    height: 155px;
     position: relative;
     width: 100%;
-}
-
-/* Scrollbar en la descripción del monitor */
-#monitor-desc {
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-#monitor-desc::-webkit-scrollbar {
-    width: 4px;
-}
-
-#monitor-desc::-webkit-scrollbar-thumb {
-    background: var(--matrix-green);
     border-radius: 2px;
 }
 
-#monitor-desc::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-/* Overlay de glitch / desencriptado absoluto y centrado */
-.hud-monitor-glitch-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.hud-img-wrapper img {
     width: 100%;
     height: 100%;
-    background: rgba(0, 10, 0, 0.97);
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease;
-    backdrop-filter: blur(3px);
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2) brightness(0.85);
+    transition: all 0.5s ease;
 }
 
-.hud-monitor-glitch-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
+.accordion-card.active:hover .hud-img-wrapper img {
+    filter: grayscale(20%) contrast(1.1) brightness(1); /* Color sutil al pasar ratón sobre carta expandida */
+    transform: scale(1.03);
 }
 
-/* Efecto de parpadeo de texto */
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* Efecto Scanline animado para la captura de pantalla */
+/* Escaners y efectos */
 .hud-scanline::after {
     content: "";
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(
         rgba(18, 16, 16, 0) 50%, 
-        rgba(0, 0, 0, 0.3) 50%
+        rgba(0, 0, 0, 0.25) 50%
     );
     background-size: 100% 4px;
     z-index: 2;
     pointer-events: none;
 }
 
-/* Ajustes responsivos para pantallas pequeñas */
-@media (max-width: 767.98px) {
-    .terminal-panel {
+/* Scroll del texto del proyecto */
+.project-desc-scroll {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 8px;
+}
+
+.project-desc-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.project-desc-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 65, 0.4);
+    border-radius: 3px;
+}
+
+.project-desc-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--matrix-green);
+}
+
+.project-desc-scroll::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   ADAPTACIÓN RESPONSIVE (MÓVIL)
+   ========================================= */
+
+@media (max-width: 768px) {
+    .accordion-wrapper {
+        flex-direction: column;
         height: auto;
-        min-height: 385px;
+        gap: 12px;
     }
-    .hud-project-list {
-        max-height: 250px;
+
+    .accordion-card {
+        flex: none;
+        height: 60px; /* Altura muy reducida en reposo */
+        transition: height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .terminal-hud-layout > div {
-        margin-bottom: 1.5rem;
+
+    .accordion-card.active {
+        flex: none;
+        height: 520px; /* Más alto en móvil para que quepa todo el contenido vertical */
+    }
+
+    /* El título en móvil no se rota */
+    .card-vertical-title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        transform: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        font-size: 0.95rem;
+        letter-spacing: 1px;
+    }
+
+    .accordion-card.active .card-vertical-title {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    .card-expanded-content {
+        padding: 1rem;
+    }
+
+    .expanded-body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .expanded-body > div {
+        width: 100%;
+    }
+
+    .hud-img-wrapper {
+        height: 140px !important;
+    }
+
+    .project-desc-scroll {
+        max-height: 120px;
     }
 }
