@@ -1136,39 +1136,96 @@ small {
     gap: 15px;
     align-items: stretch;
     margin-top: 20px;
+    transition: all 0.3s ease;
 }
 
 .accordion-card {
-    flex: 1.8; /* A bit more room for horizontal text in reposo */
+    flex: 1; /* Reposo total: todas las cartas ocupan exactamente el mismo espacio (25% cada una) */
     background-color: rgba(0, 5, 0, 0.95);
-    border: 1px solid rgba(0, 255, 65, 0.4);
+    border: 1px solid rgba(0, 255, 65, 0.3);
     overflow: hidden;
     position: relative;
     transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+    box-shadow: 0 0 12px rgba(0, 255, 65, 0.1);
     display: flex;
     flex-direction: column;
 }
 
 .accordion-card:hover {
     border-color: rgba(0, 255, 65, 0.7);
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.25);
 }
 
+/* Efecto de lluvia Matrix digital de fondo en cada carta */
+.accordion-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(0, 10, 0, 0.88), rgba(0, 5, 0, 0.94)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='20' fill='%2300FF41' opacity='0.05' font-family='monospace' font-size='11'%3E1010101%3C/text%3E%3Ctext x='50' y='40' fill='%2300FF41' opacity='0.03' font-family='monospace' font-size='10'%3E011001%3C/text%3E%3Ctext x='20' y='70' fill='%2300FF41' opacity='0.06' font-family='monospace' font-size='12'%3E100110%3C/text%3E%3Ctext x='70' y='25' fill='%2300FF41' opacity='0.04' font-family='monospace' font-size='10'%3E1101%3C/text%3E%3Ctext x='65' y='85' fill='%2300FF41' opacity='0.05' font-family='monospace' font-size='11'%3E01010%3C/text%3E%3C/svg%3E");
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+/* Animación del fondo Matrix en hover o activa */
+.accordion-card:hover::before,
+.accordion-card.active::before {
+    animation: matrix-card-scroll 12s linear infinite;
+}
+
+@keyframes matrix-card-scroll {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 400px; }
+}
+
+/* Escáner de seguridad láser para la carta activa */
+.accordion-card.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--matrix-bright-green), transparent);
+    box-shadow: 0 0 10px var(--matrix-green), 0 0 20px var(--matrix-bright-green);
+    z-index: 100;
+    pointer-events: none;
+    animation: sweep-scanner-laser 5s ease-in-out infinite;
+}
+
+@keyframes sweep-scanner-laser {
+    0% { top: 0%; opacity: 0; }
+    5% { opacity: 0.8; }
+    45% { opacity: 0.8; }
+    50% { top: 100%; opacity: 0; }
+    55% { opacity: 0.8; }
+    95% { opacity: 0.8; }
+    100% { top: 0%; opacity: 0; }
+}
+
+/* Cuando el contenedor tiene una carta activa, las inactivas se encogen bastante */
+.accordion-wrapper.has-active .accordion-card:not(.active) {
+    flex: 0.9;
+}
+
+/* La carta activa se expande enormemente */
 .accordion-card.active {
-    flex: 6.5; /* Much wider when active to fit the details nicely */
+    flex: 8;
     border-color: var(--matrix-green) !important;
-    box-shadow: 0 0 25px rgba(0, 255, 65, 0.35);
-    background-color: rgba(0, 10, 0, 0.98);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.45);
+    background-color: rgba(0, 8, 0, 0.98);
 }
 
 /* --- VISTAS COMPACTAS (EN REPOSO) --- */
 .card-compact-desktop,
 .card-compact-mobile {
+    position: relative;
+    z-index: 2;
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease, padding 0.3s ease;
 }
 
 .accordion-card.active .card-compact-desktop,
@@ -1178,15 +1235,47 @@ small {
     height: 0;
     overflow: hidden;
     padding: 0 !important;
-    transform: scale(0.95);
+}
+
+/* Adaptaciones para cartas inactivas cuando una está activa (encogidas en desktop) */
+.accordion-wrapper.has-active .accordion-card:not(.active) .card-compact-desktop {
+    padding: 0.6rem !important;
+}
+
+.accordion-wrapper.has-active .accordion-card:not(.active) .compact-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px;
+}
+
+.accordion-wrapper.has-active .accordion-card:not(.active) .compact-title {
+    font-size: 0.8rem !important;
+    letter-spacing: 0.5px;
+}
+
+.accordion-wrapper.has-active .accordion-card:not(.active) .compact-footer {
+    display: none !important; /* Ocultar badges para que no rebose verticalmente al encogerse */
+}
+
+/* Cursor de consola retro para el título compacto */
+.compact-title::after {
+    content: "_";
+    color: var(--matrix-bright-green);
+    animation: blink-cursor-anim 1s step-start infinite;
+}
+
+@keyframes blink-cursor-anim {
+    50% { opacity: 0; }
 }
 
 /* Contenido Detallado (Expandido) */
 .card-expanded-content {
+    position: relative;
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     transform: scale(0.98);
-    transition: opacity 0.4s ease 0.1s, visibility 0.4s ease 0.1s, transform 0.4s ease 0.1s; /* Slight delay to let accordion expand first */
+    transition: opacity 0.4s ease 0.1s, visibility 0.4s ease 0.1s, transform 0.4s ease 0.1s; /* Retraso para que la carta se expanda primero */
     display: flex;
     flex-direction: column;
     height: 100%;
