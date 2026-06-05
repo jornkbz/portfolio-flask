@@ -9,6 +9,9 @@ services:
       - "5000:5000"
     env_file:
       - .env
+    volumes:
+      - ./data:/app/data
+      - ./static/img/uploads:/app/static/img/uploads
     networks:          # <--- Al mismo nivel que ports o image
       - neura_django   # <--- 2 espacios dentro
 

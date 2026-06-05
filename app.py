@@ -26,14 +26,20 @@ if not ADMIN_PATH.startswith('/'):
     ADMIN_PATH = '/' + ADMIN_PATH
 ADMIN_PATH = ADMIN_PATH.rstrip('/')
 
-DATABASE = os.path.join(app.root_path, 'database.db')
+DATABASE = os.getenv('DATABASE_PATH', os.path.join(app.root_path, 'data', 'database.db'))
 
 def get_db():
+    db_dir = os.path.dirname(DATABASE)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
 
 def init_db():
+    db_dir = os.path.dirname(DATABASE)
+    if db_dir:
+        os.makedirs(db_dir, exist_ok=True)
     with sqlite3.connect(DATABASE) as conn:
         cursor = conn.cursor()
         cursor.execute('''
@@ -328,10 +334,10 @@ def admin_add():
             filename = secure_filename(image_file.filename)
             import time
             filename = f"{int(time.time())}_{filename}"
-            upload_folder = os.path.join(app.static_folder, 'img')
+            upload_folder = os.path.join(app.static_folder, 'img', 'uploads')
             os.makedirs(upload_folder, exist_ok=True)
             image_file.save(os.path.join(upload_folder, filename))
-            image_url = 'img/' + filename
+            image_url = 'img/uploads/' + filename
             
         conn = get_db()
         cursor = conn.cursor()
@@ -376,10 +382,10 @@ def admin_edit(project_id):
             filename = secure_filename(image_file.filename)
             import time
             filename = f"{int(time.time())}_{filename}"
-            upload_folder = os.path.join(app.static_folder, 'img')
+            upload_folder = os.path.join(app.static_folder, 'img', 'uploads')
             os.makedirs(upload_folder, exist_ok=True)
             image_file.save(os.path.join(upload_folder, filename))
-            image_url = 'img/' + filename
+            image_url = 'img/uploads/' + filename
             
         cursor.execute('''
             UPDATE projects
