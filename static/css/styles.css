@@ -1162,7 +1162,7 @@ small {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Ctext x='15' y='25' fill='%2300ff41' opacity='0.18' font-family='monospace' font-size='12'%3E1010101%3C/text%3E%3Ctext x='70' y='45' fill='%2300ff41' opacity='0.12' font-family='monospace' font-size='11'%3E011001%3C/text%3E%3Ctext x='25' y='80' fill='%2300ff41' opacity='0.20' font-family='monospace' font-size='13'%3E100110%3C/text%3E%3Ctext x='85' y='30' fill='%2300ff41' opacity='0.15' font-family='monospace' font-size='11'%3E1101%3C/text%3E%3Ctext x='75' y='95' fill='%2300ff41' opacity='0.18' font-family='monospace' font-size='12'%3E01010%3C/text%3E%3C/svg%3E") repeat,
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ctext%20x%3D%2215%22%20y%3D%2225%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.25%22%20font-family%3D%22monospace%22%20font-size%3D%2212%22%3E1010101%3C/text%3E%3Ctext%20x%3D%2270%22%20y%3D%2245%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.18%22%20font-family%3D%22monospace%22%20font-size%3D%2211%22%3E011001%3C/text%3E%3Ctext%20x%3D%2225%22%20y%3D%2280%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.28%22%20font-family%3D%22monospace%22%20font-size%3D%2213%22%3E100110%3C/text%3E%3Ctext%20x%3D%2285%22%20y%3D%2230%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.20%22%20font-family%3D%22monospace%22%20font-size%3D%2211%22%3E1101%3C/text%3E%3Ctext%20x%3D%2275%22%20y%3D%2295%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.25%22%20font-family%3D%22monospace%22%20font-size%3D%2212%22%3E01010%3C/text%3E%3C/svg%3E") repeat,
                 linear-gradient(180deg, rgba(0, 10, 0, 0.93) 0%, rgba(0, 5, 0, 0.96) 100%);
     z-index: 0;
     pointer-events: none;
@@ -1249,6 +1249,7 @@ small {
 
 .accordion-card.active .card-compact-desktop,
 .accordion-card.active .card-compact-mobile {
+    display: none !important;
     opacity: 0;
     visibility: hidden;
     height: 0;
@@ -1283,6 +1284,7 @@ small {
 
 /* Cuando la baraja tiene una activa y esta carta NO lo está (encogida en desktop) */
 .accordion-wrapper.has-active .accordion-card:not(.active) .card-compact-desktop {
+    display: none !important;
     opacity: 0;
     visibility: hidden;
     height: 0;
