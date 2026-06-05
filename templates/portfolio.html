@@ -127,11 +127,14 @@
                 document.addEventListener("DOMContentLoaded", function() {
                     const wrapper = document.querySelector(".accordion-wrapper");
                     const cards = document.querySelectorAll(".accordion-card");
+                    let hoverTimeout = null;
                     
                     cards.forEach(card => {
                         // Click behavior (works for mobile & fallback)
                         card.addEventListener("click", function(e) {
                             e.stopPropagation(); // Avoid triggering document collapse click
+                            if (hoverTimeout) clearTimeout(hoverTimeout);
+                            
                             if (!this.classList.contains("active")) {
                                 cards.forEach(c => c.classList.remove("active"));
                                 this.classList.add("active");
@@ -139,25 +142,38 @@
                             }
                         });
                         
-                        // Hover behavior for desktop
+                        // Debounced Hover behavior for desktop
                         card.addEventListener("mouseenter", function() {
-                            if (!this.classList.contains("active")) {
-                                cards.forEach(c => c.classList.remove("active"));
-                                this.classList.add("active");
-                                wrapper.classList.add("has-active");
-                            }
+                            if (hoverTimeout) clearTimeout(hoverTimeout);
+                            
+                            hoverTimeout = setTimeout(() => {
+                                if (!this.classList.contains("active")) {
+                                    cards.forEach(c => c.classList.remove("active"));
+                                    this.classList.add("active");
+                                    wrapper.classList.add("has-active");
+                                }
+                            }, 80); // 80ms debounce prevents jittering on boundary shifts
+                        });
+
+                        card.addEventListener("mouseleave", function() {
+                            if (hoverTimeout) clearTimeout(hoverTimeout);
                         });
                     });
 
                     // Collapse all when mouse leaves the accordion wrapper on desktop
                     wrapper.addEventListener("mouseleave", function() {
-                        cards.forEach(c => c.classList.remove("active"));
-                        wrapper.classList.remove("has-active");
+                        if (hoverTimeout) clearTimeout(hoverTimeout);
+                        
+                        hoverTimeout = setTimeout(() => {
+                            cards.forEach(c => c.classList.remove("active"));
+                            wrapper.classList.remove("has-active");
+                        }, 150);
                     });
 
                     // Collapse all when clicking anywhere outside the wrapper
                     document.addEventListener("click", function(e) {
                         if (!wrapper.contains(e.target)) {
+                            if (hoverTimeout) clearTimeout(hoverTimeout);
                             cards.forEach(c => c.classList.remove("active"));
                             wrapper.classList.remove("has-active");
                         }

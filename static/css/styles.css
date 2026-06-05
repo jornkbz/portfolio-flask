@@ -1317,7 +1317,7 @@ small {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 100%;
+    width: 720px; /* Ancho fijo para evitar descuadres y saltos de columna durante la transición de expansión */
     padding: 1.5rem;
     box-sizing: border-box;
     overflow: hidden;
@@ -1428,6 +1428,7 @@ small {
     }
 
     .card-expanded-content {
+        width: 100% !important;
         padding: 1rem;
     }
 
