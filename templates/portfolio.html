@@ -13,6 +13,11 @@
                 {% for project in projects %}
                 <div class="accordion-card" {% if project.status == 'WIP' %}style="border-color: #ffc107 !important;"{% endif %}>
                     
+                    <!-- Lomo / Título Vertical (Visible SOLO cuando la carta está encogida en desktop) -->
+                    <div class="card-vertical-title {% if project.status == 'WIP' %}text-warning{% endif %}">
+                        <span class="port-num">[PORT_0{{ loop.index }}]</span> {{ project.title.split(' - ')[0] | truncate(22) }}
+                    </div>
+
                     <!-- Contenido Compacto (Visible en reposo) -->
                     <!-- Vista Escritorio -->
                     <div class="card-compact-desktop d-none d-md-flex flex-column justify-content-between h-100 p-3">
