@@ -1162,7 +1162,7 @@ small {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Ctext%20x%3D%2215%22%20y%3D%2225%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.25%22%20font-family%3D%22monospace%22%20font-size%3D%2212%22%3E1010101%3C/text%3E%3Ctext%20x%3D%2270%22%20y%3D%2245%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.18%22%20font-family%3D%22monospace%22%20font-size%3D%2211%22%3E011001%3C/text%3E%3Ctext%20x%3D%2225%22%20y%3D%2280%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.28%22%20font-family%3D%22monospace%22%20font-size%3D%2213%22%3E100110%3C/text%3E%3Ctext%20x%3D%2285%22%20y%3D%2230%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.20%22%20font-family%3D%22monospace%22%20font-size%3D%2211%22%3E1101%3C/text%3E%3Ctext%20x%3D%2275%22%20y%3D%2295%22%20fill%3D%22%2300ff41%22%20opacity%3D%220.25%22%20font-family%3D%22monospace%22%20font-size%3D%2212%22%3E01010%3C/text%3E%3C/svg%3E") repeat,
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27200%27%20viewBox%3D%270%200%20160%20200%27%3E%3Cstyle%3E.k%20%7B%20font-family%3A%20monospace%3B%20font-size%3A%2011px%3B%20fill%3A%20%2300ff41%3B%20font-weight%3A%20bold%3B%20%7D%3C/style%3E%3Ctext%20x%3D%2715%27%20y%3D%2720%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BD%B1%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%2735%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BD%B6%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%2750%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BD%BB%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%2765%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%80%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%2780%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%85%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%2795%27%20class%3D%27k%27%20opacity%3D%270.08%27%3E%EF%BE%8A%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%27110%27%20class%3D%27k%27%20opacity%3D%270.08%27%3E%EF%BE%8F%3C/text%3E%3Ctext%20x%3D%2715%27%20y%3D%27125%27%20class%3D%27k%27%20opacity%3D%270.08%27%3E%EF%BE%94%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%2740%27%20class%3D%27k%27%20opacity%3D%270.3%27%3E%EF%BE%97%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%2755%27%20class%3D%27k%27%20opacity%3D%270.3%27%3E%EF%BE%9C%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%2770%27%20class%3D%27k%27%20opacity%3D%270.3%27%3E%EF%BD%A6%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%2785%27%20class%3D%27k%27%20opacity%3D%270.2%27%3E%EF%BD%B2%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%27100%27%20class%3D%27k%27%20opacity%3D%270.2%27%3E%EF%BD%B3%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%27115%27%20class%3D%27k%27%20opacity%3D%270.1%27%3E%EF%BD%B4%3C/text%3E%3Ctext%20x%3D%2745%27%20y%3D%27130%27%20class%3D%27k%27%20opacity%3D%270.1%27%3E%EF%BD%B5%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2710%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BD%B7%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2725%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BD%BC%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2740%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%81%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2755%27%20class%3D%27k%27%20opacity%3D%270.35%27%3E%EF%BE%82%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2770%27%20class%3D%27k%27%20opacity%3D%270.35%27%3E%EF%BE%83%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%2785%27%20class%3D%27k%27%20opacity%3D%270.35%27%3E%EF%BE%84%3C/text%3E%3Ctext%20x%3D%2775%27%20y%3D%27100%27%20class%3D%27k%27%20opacity%3D%270.2%27%3E%EF%BE%89%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%2750%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BE%8B%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%2765%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BE%8C%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%2780%27%20class%3D%27k%27%20opacity%3D%270.25%27%3E%EF%BE%8D%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%2795%27%20class%3D%27k%27%20opacity%3D%270.1%27%3E%EF%BE%8E%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%27110%27%20class%3D%27k%27%20opacity%3D%270.1%27%3E%EF%BE%8F%3C/text%3E%3Ctext%20x%3D%27105%27%20y%3D%27125%27%20class%3D%27k%27%20opacity%3D%270.05%27%3E%EF%BE%90%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%2730%27%20class%3D%27k%27%20opacity%3D%270.3%27%3E%EF%BE%91%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%2745%27%20class%3D%27k%27%20opacity%3D%270.3%27%3E%EF%BE%92%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%2760%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%93%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%2775%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%95%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%2790%27%20class%3D%27k%27%20opacity%3D%270.15%27%3E%EF%BE%96%3C/text%3E%3Ctext%20x%3D%27135%27%20y%3D%27105%27%20class%3D%27k%27%20opacity%3D%270.05%27%3E%EF%BE%99%3C/text%3E%3C/svg%3E") repeat,
                 linear-gradient(180deg, rgba(0, 10, 0, 0.93) 0%, rgba(0, 5, 0, 0.96) 100%);
     z-index: 0;
     pointer-events: none;
@@ -1234,6 +1234,53 @@ small {
         linear-gradient(rgba(0, 255, 65, 0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 255, 65, 0.04) 1px, transparent 1px);
     background-size: 15px 15px;
+}
+
+/* Imagen en la vista compacta */
+.compact-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 145px;
+    border: 1px solid rgba(0, 255, 65, 0.15);
+    overflow: hidden;
+    background: black;
+    border-radius: 2px;
+    transition: border-color 0.3s ease;
+}
+
+.compact-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2) brightness(0.65);
+    transition: all 0.5s ease;
+}
+
+.accordion-card:hover .compact-img-wrapper {
+    border-color: rgba(0, 255, 65, 0.5);
+}
+
+.accordion-card:hover .compact-img-wrapper img {
+    filter: grayscale(70%) contrast(1.1) brightness(0.85);
+    transform: scale(1.02);
+}
+
+/* Imagen compacta móvil */
+.compact-mobile-img-wrapper {
+    width: 45px;
+    height: 35px;
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    overflow: hidden;
+    background: black;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.compact-mobile-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.85);
 }
 
 /* Línea interior decorativa del HUD */
