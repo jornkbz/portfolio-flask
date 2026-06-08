@@ -1541,3 +1541,28 @@ small {
     0%, 100% { opacity: 1; text-shadow: 0 0 5px rgba(0, 255, 65, 0.8); }
     50% { opacity: 0.4; text-shadow: 0 0 2px rgba(0, 255, 65, 0.2); }
 }
+
+/* Pantalla de arte ASCII Matrix */
+.ascii-art-screen {
+    border: 1px solid rgba(0, 255, 65, 0.25);
+    background: rgba(0, 5, 0, 0.95);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.ascii-content {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    line-height: 1.1;
+    color: var(--matrix-bright-green);
+    text-shadow: 0 0 4px rgba(0, 255, 65, 0.5);
+    overflow: hidden;
+    white-space: pre;
+    margin: 0;
+}
