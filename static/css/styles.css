@@ -1366,7 +1366,7 @@ small {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 720px; /* Ancho fijo para evitar descuadres y saltos de columna durante la transición de expansión */
+    width: 100%; /* Toma todo el ancho de la tarjeta para aprovechar el espacio a la derecha */
     padding: 1.5rem;
     box-sizing: border-box;
     overflow: hidden;
