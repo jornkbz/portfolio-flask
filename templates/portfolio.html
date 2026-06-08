@@ -86,10 +86,10 @@
                             {% endif %}
                         </div>
 
-                        <!-- Grid Interna -->
+                        <!-- Grid Interna (Tres Columnas: Descripción, Imagen, ASCII) -->
                         <div class="expanded-body row g-3 flex-grow-1" style="min-height: 0;">
                             <!-- Panel Izquierdo: Descripción detallada con asistente pixel -->
-                            <div class="col-md-5 order-2 order-md-1 d-flex flex-column" style="min-height: 0; height: 100%;">
+                            <div class="col-12 col-md-4 order-3 order-md-1 d-flex flex-column" style="min-height: 0; height: 100%;">
                                 <div class="d-flex align-items-center gap-2 mb-3 pb-2" style="border-bottom: 1px dashed rgba(0, 255, 65, 0.25);">
                                     <div class="pixel-mascot-wrapper" style="width: 45px; height: 45px; border: 1px solid rgba(0, 255, 65, 0.4); border-radius: 4px; overflow: hidden; background: black; flex-shrink: 0; position: relative;">
                                         <img src="{{ url_for('static', filename='img/matrix_pixel_mascot.png') }}" alt="System Agent" style="width: 100%; height: 100%; object-fit: cover;">
@@ -109,23 +109,19 @@
                                 </div>
                             </div>
 
-                            <!-- Panel Derecho: Captura de pantalla + Pantalla ASCII animada -->
-                            <div class="col-md-7 order-1 order-md-2 d-flex flex-column justify-content-center">
-                                <div class="row g-2 align-items-stretch" style="height: 240px;">
-                                    <!-- Captura del Proyecto -->
-                                    <div class="col-12 col-md-6 d-flex flex-column">
-                                        <div class="hud-img-wrapper" style="border: 1px solid rgba(0, 255, 65, 0.3); background: black; overflow: hidden; height: 100%; position: relative; width: 100%;">
-                                            <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2) brightness(0.85); transition: all 0.5s ease;">
-                                            <div class="hud-scanline" style="position: absolute; top: 0; left:0; width:100%; height:100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none;"></div>
-                                        </div>
-                                    </div>
-                                    <!-- Arte ASCII Animado -->
-                                    <div class="col-md-6 d-none d-md-flex flex-column">
-                                        <div class="ascii-art-screen" data-project-index="{{ loop.index }}">
-                                            <pre class="ascii-content"></pre>
-                                            <div class="hud-scanline" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); background-size: 100% 2px; pointer-events: none;"></div>
-                                        </div>
-                                    </div>
+                            <!-- Panel Central: Captura del Proyecto -->
+                            <div class="col-12 col-md-4 order-1 order-md-2 d-flex flex-column justify-content-center" style="height: 240px;">
+                                <div class="hud-img-wrapper" style="border: 1px solid rgba(0, 255, 65, 0.3); background: black; overflow: hidden; height: 100%; position: relative; width: 100%;">
+                                    <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) contrast(1.2) brightness(0.85); transition: all 0.5s ease;">
+                                    <div class="hud-scanline" style="position: absolute; top: 0; left:0; width:100%; height:100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Panel Derecho: Arte ASCII Animado Más Detallado y Alargado -->
+                            <div class="col-md-4 order-2 order-md-3 d-none d-md-flex flex-column" style="height: 240px;">
+                                <div class="ascii-art-screen" data-project-index="{{ loop.index }}">
+                                    <pre class="ascii-content"></pre>
+                                    <div class="hud-scanline" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); background-size: 100% 2px; pointer-events: none;"></div>
                                 </div>
                             </div>
                         </div>
@@ -221,148 +217,283 @@
                     const animations = {
                         1: [ // Neo dodging bullets (Project index 1)
 `
-      SYSTEM: ACTIVE
+  [MONITOR: TRINITY_LINK]
+   x43  |  code: 0x99  |  L3
+  ---------------------------
+        
+             O
+            /|\\
+            / \\
   
-           O
-          /|\\
-      •   / \\
   
-  [ BULLET_DODGE: OFF ]
+  
+  
+  
+  
+  
+  
+    •
+   ---
+  ---------------------------
+  STATE: WAITING_BURST
 `,
 `
-      SYSTEM: WARNING
+  [MONITOR: TRINITY_LINK]
+   x43  |  code: 0x99  |  L3
+  ---------------------------
   
-          \\O/
-           |
-       •  / \\
+            \\O/
+             |
+            / \\
   
-  [ BULLET_DODGE: ENAB ]
+  
+  
+  
+      •
+     ---
+  ---------------------------
+  STATE: DODGING_BURST
 `,
 `
-      SYSTEM: EVADING
+  [MONITOR: TRINITY_LINK]
+   x43  |  code: 0x99  |  L3
+  ---------------------------
   
-     •   _O_
-        / | \\
-         / \\
+        •   _O_
+       ---   \\
+            / \\
   
-  [ BULLET_DODGE: BUSY ]
+  
+  
+  
+  
+  ---------------------------
+  STATE: EVASION_ACTIVE
 `,
 `
-      SYSTEM: CLEAR
+  [MONITOR: TRINITY_LINK]
+   x43  |  code: 0x99  |  L3
+  ---------------------------
   
-           O
-          /|\\
-          / \\   •
+             O    •
+            /|\\  ---
+            / \\
   
-  [ BULLET_DODGE: DONE ]
+  
+  
+  
+  
+  ---------------------------
+  STATE: SYSTEM_STABLE
 `
                         ],
                         2: [ // Sentinels waving tentacles (Project index 2)
 `
-      SENTINEL_SCAN
+  [MONITOR: SENTINEL_ALERT]
+   id: S-902  |  class: SQUID
+  ---------------------------
   
-          .-"-.
-         / o o \\
-        |   o   |
-         \\__ _/
-         / / \\ \\
-        / /   \\ \\
-       | |     | |
+            .---.
+           / o o \\
+          |   o   |
+           \\__ _/
+           / / \\ \\
+          / /   \\ \\
+         / /     \\ \\
+        | |       | |
+        | |       | |
+        | |       | |
+        | |       | |
+        ( )       ( )
+  
+  ---------------------------
+  STATE: SCANNING_SECTOR
 `,
 `
-      SENTINEL_SCAN
+  [MONITOR: SENTINEL_ALERT]
+   id: S-902  |  class: SQUID
+  ---------------------------
   
-          .-"-.
-         / o o \\
-        |   o   |
-         \\__ _/
-         ) ) ( (
-        / /   \\ \\
-       ( (     ) )
+            .---.
+           / o o \\
+          |   o   |
+           \\__ _/
+           ) ) ( (
+          / /   \\ \\
+         ( (     ) )
+          \\ \\   / /
+           \\ /   / /
+            ) v (
+           / / \\ \\
+          ( )   ( )
+  
+  ---------------------------
+  STATE: MOVEMENT_DETECTED
 `,
 `
-      SENTINEL_SCAN
+  [MONITOR: SENTINEL_ALERT]
+   id: S-902  |  class: SQUID
+  ---------------------------
   
-          .-"-.
-         / o o \\
-        |   o   |
-         \\__ _/
-        ( (   ) )
-         \\ \\ / /
-          \\ v /
+            .---.
+           / o o \\
+          |   o   |
+           \\__ _/
+          ( (   ) )
+           \\ \\ / /
+            \\ v /
+            / v \\
+           / / \\ \\
+          ( (   ) )
+           \\ \\ / /
+           ( ) ( )
+  
+  ---------------------------
+  STATE: TARGET_LOCKED
 `
                         ],
                         3: [ // Follow the White Rabbit (Project index 3)
 `
-    FOLLOW THE RABBIT
+  [MONITOR: BUNNY_ROUTE]
+   hop: #01  |  route: Matrix
+  ---------------------------
   
-   (\\_/)
-   (·.·)
-  (”)(”)
+       /\\ /|
+      ((^_~))
+      ( v v )
+      (>   <)
+      (..)(..)
   
-   [ SEARCHING_ENTRY ]
+  
+  
+  
+  
+  
+  ---------------------------
+  STATE: WAIT_FOR_USER
 `,
 `
-    FOLLOW THE RABBIT
+  [MONITOR: BUNNY_ROUTE]
+   hop: #02  |  route: Matrix
+  ---------------------------
   
-     (\\_/)
-     (·.·)
-    (”)(”)
   
-   [ BUNNY_JUMP: ACTIVE ]
+       /\\ /|
+      ((o_o))
+     (  v v  )
+      / > < \\
+     (..)(..)
+  
+  
+  
+  
+  ---------------------------
+  STATE: PREPARING_LEAP
 `,
 `
-    FOLLOW THE RABBIT
+  [MONITOR: BUNNY_ROUTE]
+   hop: #03  |  route: Matrix
+  ---------------------------
   
-       (\\_/)
-       (·.·)
-      (”)(”)
   
-   [ BUNNY_AIR: HIGH ]
+  
+       /\\ /|
+      ((o_o))
+      (  ^  )
+      / > < \\
+       "   "
+  
+  
+  ---------------------------
+  STATE: AIRBORNE
 `,
 `
-    FOLLOW THE RABBIT
+  [MONITOR: BUNNY_ROUTE]
+   hop: #04  |  route: Matrix
+  ---------------------------
   
-         (\\_/)
-         (·.·)
-        (”)(”)
   
-   [ BUNNY_LAND: SAFE ]
+  
+  
+       /\\ /|
+      ((^_~))
+      ( v v )
+      (>   <)
+      (..)(..)
+  
+  ---------------------------
+  STATE: LANDED_SUCCESS
 `
                         ],
                         4: [ // Red Pill vs Blue Pill (Project index 4)
 `
-      DECISION_REQUIRED
+  [MONITOR: CHOOSE_PILL]
+   auth: MORPHEUS  |  v.103
+  ---------------------------
   
-      [RED]     [BLUE]
-       ( )       ( )
+      RED         BLUE
+     .---.       .---.
+    (     )     (     )
+     '---'       '---'
   
-       CHOOSE YOUR PATH
+      [ ]         [ ]
+  
+  
+  
+  
+  ---------------------------
+  STATE: AWAITING_CHOICE
 `,
 `
-      DECISION_REQUIRED
+  [MONITOR: CHOOSE_PILL]
+   auth: MORPHEUS  |  v.103
+  ---------------------------
   
-      [RED]     [BLUE]
-       (*)       ( )
+      RED         BLUE
+     .---.       .---.
+    (  *  )     (     )
+     '---'       '---'
   
-       SYS_DECRYPTING...
+      [*]         [ ]
+  
+  
+  
+  
+  ---------------------------
+  STATE: RED_PILL_CONFIRMED
 `,
 `
-      DECISION_REQUIRED
+  [MONITOR: CHOOSE_PILL]
+   auth: MORPHEUS  |  v.103
+  ---------------------------
   
-      [RED]
-       (*)
+      RED
+     .---.
+    (  *  )
+     '---'
   
-       WELCOME_TO_REALITY
+      [X]
+  
+  
+  
+  
+  ---------------------------
+  STATE: INITIALIZING_REALITY
 `,
 `
-      DECISION_REQUIRED
+  [MONITOR: CHOOSE_PILL]
+   auth: MORPHEUS  |  v.103
+  ---------------------------
   
-       .  .  .  .  .  .
-      : : : : : : : : :
-       .  .  .  .  .  .
+     .  .  .  .  .  .  .  .
+    : : : : : : : : : : : :
+     .  .  .  .  .  .  .  .
+    : : : : : : : : : : : :
+     .  .  .  .  .  .  .  .
   
-       SYSTEM_TRANSITION
+  
+  ---------------------------
+  STATE: SYSTEM_OVERRIDE
 `
                         ]
                     };
