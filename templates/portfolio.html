@@ -88,8 +88,22 @@
 
                         <!-- Grid Interna -->
                         <div class="expanded-body row g-3 flex-grow-1" style="min-height: 0;">
-                            <!-- Panel Izquierdo: Descripción detallada -->
+                            <!-- Panel Izquierdo: Descripción detallada con asistente pixel -->
                             <div class="col-md-5 order-2 order-md-1 d-flex flex-column" style="min-height: 0; height: 100%;">
+                                <div class="d-flex align-items-center gap-2 mb-3 pb-2" style="border-bottom: 1px dashed rgba(0, 255, 65, 0.25);">
+                                    <div class="pixel-mascot-wrapper" style="width: 45px; height: 45px; border: 1px solid rgba(0, 255, 65, 0.4); border-radius: 4px; overflow: hidden; background: black; flex-shrink: 0; position: relative;">
+                                        <img src="{{ url_for('static', filename='img/matrix_pixel_mascot.png') }}" alt="System Agent" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <div class="mascot-glitch-line"></div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <div class="text-success small fw-bold" style="font-size: 0.75rem; font-family: 'Share Tech Mono'; letter-spacing: 1.5px; animation: pulse-text 2s infinite;">
+                                            <i class="fas fa-terminal me-1"></i>AGENT_DECRYPTED
+                                        </div>
+                                        <div class="text-muted" style="font-size: 0.65rem; font-family: 'Share Tech Mono'; text-transform: uppercase; opacity: 0.7;">
+                                            SEC_LEVEL: ALPHA_8 // ACTIVE
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="project-desc-scroll text-success small overflow-auto pe-1" style="flex-grow: 1; font-family: 'Share Tech Mono', monospace; line-height: 1.5; font-size: 0.9rem;">
                                     {{ project.description | safe }}
                                 </div>
