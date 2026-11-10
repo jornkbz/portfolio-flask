@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
-{% block title %}Email enviado{% endblock %}
+{% block title %}{% if ok %}Email enviado{% else %}Error{% endif %}{% endblock %}
 
 {% block content %}
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <div clas="card border-success">
-                <div clas="card-body">
-                    <h2 class="card-title text-center mb-4"> <i class="fas fa-chaeck-circle text-success"></i>¡Correo enviado!</h2>
-                    <p class="card-text text-center">Tu mensaje ha sido enviado crorrectamente.</p>
-                    <a href="{{url_for('index')}}" class="btn btn-success d-block mx.auto mt-4"> <i class="fas fa-home"></i> Volver a inicio</a>
-
+            <div class="card border-success bg-transparent">
+                <div class="card-body">
+                    {% if ok %}
+                    <h2 class="card-title text-center mb-4"><i class="fas fa-check-circle text-success me-2"></i>¡Correo enviado!</h2>
+                    <p class="card-text text-center">Tu mensaje ha sido enviado correctamente.</p>
+                    {% else %}
+                    <h2 class="card-title text-center mb-4 text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Error</h2>
+                    <p class="card-text text-center">{{ error or 'No se pudo procesar la petición.' }}</p>
+                    {% endif %}
+                    <a href="{{ url_for('index') }}" class="btn btn-success d-block mx-auto mt-4"><i class="fas fa-home"></i> Volver a inicio</a>
                 </div>
             </div>
         </div>

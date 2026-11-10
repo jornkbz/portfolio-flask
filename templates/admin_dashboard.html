@@ -17,9 +17,12 @@
                 <a href="{{ url_for('index') }}" class="btn btn-outline-success btn-sm" style="border-radius: 0; border: 1px solid #00FF41 !important; background: transparent; color: #00FF41;">
                     <i class="fas fa-eye me-2"></i>VER_SITIO_WEB
                 </a>
-                <a href="{{ admin_path }}/logout" class="btn btn-outline-danger btn-sm" style="border-radius: 0; border: 1px solid #ff4d4d !important; background: transparent; color: #ff4d4d; transition: all 0.3s;">
-                    <i class="fas fa-power-off me-2"></i>LOGOUT
-                </a>
+                <form action="{{ admin_path }}/logout" method="POST" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-outline-danger btn-sm" style="border-radius: 0; border: 1px solid #ff4d4d !important; background: transparent; color: #ff4d4d; transition: all 0.3s;">
+                        <i class="fas fa-power-off me-2"></i>LOGOUT
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -112,7 +115,8 @@
                                     <a href="{{ admin_path }}/edit/{{ project.id }}" class="btn btn-outline-success btn-sm" style="border-radius: 0; background: transparent; border-color: #00ff41;" title="Editar">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form action="{{ admin_path }}/delete/{{ project.id }}" method="POST" onsubmit="return confirm('⚠️ ALERTA: ¿Estás completamente seguro de eliminar el registro de este proyecto?');" style="display: inline;">
+                                    <form action="{{ admin_path }}/delete/{{ project.id }}" method="POST" data-confirm="⚠️ ALERTA: ¿Estás completamente seguro de eliminar el registro de este proyecto?" style="display: inline;">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                         <button type="submit" class="btn btn-outline-danger btn-sm" style="border-radius: 0; background: transparent; border-color: #ff4d4d;" title="Eliminar">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>

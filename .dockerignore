@@ -1,0 +1,19 @@
+# Nunca meter secretos, datos locales ni entornos en la imagen
+.env
+.env.*
+*.db
+data/
+static/img/uploads/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.git/
+.github/
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+README.md
+*.7z
+*.zip

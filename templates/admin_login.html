@@ -24,6 +24,7 @@
         {% endwith %}
 
         <form method="POST" action="{{ admin_path }}/login" style="font-family: 'Share Tech Mono', monospace;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="mb-3">
                 <label for="username" class="form-label text-success">> USUARIO_</label>
                 <input type="text" class="form-control form-control-sm text-white" id="username" name="username" required autocomplete="off" placeholder="admin" style="border-radius: 0; background-color: rgba(0, 20, 0, 0.6) !important; border: 1px solid var(--matrix-green);">

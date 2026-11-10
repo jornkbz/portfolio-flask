@@ -1,0 +1,14 @@
+# Desarrollo local: docker compose -f docker-compose.dev.yml up --build
+services:
+  portfolio:
+    build: .
+    container_name: mi_portfolio_dev
+    ports:
+      - "127.0.0.1:5000:5000"
+    env_file:
+      - .env
+    environment:
+      SESSION_COOKIE_SECURE: "False"   # en local no hay https
+    volumes:
+      - ./data:/app/data
+      - ./static/img/uploads:/app/static/img/uploads

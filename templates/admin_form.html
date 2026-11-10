@@ -21,9 +21,21 @@
         </div>
     </div>
 
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-dark {% if category == 'success' %}text-success border-success{% else %}text-danger border-danger{% endif %} mb-4" style="background: rgba(0, 15, 0, 0.9); border-radius: 0; font-family: 'Share Tech Mono', monospace;" role="alert">
+                <i class="fas {% if category == 'success' %}fa-check-circle{% else %}fa-exclamation-triangle{% endif %} me-2"></i> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <!-- FORM -->
     <div class="matrix-container text-start" style="background-color: rgba(0, 10, 0, 0.95); border: 1px solid var(--matrix-green);">
         <form method="POST" enctype="multipart/form-data" style="font-family: 'Share Tech Mono', monospace;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
             <div class="row">
                 <!-- TÍTULO -->

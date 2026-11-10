@@ -220,3 +220,4 @@ database.db
 # User persistent data
 data/
 static/img/uploads/
+backups/

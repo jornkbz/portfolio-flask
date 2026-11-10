@@ -37,18 +37,19 @@
                     <div class="col-md-10 mx-auto col-lg-6">
                         <form class="p-4 border border-success" style="background: rgba(0,20,0,0.4);" method="post"
                             action="{{url_for('send_mail')}}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                             <div class="mb-3 text-start">
                                 <label for="name" class="form-label">> Nombre_usuario:</label>
-                                <input type="text" class="form-control" id="name" name="name" required placeholder="_">
+                                <input type="text" class="form-control" id="name" name="name" required maxlength="100" placeholder="_">
                             </div>
                             <div class="mb-3 text-start">
                                 <label for="email" class="form-label">> Correo_destino:</label>
-                                <input type="email" class="form-control" id="email" name="email" required
+                                <input type="email" class="form-control" id="email" name="email" required maxlength="254"
                                     placeholder="@">
                             </div>
                             <div class="mb-3 text-start">
                                 <label for="message" class="form-label">> Cargar_mensaje:</label>
-                                <textarea class="form-control" id="message" name="message" rows="5" required
+                                <textarea class="form-control" id="message" name="message" rows="5" required maxlength="5000"
                                     placeholder="Escribe aquí..."></textarea>
                             </div>
 

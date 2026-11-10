@@ -1,19 +1,32 @@
-version: '3.8'
-
+# Producción (VPS). El workflow de CI copia este archivo a /srv/docker/portfolio-flask.
+# Sin puertos publicados: Nginx Proxy Manager llega al contenedor por la red 'neura_django'
+# (forward host: mi_portfolio_container, puerto 5000).
 services:
   portfolio:
     image: ghcr.io/jornkbz/portfolio-flask:latest
     container_name: mi_portfolio_container
-    restart: always
-    ports:
-      - "5000:5000"
+    restart: unless-stopped
     env_file:
       - .env
     volumes:
       - ./data:/app/data
       - ./static/img/uploads:/app/static/img/uploads
-    networks:          # <--- Al mismo nivel que ports o image
-      - neura_django   # <--- 2 espacios dentro
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 512m
+    pids_limit: 200
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - neura_django
 
 networks:
   neura_django:

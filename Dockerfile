@@ -1,20 +1,31 @@
-# 1. Usamos una imagen base de Python ligera (Linux)
-FROM python:3.11-slim
+FROM python:3.12-slim
 
-# 2. Establecemos el directorio de trabajo dentro del contenedor
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    HOME=/tmp
+
 WORKDIR /app
 
-# 3. Copiamos el archivo de requisitos primero (para aprovechar la caché de Docker)
+# Usuario sin privilegios. UID/GID 1000 = usuario 'neur' del VPS, dueño de ./data y ./static/img/uploads
+ARG APP_UID=1000
+ARG APP_GID=1000
+RUN groupadd --gid ${APP_GID} app && useradd --uid ${APP_UID} --gid app --no-create-home --shell /usr/sbin/nologin app
+
 COPY requirements.txt .
+RUN pip install -r requirements.txt
 
-# 4. Instalamos las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --chown=app:app . .
+RUN mkdir -p /app/data /app/static/img/uploads && chown -R app:app /app/data /app/static/img/uploads
 
-# 5. Copiamos el resto de tu código al contenedor
-COPY . .
+USER app
 
-# 6. Le decimos a Docker que este contenedor usará el puerto 5000
 EXPOSE 5000
 
-# 7. Comando para arrancar la app
-CMD ["python", "app.py"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+    CMD python -c "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:5000/healthz', timeout=4).status == 200 else 1)"
+
+# Un único proceso (rate-limit y anti-replay MFA en memoria) con varios hilos.
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--threads", "4", "--timeout", "60", \
+     "--worker-tmp-dir", "/tmp", "--access-logfile", "-", "--error-logfile", "-", "app:app"]

@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="project-desc-scroll text-success small overflow-auto pe-1" style="flex-grow: 1; font-family: 'Share Tech Mono', monospace; line-height: 1.5; font-size: 0.9rem;">
-                                    {{ project.description | safe }}
+                                    {{ project.description | sanitize }}
                                 </div>
                             </div>
 
@@ -133,7 +133,7 @@
                                         <i class="fas fa-hard-hat me-2"></i> {{ project.link_text or 'EN CONSTRUCCIÓN' }}
                                     </a>
                                     {% else %}
-                                    <a href="{{ project.link_url }}" target="_blank" class="btn btn-matrix w-100 py-2" style="font-family: 'Share Tech Mono'; border-radius: 0; font-size: 0.85rem;">
+                                    <a href="{{ project.link_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-matrix w-100 py-2" style="font-family: 'Share Tech Mono'; border-radius: 0; font-size: 0.85rem;">
                                         <i class="fas {% if 'model' in (project.link_text or '').lower() or 'ia' in (project.link_text or '').lower() or 'predic' in (project.link_text or '').lower() %}fa-brain{% else %}fa-external-link-alt{% endif %} me-2"></i> {{ project.link_text or 'INICIAR SISTEMA' }}
                                     </a>
                                     {% endif %}
@@ -147,7 +147,7 @@
             </div>
 
             <!-- JS Logic for JCP_CARD_DECK Accordion -->
-            <script>
+            <script nonce="{{ csp_nonce }}">
                 document.addEventListener("DOMContentLoaded", function() {
                     const wrapper = document.querySelector(".accordion-wrapper");
                     const cards = document.querySelectorAll(".accordion-card");

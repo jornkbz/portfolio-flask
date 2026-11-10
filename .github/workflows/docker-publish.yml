@@ -3,72 +3,126 @@ name: CI/CD Portfolio Flask
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
+
+# Evita dos despliegues simultáneos sobre el VPS
+concurrency:
+  group: deploy-portfolio
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 env:
   REGISTRY: ghcr.io
-  # Asegura que esto esté en minúsculas (usuario/repo)
-  IMAGE_NAME: jornkbz/portfolio-flask
+  IMAGE_NAME: jornkbz/portfolio-flask   # en minúsculas (usuario/repo)
+  DEPLOY_DIR: /srv/docker/portfolio-flask
 
 jobs:
+  # 1. Auditoría de dependencias: si hay CVEs conocidas, no se construye ni despliega
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: pip-audit
+        run: |
+          python -m pip install --upgrade pip pip-audit
+          pip-audit -r requirements.txt --strict
+
   build-and-deploy:
+    needs: audit
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
 
     steps:
-      # 1. Bajar código
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # 2. Login en GitHub Registry
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 3. Metadatos Docker
+      # latest (lo que usa el VPS) + sha-xxxxxxx (para poder volver atrás)
       - name: Extract metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: type=raw,value=latest
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
 
-      # 4. Construir y Subir imagen (Sin build-args, usamos .env en servidor)
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: .
           push: true
+          pull: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      # 5. Desplegar en IONOS
-      - name: Deploy to VPS using SSH
-        uses: appleboy/ssh-action@v1.0.3
+      # Mantener el docker-compose.yml del VPS sincronizado con el del repositorio
+      - name: Copy docker-compose.yml to VPS
+        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
         with:
           host: ${{ secrets.IONOS_HOST }}
           username: ${{ secrets.IONOS_USERNAME }}
           key: ${{ secrets.IONOS_SSH_KEY }}
           port: ${{ secrets.IONOS_SSH_PORT }}
-          
+          source: docker-compose.yml
+          target: ${{ env.DEPLOY_DIR }}
+
+      - name: Deploy to VPS using SSH
+        uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
+        env:
+          GHCR_USER: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOY_DIR: ${{ env.DEPLOY_DIR }}
+        with:
+          host: ${{ secrets.IONOS_HOST }}
+          username: ${{ secrets.IONOS_USERNAME }}
+          key: ${{ secrets.IONOS_SSH_KEY }}
+          port: ${{ secrets.IONOS_SSH_PORT }}
+          envs: GHCR_USER,GHCR_TOKEN,DEPLOY_DIR
+          script_stop: true
           script: |
-            # Ir a la carpeta del portafolio (independiente de Django)
-            cd /srv/docker/portfolio-flask
-            
-            # Login para poder bajar la imagen privada
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            
-            # Descargar la nueva imagen
+            set -eu
+            cd "$DEPLOY_DIR"
+
+            # Volúmenes persistentes (BD SQLite e imágenes subidas desde el panel)
+            mkdir -p data static/img/uploads backups
+            if [ -f data/database.db ]; then
+              cp data/database.db "backups/database-$(date +%Y%m%d-%H%M%S).db"
+              ls -1t backups/database-*.db | tail -n +11 | xargs -r rm --
+            fi
+
+            # Login temporal para bajar la imagen; se cierra al terminar para no dejar el token guardado
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_USER" --password-stdin
             docker compose pull
-            
-            # Reiniciar SOLO el portafolio
-            # Como ya configuramos la red 'neura_django' en el docker-compose.yml,
-            # se conectará automáticamente al Nginx que ya está corriendo.
-            docker compose up -d
-            
-            # Limpieza
+            docker logout ghcr.io
+
+            # Reiniciar SOLO el portafolio (NPM lo alcanza por la red 'neura_django')
+            docker compose up -d --remove-orphans
+
+            # Esperar a que el healthcheck pase
+            for i in $(seq 1 20); do
+              status=$(docker inspect -f '{{.State.Health.Status}}' mi_portfolio_container 2>/dev/null || echo unknown)
+              [ "$status" = "healthy" ] && echo "Contenedor healthy" && break
+              sleep 3
+            done
+            [ "$status" = "healthy" ] || { docker logs --tail 50 mi_portfolio_container; exit 1; }
+
             docker image prune -f

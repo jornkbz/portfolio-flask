@@ -93,7 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const div = document.createElement('div');
         div.className = 'mb-2 small';
         div.id = msgId;
-        div.innerHTML = `<span class="${cssClass} fw-bold">[${sender}]:</span> <span class="text-white">${text}</span>`;
+        const senderSpan = document.createElement('span');
+        senderSpan.className = `${cssClass} fw-bold`;
+        senderSpan.textContent = `[${sender}]:`;
+        const textSpan = document.createElement('span');
+        textSpan.className = 'text-white';
+        textSpan.textContent = text;
+        div.append(senderSpan, ' ', textSpan);
         aiChatBox.appendChild(div);
         aiChatBox.scrollTop = aiChatBox.scrollHeight;
         return msgId;
@@ -372,4 +378,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+});
+
+
+/* Confirmación de formularios (sustituye a los onsubmit inline, bloqueados por la CSP) */
+document.addEventListener('submit', (e) => {
+    const form = e.target;
+    if (form instanceof HTMLFormElement && form.dataset.confirm && !window.confirm(form.dataset.confirm)) {
+        e.preventDefault();
+    }
 });
