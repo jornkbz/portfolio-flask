@@ -74,16 +74,9 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # Mantener el docker-compose.yml del VPS sincronizado con el del repositorio
-      - name: Copy docker-compose.yml to VPS
-        uses: appleboy/scp-action@ff85246acaad7bdce478db94a363cd2bf7c90345 # v1.0.0
-        with:
-          host: ${{ secrets.IONOS_HOST }}
-          username: ${{ secrets.IONOS_USERNAME }}
-          key: ${{ secrets.IONOS_SSH_KEY }}
-          port: ${{ secrets.IONOS_SSH_PORT }}
-          source: docker-compose.yml
-          target: ${{ env.DEPLOY_DIR }}
+      # El docker-compose.yml del repo viaja dentro del paso SSH (base64) para mantener el VPS sincronizado
+      - name: Encode docker-compose.yml
+        run: echo "COMPOSE_B64=$(base64 -w0 docker-compose.yml)" >> "$GITHUB_ENV"
 
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@0ff4204d59e8e51228ff73bce53f80d53301dee2 # v1.2.5
@@ -91,16 +84,24 @@ jobs:
           GHCR_USER: ${{ github.actor }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEPLOY_DIR: ${{ env.DEPLOY_DIR }}
+          COMPOSE_B64: ${{ env.COMPOSE_B64 }}
         with:
           host: ${{ secrets.IONOS_HOST }}
           username: ${{ secrets.IONOS_USERNAME }}
           key: ${{ secrets.IONOS_SSH_KEY }}
           port: ${{ secrets.IONOS_SSH_PORT }}
-          envs: GHCR_USER,GHCR_TOKEN,DEPLOY_DIR
+          envs: GHCR_USER,GHCR_TOKEN,DEPLOY_DIR,COMPOSE_B64
           script_stop: true
           script: |
             set -eu
             cd "$DEPLOY_DIR"
+
+            # Sincronizar docker-compose.yml con el del repositorio (guardando el anterior)
+            mkdir -p backups
+            [ -f docker-compose.yml ] && cp docker-compose.yml backups/docker-compose.yml.prev
+            echo "$COMPOSE_B64" | base64 -d > docker-compose.yml.new
+            docker compose -f docker-compose.yml.new config -q
+            mv docker-compose.yml.new docker-compose.yml
 
             # Volúmenes persistentes (BD SQLite e imágenes subidas desde el panel)
             mkdir -p data static/img/uploads backups
