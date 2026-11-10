@@ -91,7 +91,6 @@ jobs:
           key: ${{ secrets.IONOS_SSH_KEY }}
           port: ${{ secrets.IONOS_SSH_PORT }}
           envs: GHCR_USER,GHCR_TOKEN,DEPLOY_DIR,COMPOSE_B64
-          script_stop: true
           script: |
             set -eu
             cd "$DEPLOY_DIR"
