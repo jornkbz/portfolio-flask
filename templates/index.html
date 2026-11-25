@@ -4,7 +4,7 @@
 {% block seo %}
     {% set seo_title = 'José Cabezas Pulgarín · SysAdmin, DevOps y Ciberseguridad' %}
     {% set seo_desc = 'Portfolio de José Cabezas Pulgarín, administrador de sistemas y desarrollador Python en Córdoba (España): infraestructura Linux, DevOps, ciberseguridad (ISO 27001, MAGERIT), IA y Big Data.' %}
-    {% set og_image = site_url ~ url_for('static', filename='img/og-image.png') %}
+    {% set og_image = site_url ~ url_for('static', filename='img/og-card.png') %}
     <meta name="description" content="{{ seo_desc }}">
     <meta name="author" content="José Cabezas Pulgarín">
     <link rel="canonical" href="{{ site_url }}/">
@@ -30,7 +30,7 @@
         "@type": "Person",
         "name": "José Cabezas Pulgarín",
         "url": site_url ~ "/",
-        "image": site_url ~ url_for('static', filename='img/perfil.jpg'),
+        "image": site_url ~ url_for('static', filename='img/foto-perfil.jpg'),
         "jobTitle": "Administrador de Sistemas y Desarrollador Python",
         "address": {"@type": "PostalAddress", "addressLocality": "Córdoba", "addressCountry": "ES"},
         "knowsAbout": ["Linux", "DevOps", "Docker", "Python", "Ciberseguridad", "ISO 27001", "MAGERIT", "Machine Learning", "Big Data"],

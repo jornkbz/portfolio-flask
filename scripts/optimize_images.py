@@ -50,7 +50,7 @@ def make_og_image():
 
     # Foto de perfil circular
     size = 260
-    with Image.open(os.path.join(IMG, 'perfil.jpg')) as p:
+    with Image.open(os.path.join(IMG, 'foto-perfil.jpg')) as p:
         p = p.convert('RGB').resize((size, size), Image.LANCZOS)
     mask = Image.new('L', (size, size), 0)
     ImageDraw.Draw(mask).ellipse([0, 0, size - 1, size - 1], fill=255)
@@ -65,16 +65,16 @@ def make_og_image():
     draw.text((tx, 405), 'SysAdmin · DevOps · Python', font=find_font(32), fill=(220, 255, 225))
     draw.text((tx, 450), 'IA · Ciberseguridad', font=find_font(32), fill=(220, 255, 225))
 
-    out = os.path.join(IMG, 'og-image.png')
+    out = os.path.join(IMG, 'og-card.png')
     canvas.save(out, 'PNG', optimize=True)
-    print(f"og-image.png creada ({os.path.getsize(out) // 1024} KB)")
+    print(f"og-card.png creada ({os.path.getsize(out) // 1024} KB)")
 
 
 def main():
     for name in sorted(os.listdir(IMG)):
         path = os.path.join(IMG, name)
         base, ext = os.path.splitext(name)
-        if ext.lower() not in ('.png', '.jpg', '.jpeg') or base.startswith(('favicon', 'og-image')):
+        if ext.lower() not in ('.png', '.jpg', '.jpeg') or base.startswith(('favicon', 'og-')):
             continue
         if base == 'matrix_pixel_mascot':
             # Se muestra a 45 px: 128 px cubre pantallas de alta densidad
