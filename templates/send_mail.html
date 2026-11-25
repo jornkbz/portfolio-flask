@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block robots %}noindex, nofollow{% endblock %}
 {% block title %}{% if ok %}Email enviado{% else %}Error{% endif %}{% endblock %}
 
 {% block content %}

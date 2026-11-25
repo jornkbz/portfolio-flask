@@ -38,7 +38,7 @@
 
                         <!-- Foto en la vista plegada/compacta -->
                         <div class="compact-img-wrapper my-2">
-                            <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}">
+                            <img src="{{ url_for('static', filename=project.image_url | webp) }}" alt="{{ project.title }}" loading="lazy" decoding="async">
                             <div class="hud-scanline" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%); background-size: 100% 2px; pointer-events: none;"></div>
                         </div>
 
@@ -60,7 +60,7 @@
                         
                         <!-- Foto miniatura en móvil plegado -->
                         <div class="compact-mobile-img-wrapper me-2">
-                            <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}">
+                            <img src="{{ url_for('static', filename=project.image_url | webp) }}" alt="{{ project.title }}" loading="lazy" decoding="async">
                         </div>
 
                         <span class="compact-title m-0 {% if project.status == 'WIP' %}text-warning{% else %}text-success{% endif %} text-truncate flex-grow-1 text-start" style="font-family: 'Share Tech Mono'; font-size: 0.9rem;">
@@ -90,7 +90,7 @@
                             <div class="col-12 col-md-7 order-2 order-md-1 d-flex flex-column" style="min-height: 0; height: 100%;">
                                 <div class="d-flex align-items-center gap-2 mb-3 pb-2" style="border-bottom: 1px dashed rgba(0, 255, 65, 0.25);">
                                     <div class="pixel-mascot-wrapper" style="width: 45px; height: 45px; border: 1px solid rgba(0, 255, 65, 0.4); border-radius: 4px; overflow: hidden; background: black; flex-shrink: 0; position: relative;">
-                                        <img src="{{ url_for('static', filename='img/matrix_pixel_mascot.png') }}" alt="System Agent" style="width: 100%; height: 100%; object-fit: cover;">
+                                        <img src="{{ url_for('static', filename='img/matrix_pixel_mascot.webp') }}" alt="System Agent" width="45" height="45" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
                                         <div class="mascot-glitch-line"></div>
                                     </div>
                                     <div class="my-auto">
@@ -110,7 +110,7 @@
                             <!-- Panel Derecho: Captura del Proyecto (Tamaño más cuadrado, toma el 42% de ancho) -->
                             <div class="col-12 col-md-5 order-1 order-md-2 d-flex flex-column justify-content-center" style="height: 280px;">
                                 <div class="hud-img-wrapper" style="border: 1px solid rgba(0, 255, 65, 0.3); background: black; overflow: hidden; height: 100%; position: relative; width: 100%;">
-                                    <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" style="width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(100%) contrast(1.2) brightness(0.85); transition: all 0.5s ease;">
+                                    <img src="{{ url_for('static', filename=project.image_url | webp) }}" alt="{{ project.title }}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(100%) contrast(1.2) brightness(0.85); transition: all 0.5s ease;">
                                     <div class="hud-scanline" style="position: absolute; top: 0; left:0; width:100%; height:100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none;"></div>
                                 </div>
                             </div>

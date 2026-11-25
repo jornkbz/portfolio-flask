@@ -5,7 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-    <title> {% block title %} {% endblock %} - Portafolio</title>
+    <title>{% block full_title %}{% block title %}{% endblock %} · José Cabezas Pulgarín{% endblock %}</title>
+    <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+    <meta name="theme-color" content="#000000">
+    {% block seo %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/all.min.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css') }}?v=1.0.7">

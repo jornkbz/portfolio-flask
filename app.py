@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 import click
 import nh3
 import pyotp
-from markupsafe import Markup
+from markupsafe import Markup, escape
 from PIL import Image, UnidentifiedImageError
 from dotenv import load_dotenv
 from flask import (Flask, render_template, request, redirect, url_for, jsonify,
@@ -198,6 +198,30 @@ def safe_link(url):
     return ''
 
 
+@app.template_filter('webp')
+def webp_filter(path):
+    """Devuelve la versión .webp hermana de una imagen estática si existe (ver scripts/optimize_images.py)."""
+    base, ext = os.path.splitext(path or '')
+    if ext.lower() in ('.png', '.jpg', '.jpeg'):
+        candidate = base + '.webp'
+        if os.path.isfile(os.path.join(app.static_folder, candidate)):
+            return candidate
+    return path
+
+
+# --- SEO: URL pública del sitio (para canonical, Open Graph y sitemap) ---
+SITE_URL = os.getenv('SITE_URL', '').rstrip('/')
+
+
+def site_url():
+    return SITE_URL or request.url_root.rstrip('/')
+
+
+@app.context_processor
+def inject_site_url():
+    return {'site_url': site_url() if request else ''}
+
+
 # --- CABECERAS DE SEGURIDAD + CSP con nonce ---
 @app.before_request
 def set_csp_nonce():
@@ -331,6 +355,22 @@ def index():
     projects = conn.execute('SELECT * FROM projects ORDER BY order_num ASC, id DESC').fetchall()
     conn.close()
     return render_template('index.html', projects=projects)
+
+
+@app.route('/robots.txt')
+def robots_txt():
+    # No se menciona la ruta de administración: es secreta (y ya envía X-Robots-Tag: noindex)
+    body = f"User-agent: *\nAllow: /\n\nSitemap: {site_url()}/sitemap.xml\n"
+    return app.response_class(body, mimetype='text/plain')
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    body = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            f'  <url><loc>{escape(site_url())}/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>\n'
+            '</urlset>\n')
+    return app.response_class(body, mimetype='application/xml')
 
 
 EMAIL_RE = re.compile(r'^[^@\s<>"\r\n]+@[^@\s<>"\r\n]+\.[^@\s<>"\r\n]+$')
@@ -508,7 +548,21 @@ def save_uploaded_image(image_file):
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     filename = f"{int(time.time())}_{uuid.uuid4().hex[:12]}.{ext}"
     image_file.save(os.path.join(UPLOAD_FOLDER, filename))
+    if ext in ('png', 'jpg'):
+        _save_webp_copy(os.path.join(UPLOAD_FOLDER, filename))
     return 'img/uploads/' + filename
+
+
+def _save_webp_copy(path, max_width=1200):
+    """Guarda junto a la imagen una versión .webp reducida, que el filtro 'webp' servirá en su lugar."""
+    try:
+        with Image.open(path) as img:
+            img = img.convert('RGBA' if img.mode in ('RGBA', 'LA', 'P') else 'RGB')
+            if img.width > max_width:
+                img = img.resize((max_width, round(img.height * max_width / img.width)), Image.LANCZOS)
+            img.save(os.path.splitext(path)[0] + '.webp', 'WEBP', quality=80, method=6)
+    except (OSError, ValueError, Image.DecompressionBombError):
+        logging.exception("No se pudo generar la versión WebP de %s", path)
 
 
 def read_project_form():
@@ -607,12 +661,14 @@ def remove_uploaded_image(image_url):
     full_path = os.path.realpath(os.path.join(app.static_folder, image_url))
     if not full_path.startswith(os.path.realpath(UPLOAD_FOLDER) + os.sep):
         return
-    if os.path.isfile(full_path):
-        try:
-            os.remove(full_path)
-            logging.info(f"Deleted project image file: {full_path}")
-        except OSError as e:
-            logging.error(f"Error deleting image file: {e}")
+    webp_path = os.path.splitext(full_path)[0] + '.webp'
+    for path in {full_path, webp_path}:
+        if os.path.isfile(path):
+            try:
+                os.remove(path)
+                logging.info(f"Deleted project image file: {path}")
+            except OSError as e:
+                logging.error(f"Error deleting image file: {e}")
 
 
 @app.route(ADMIN_PATH + '/delete/<int:project_id>', methods=['POST'])

@@ -17,3 +17,4 @@ docker-compose*.yml
 README.md
 *.7z
 *.zip
+scripts/
