@@ -5,6 +5,7 @@ import time
 import uuid
 import secrets
 import logging
+import mimetypes
 import sqlite3
 from datetime import datetime, timedelta
 from functools import wraps
@@ -25,6 +26,9 @@ from flask_wtf.csrf import CSRFProtect, CSRFError
 from google import genai
 from google.genai import types as genai_types
 from werkzeug.middleware.proxy_fix import ProxyFix
+
+# python:3.12-slim no trae /etc/mime.types y mimetypes no conoce .webp: sin esto se sirve como octet-stream
+mimetypes.add_type('image/webp', '.webp')
 
 # Cargar variables
 load_dotenv()
