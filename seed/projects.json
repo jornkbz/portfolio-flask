@@ -35,7 +35,7 @@
   },
   {
     "title": "✈️ IA Predictiva de Riesgos Aéreos (End-to-End)",
-    "order_num": 5
+    "delete": true
   },
   {
     "title": "Chrome Extensions Suite - 6 extensiones local-first",
@@ -45,10 +45,10 @@
     "link_url": "https://cursormesh.app/extensions/",
     "link_text": "VER EXTENSIONES",
     "status": "WIP",
-    "order_num": 6
+    "order_num": 5
   },
   {
     "title": "DevOps Knowledge Base",
-    "order_num": 7
+    "delete": true
   }
 ]

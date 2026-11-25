@@ -135,26 +135,6 @@ def init_db():
                     1
                 ),
                 (
-                    '✈️ IA Predictiva de Riesgos Aéreos (End-to-End)',
-                    '<strong>Pipeline completo de Machine Learning</strong> para predecir incidentes aéreos. <br><br> <i class="fas fa-check text-success me-1"></i> <strong>ETL & Data Wrangling:</strong> Depuración de datasets históricos masivos (FAA) con BeautifulSoup y Pandas. <br> <i class="fas fa-check text-success me-1"></i> <strong>Modelado:</strong> Entrenamiento de <strong>XGBoost</strong> optimizado para alta sensibilidad (Recall). <br> <i class="fas fa-check text-success me-1"></i> <strong>Despliegue:</strong> Interfaz interactiva en <strong>Streamlit</strong>.',
-                    'img/aircrashcal.png',
-                    'Python, Streamlit, XGBoost, PyCaret',
-                    'https://aircrashcal.jose-cabezas.com/',
-                    'EJECUTAR MODELO',
-                    'ACTIVE',
-                    2
-                ),
-                (
-                    'DevOps Knowledge Base',
-                    '<strong>[WIP] Plataforma de documentación técnica</strong> tipo Wiki para centralizar manuales de despliegue. <br><br> <i class="fas fa-sitemap text-warning me-1"></i> <strong>Arquitectura Modular:</strong> Patrón <em>Application Factory</em> y <em>Blueprints</em>. <br> <i class="fas fa-file-code text-warning me-1"></i> <strong>Motor Markdown:</strong> Renderizado dinámico de contenido técnico. <br> <i class="fas fa-tools text-warning me-1"></i> <strong>Estado:</strong> Implementando sistema de autenticación y CRUD.',
-                    'img/flask-wiki.png',
-                    'Flask, Jinja2, WIP',
-                    'https://blog.jose-cabezas.com/',
-                    'EN CONSTRUCCIÓN',
-                    'WIP',
-                    3
-                ),
-                (
                     'MatchMVP - Gamer Duo & Coaching Platform',
                     '<strong>Plataforma competitiva para jugadores de eSports</strong>. Diseñada para encontrar compañeros de equipo (Duo Q) ideales y potenciar tu rendimiento. <br><br> <i class="fas fa-users text-success me-1"></i> <strong>Comunidad & Reputación:</strong> Sistema avanzado de emparejamiento y valoración por Karma para asegurar un ambiente libre de toxicidad. <br> <i class="fas fa-brain text-success me-1"></i> <strong>Coaching con IA:</strong> Consejos y análisis dinámico en tiempo real basado en tu desempeño histórico. <br> <i class="fas fa-network-wired text-success me-1"></i> <strong>Arquitectura:</strong> Backend asíncrono con FastAPI, base de datos PostgreSQL y despliegue multi-contenedor optimizado.',
                     'img/web.jpg',
@@ -481,7 +461,7 @@ _PROJECT_FIELDS = ('description', 'image_url', 'tags', 'link_url', 'link_text', 
 @click.argument('json_path', type=click.Path(exists=True, dir_okay=False))
 @click.option('--dry-run', is_flag=True, help='Muestra lo que haría sin tocar la base de datos.')
 def import_projects_command(json_path, dry_run):
-    """Inserta o actualiza proyectos (por título) desde un JSON. En los existentes solo cambia los campos presentes."""
+    """Inserta, actualiza o borra ("delete": true) proyectos por título desde un JSON. En los existentes solo cambia los campos presentes."""
     import json
     with open(json_path, encoding='utf-8') as f:
         items = json.load(f)
@@ -509,8 +489,13 @@ def import_projects_command(json_path, dry_run):
             if not title:
                 raise click.ClickException("Cada proyecto necesita 'title'.")
             data = {k: clean(k, item[k]) for k in _PROJECT_FIELDS if k in item}
-            row = conn.execute('SELECT id FROM projects WHERE title = ?', (title,)).fetchone()
-            if row:
+            row = conn.execute('SELECT id, image_url FROM projects WHERE title = ?', (title,)).fetchone()
+            if item.get('delete'):
+                action = f"BORRAR #{row['id']}" if row else "BORRAR (no existe, nada que hacer)"
+                if row and not dry_run:
+                    conn.execute('DELETE FROM projects WHERE id = ?', (row['id'],))
+                    remove_uploaded_image(row['image_url'])
+            elif row:
                 action = f"ACTUALIZAR #{row['id']} ({', '.join(data) or 'sin cambios'})"
                 if data and not dry_run:
                     sets = ', '.join(f'{k} = ?' for k in data)
