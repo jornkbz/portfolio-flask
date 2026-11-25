@@ -474,6 +474,62 @@ def mfa_uri_command():
     click.echo(totp.provisioning_uri(name=ADMIN_USERNAME, issuer_name="JCP_Portfolio"))
 
 
+_PROJECT_FIELDS = ('description', 'image_url', 'tags', 'link_url', 'link_text', 'status', 'order_num')
+
+
+@app.cli.command('import-projects')
+@click.argument('json_path', type=click.Path(exists=True, dir_okay=False))
+@click.option('--dry-run', is_flag=True, help='Muestra lo que haría sin tocar la base de datos.')
+def import_projects_command(json_path, dry_run):
+    """Inserta o actualiza proyectos (por título) desde un JSON. En los existentes solo cambia los campos presentes."""
+    import json
+    with open(json_path, encoding='utf-8') as f:
+        items = json.load(f)
+
+    def clean(field, value):
+        if field == 'description':
+            return sanitize_html(value)[:10000]
+        if field == 'link_url':
+            return safe_link(value)
+        if field == 'status':
+            if value not in ALLOWED_STATUS:
+                raise click.ClickException(f"status no válido: {value!r}")
+            return value
+        if field == 'order_num':
+            return int(value)
+        if field == 'image_url':
+            if not os.path.isfile(os.path.join(app.static_folder, value)):
+                raise click.ClickException(f"La imagen no existe en static/: {value}")
+        return str(value).strip()
+
+    conn = get_db()
+    try:
+        for item in items:
+            title = (item.get('title') or '').strip()
+            if not title:
+                raise click.ClickException("Cada proyecto necesita 'title'.")
+            data = {k: clean(k, item[k]) for k in _PROJECT_FIELDS if k in item}
+            row = conn.execute('SELECT id FROM projects WHERE title = ?', (title,)).fetchone()
+            if row:
+                action = f"ACTUALIZAR #{row['id']} ({', '.join(data) or 'sin cambios'})"
+                if data and not dry_run:
+                    sets = ', '.join(f'{k} = ?' for k in data)
+                    conn.execute(f'UPDATE projects SET {sets} WHERE id = ?', (*data.values(), row['id']))
+            elif all(data.get(k) for k in ('description', 'image_url', 'tags')):
+                action = "CREAR"
+                if not dry_run:
+                    cols = ['title', *data]
+                    conn.execute(f'INSERT INTO projects ({", ".join(cols)}) VALUES ({", ".join("?" * len(cols))})',
+                                 (title, *data.values()))
+            else:
+                action = "OMITIR (no existe y le faltan description/image_url/tags)"
+            click.echo(f"{'[dry-run] ' if dry_run else ''}{action}: {title}")
+        if not dry_run:
+            conn.commit()
+    finally:
+        conn.close()
+
+
 logging.info(f"Panel administrativo montado en ruta secreta (longitud {len(ADMIN_PATH)}).")
 
 

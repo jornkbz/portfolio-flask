@@ -1,0 +1,54 @@
+[
+  {
+    "title": "CursorMesh - Multi-Agent AI Cursors for Chrome",
+    "description": "<strong>Producto SaaS</strong> que permite a agentes de IA (Claude Code, Cursor, Gemini CLI, Antigravity...) controlar Chrome con <strong>cursores visibles de colores trabajando en paralelo</strong>. <br><br> <i class=\"fas fa-puzzle-piece text-success me-1\"></i> <strong>Extensión Chrome MV3:</strong> Service Worker, overlay multi-cursor en Shadow DOM y panel lateral BYOK multi-modelo (Gemini, OpenAI, Anthropic, Ollama). <br> <i class=\"fas fa-network-wired text-success me-1\"></i> <strong>Servidor MCP:</strong> puente stdio + hub WebSocket local autenticado con soporte multiagente, publicado en npm como <code>@cursormesh/mcp-bridge</code>. <br> <i class=\"fas fa-cloud text-success me-1\"></i> <strong>Cloud & Pagos:</strong> Cloudflare Workers + D1, login Google con JWT, proxy IA con descuento atómico de créditos y webhooks firmados de Stripe / LemonSqueezy. <br> <i class=\"fas fa-shield-alt text-success me-1\"></i> <strong>Guardrails:</strong> listas blanca/negra por dominio, confirmación de acciones sensibles y botón STOP de emergencia.",
+    "image_url": "img/proj-cursormesh.webp",
+    "tags": "TypeScript, Chrome MV3, MCP, Cloudflare Workers, Astro",
+    "link_url": "https://cursormesh.app/",
+    "link_text": "ABRIR CURSORMESH",
+    "status": "ACTIVE",
+    "order_num": 1
+  },
+  {
+    "title": "Frikiroot Zelda - Portal Jamstack con Motor Editorial IA",
+    "description": "<strong>Portal multimedia en producción</strong> sobre The Legend of Zelda con publicación y difusión 100% automatizadas. <br><br> <i class=\"fas fa-bolt text-success me-1\"></i> <strong>Frontend Jamstack:</strong> Astro 5 (SSG) + TypeScript estricto + Tailwind v4 en Cloudflare Pages, desplegado en cada commit, con 10 herramientas web interactivas (Canvas / Web Audio). <br> <i class=\"fas fa-project-diagram text-success me-1\"></i> <strong>Automatización:</strong> n8n + PostgreSQL 16 en Docker sobre VPS: flujos que rastrean RSS, redactan borradores con Gemini, publican vía GitHub API y difunden en Telegram e Instagram Graph API. <br> <i class=\"fas fa-satellite-dish text-success me-1\"></i> <strong>Monitor de disponibilidad:</strong> servicio Python que vigila 9 tiendas en tiempo real, avisa con un bot de Telegram y alimenta el stock en vivo del portal. <br> <i class=\"fas fa-chart-line text-success me-1\"></i> <strong>Negocio:</strong> monetización por afiliación con enlaces <code>sponsored</code> y comunidad en Telegram con temas.",
+    "image_url": "img/proj-frikiroot-zelda.webp",
+    "tags": "Astro, n8n, PostgreSQL, Python, Gemini API, Docker",
+    "link_url": "https://zelda.frikiroot.com/",
+    "link_text": "VISITAR PORTAL",
+    "status": "ACTIVE",
+    "order_num": 2
+  },
+  {
+    "title": "MatchMVP - Gamer Duo & Coaching Platform",
+    "description": "<strong>Plataforma LFG (Looking For Group)</strong> para League of Legends diseñada para erradicar la toxicidad en partidas competitivas. <br><br> <i class=\"fas fa-gamepad text-success me-1\"></i> <strong>Riot Games API:</strong> integración con Account-V1, Summoner-V4, League-V4 y Match-V5 para rangos, avatares e historial en tiempo real. <br> <i class=\"fas fa-user-check text-success me-1\"></i> <strong>Sistema de Karma:</strong> solo se puede valorar tras verificar con Match-V5 que ambos jugadores compartieron partida; bloqueo temporal anti-fraude y shadowban de perfiles tóxicos. <br> <i class=\"fas fa-lock text-success me-1\"></i> <strong>Seguridad:</strong> JWT en cookies HttpOnly, 2FA TOTP, reCAPTCHA v2 y panel de moderación. <br> <i class=\"fas fa-network-wired text-success me-1\"></i> <strong>Arquitectura:</strong> FastAPI asíncrono + PostgreSQL, React 18 + Vite + Tailwind, i18n en 4 idiomas y despliegue multicontenedor con Docker.",
+    "image_url": "img/proj-matchmvp.webp",
+    "tags": "FastAPI, React, PostgreSQL, Riot API, Docker",
+    "link_url": "https://matchmvp.win/",
+    "link_text": "BUSCAR COMPAÑERO",
+    "status": "ACTIVE",
+    "order_num": 3
+  },
+  {
+    "title": "E-Commerce Full Stack - Django",
+    "order_num": 4
+  },
+  {
+    "title": "✈️ IA Predictiva de Riesgos Aéreos (End-to-End)",
+    "order_num": 5
+  },
+  {
+    "title": "Chrome Extensions Suite - 6 extensiones local-first",
+    "description": "<strong>Ecosistema de 6 extensiones de Chrome</strong> (Manifest V3) con datos 100% locales y licencia Pro de pago único. <br><br> <i class=\"fas fa-th-large text-warning me-1\"></i> <strong>Productos:</strong> SideCRM (mini-CRM en panel lateral), StepSnap (guías paso a paso con capturas), TabulaSnap (tablas web a CSV / Excel / JSON), FormPilot (autorrelleno y QA de formularios), PagePulse (monitor de precios y cambios) y Mayúsculas y Minúsculas. <br> <i class=\"fas fa-key text-warning me-1\"></i> <strong>Licencias:</strong> validación, activación y liberación de dispositivos contra la API de Polar.sh (hasta 3 equipos por clave). <br> <i class=\"fas fa-user-shield text-warning me-1\"></i> <strong>Privacidad & i18n:</strong> almacenamiento en <code>chrome.storage.local</code>, sin rastreo, interfaz EN / ES. <br> <i class=\"fas fa-tools text-warning me-1\"></i> <strong>Estado:</strong> empaquetadas y auditadas, en proceso de publicación en la Chrome Web Store.",
+    "image_url": "img/proj-chrome-extensions.webp",
+    "tags": "JavaScript, Chrome MV3, Polar.sh, i18n",
+    "link_url": "https://cursormesh.app/extensions/",
+    "link_text": "VER EXTENSIONES",
+    "status": "WIP",
+    "order_num": 6
+  },
+  {
+    "title": "DevOps Knowledge Base",
+    "order_num": 7
+  }
+]
