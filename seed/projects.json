@@ -20,6 +20,16 @@
     "order_num": 2
   },
   {
+    "title": "FrikiRoot GTA - Portal con Redacción Agéntica Supervisada",
+    "description": "<strong>Portal de noticias de GTA VI</strong> en español con <strong>redacción por IA supervisada</strong>: la IA escribe y una persona decide qué se publica. <br><br> <i class=\"fas fa-bolt text-success me-1\"></i> <strong>Frontend:</strong> Astro + TypeScript + Tailwind v4 con colecciones de contenido validadas con Zod, sitemap y despliegue en Cloudflare Pages. <br> <i class=\"fas fa-robot text-success me-1\"></i> <strong>Redacción con IA:</strong> rutina diaria de Claude Code en la nube que investiga novedades, redacta un artículo con fuentes oficiales, comprueba que compila y lo sube como borrador (con tope de pendientes). <br> <i class=\"fas fa-user-check text-success me-1\"></i> <strong>Human-in-the-loop:</strong> flujo n8n que envía cada borrador a un bot de Telegram con botones Publicar / Descartar; publicar hace commit en GitHub y dispara el despliegue. <br> <i class=\"fas fa-recycle text-success me-1\"></i> <strong>Infraestructura compartida:</strong> reutiliza el n8n + PostgreSQL de Frikiroot Zelda en el VPS.",
+    "image_url": "img/proj-frikiroot-gta.webp",
+    "tags": "Astro, TypeScript, Claude Code, n8n, Telegram Bot API",
+    "link_url": "https://gta.frikiroot.com/",
+    "link_text": "ENTRAR EN LEONIDA",
+    "status": "ACTIVE",
+    "order_num": 3
+  },
+  {
     "title": "MatchMVP - Gamer Duo & Coaching Platform",
     "description": "<strong>Plataforma LFG (Looking For Group)</strong> para League of Legends diseñada para erradicar la toxicidad en partidas competitivas. <br><br> <i class=\"fas fa-gamepad text-success me-1\"></i> <strong>Riot Games API:</strong> integración con Account-V1, Summoner-V4, League-V4 y Match-V5 para rangos, avatares e historial en tiempo real. <br> <i class=\"fas fa-user-check text-success me-1\"></i> <strong>Sistema de Karma:</strong> solo se puede valorar tras verificar con Match-V5 que ambos jugadores compartieron partida; bloqueo temporal anti-fraude y shadowban de perfiles tóxicos. <br> <i class=\"fas fa-lock text-success me-1\"></i> <strong>Seguridad:</strong> JWT en cookies HttpOnly, 2FA TOTP, reCAPTCHA v2 y panel de moderación. <br> <i class=\"fas fa-network-wired text-success me-1\"></i> <strong>Arquitectura:</strong> FastAPI asíncrono + PostgreSQL, React 18 + Vite + Tailwind, i18n en 4 idiomas y despliegue multicontenedor con Docker.",
     "image_url": "img/proj-matchmvp.webp",
@@ -27,11 +37,11 @@
     "link_url": "https://matchmvp.win/",
     "link_text": "BUSCAR COMPAÑERO",
     "status": "ACTIVE",
-    "order_num": 3
+    "order_num": 4
   },
   {
     "title": "E-Commerce Full Stack - Django",
-    "order_num": 4
+    "order_num": 5
   },
   {
     "title": "✈️ IA Predictiva de Riesgos Aéreos (End-to-End)",
@@ -45,7 +55,7 @@
     "link_url": "https://cursormesh.app/extensions/",
     "link_text": "VER EXTENSIONES",
     "status": "WIP",
-    "order_num": 5
+    "order_num": 6
   },
   {
     "title": "DevOps Knowledge Base",
